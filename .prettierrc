@@ -1,0 +1,7 @@
+{
+  "$schema": "https://json.schemastore.org/prettierrc",
+  "plugins": ["prettier-plugin-css-order"],
+  "semi": false,
+  "singleQuote": true,
+  "printWidth": 100
+}

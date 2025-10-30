@@ -26,3 +26,6 @@ dist-ssr
 *.bat
 
 caddy.exe
+
+# Environment variables
+.env*
