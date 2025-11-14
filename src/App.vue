@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="relative top-0 left-0 min-h-dvh min-w-full">
     <GlobalSpinner />
     <RouterView />
   </div>
