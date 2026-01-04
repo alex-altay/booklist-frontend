@@ -14,7 +14,5 @@ export function isNotAllowedError(error: unknown): boolean {
 }
 
 export function isBadRequestError(error: unknown): boolean {
-  return (
-    typeof error == 'object' && error != null && 'statusCode' in error && error.statusCode == 400
-  )
+  return typeof error == 'object' && error != null && 'statusCode' in error && error.statusCode == 400
 }

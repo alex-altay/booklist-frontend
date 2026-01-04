@@ -1,7 +1,5 @@
 <template>
-  <div
-    class="flex min-w-svw min-h-svh flex-col items-center justify-center gap-6 bg-muted p-6 md:p-10"
-  >
+  <div class="flex min-w-svw min-h-svh flex-col items-center justify-center gap-6 bg-muted p-6 md:p-10">
     <div class="flex w-full max-w-sm flex-col gap-6">
       <div class="flex flex-col gap-6">
         <Card class="gap-3">
@@ -23,10 +21,7 @@
               </div>
               <div class="text-center text-sm">
                 Don't have an account?
-                <a
-                  class="underline underline-offset-4 cursor-pointer"
-                  @click="$router.push({ name: 'signup' })"
-                >
+                <a class="underline underline-offset-4 cursor-pointer" @click="$router.push({ name: 'signup' })">
                   Sign up
                 </a>
               </div>
@@ -36,8 +31,7 @@
         <div
           class="text-balance text-center text-xs text-muted-foreground [&_a]:underline [&_a]:underline-offset-4 [&_a]:hover:text-primary"
         >
-          By clicking sign in, you agree to our <a href="#">Terms of Service</a> and
-          <a href="#">Privacy Policy</a>.
+          By clicking sign in, you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.
         </div>
       </div>
     </div>

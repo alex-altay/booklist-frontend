@@ -1,7 +1,5 @@
 <template>
-  <div
-    class="flex min-w-svw min-h-svh flex-col items-center justify-center gap-6 bg-muted p-6 md:p-10"
-  >
+  <div class="flex min-w-svw min-h-svh flex-col items-center justify-center gap-6 bg-muted p-6 md:p-10">
     <div class="flex w-full max-w-sm flex-col gap-6">
       <div class="flex flex-col gap-6">
         <Card>
@@ -29,10 +27,7 @@
               </form>
               <div class="text-center text-sm select-none">
                 Already have an account?
-                <a
-                  class="underline underline-offset-4 cursor-pointer"
-                  @click="$router.push({ name: 'signin' })"
-                >
+                <a class="underline underline-offset-4 cursor-pointer" @click="$router.push({ name: 'signin' })">
                   Sign in
                 </a>
               </div>

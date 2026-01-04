@@ -1,32 +1,24 @@
----
-title: Vue 3 + TypeScript + Vite + Caddy
-description: The default Vue + Vite TS starter, utilizing `Caddy` to serve the built single page app
+# Simple pet project for trying something not suitable yet for production
+
+Based on default Vue + Vite TS starter, utilizing `Caddy` to serve SPA and deploy it on Railway:
+
 tags:
-  - Node
-  - Vue 3
-  - Vite
-  - TypeScript
-  - Caddy
----
 
-# Vue 3 + TypeScript + Vite + Caddy
-
-This template should help get you started developing with Vue and TypeScript in Vite. The template uses Vue 3 With TypeScript.
-
-[![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/template/Qh0OAU?referralCode=ySCnWl)
-
-## ✨ Features
-
-- Vue 3 + TypeScript + Vite + Caddy
+- Node
+- Vue3
+- Vite
+- TypeScript
 - Caddy v2
 
-## 💁‍♀️ Local Development
+---
+
+## Local Development
 
 - Install required dependencies with `npm install`
 - Start the server for local development `npm run dev`
-- Navigate to `http://localhost:5173/. The application will automatically reload if you change any of the source files.
+- Navigate to `http://localhost:5173/
 
-## ❓ Why use `Caddy` when deploying to Railway?
+## Why use `Caddy` when deploying to Railway?
 
 Caddy is a powerful, enterprise-ready, open source web server, and therefore Caddy is far better suited to serve websites than Vite is, using Caddy will result in much less memory and cpu usage compared to serving with Vite (much lower running costs too)
 

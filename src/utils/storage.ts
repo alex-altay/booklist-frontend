@@ -9,11 +9,6 @@ export function isLocalStorageAvailable() {
     storage.removeItem(TEST_STRING)
     return true
   } catch (e) {
-    return (
-      e instanceof DOMException &&
-      e.name === 'QuotaExceededError' &&
-      storage &&
-      storage.length !== 0
-    )
+    return e instanceof DOMException && e.name === 'QuotaExceededError' && storage && storage.length !== 0
   }
 }

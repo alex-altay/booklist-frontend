@@ -1,15 +1,13 @@
 <template>
   <div class="h-full">
-    <div class="h-screen flex items-center justify-center text-[6rem] bg-amber-500">
-      First Screen
-    </div>
-    <SecondScreen />
-    <div class="h-screen flex items-center justify-center text-[6rem] bg-blue-300">
-      Third screen
-    </div>
+    <TheHero />
+    <TheProcess />
+    <CallToAction />
   </div>
 </template>
 
 <script setup lang="ts">
-import SecondScreen from '@/components/main/SecondScreen.vue'
+import TheHero from '@/components/main/TheHero.vue'
+import TheProcess from '@/components/main/TheProcess.vue'
+import CallToAction from '@/components/main/CallToAction.vue'
 </script>

@@ -9,7 +9,7 @@ const router = createRouter({
 
 router.beforeEach(async (to) => {
   if (!userStore().isAuthorized && to.meta.requiresAuth) {
-    return { name: 'webauthn' }
+    return { name: 'signup' }
   }
 })
 

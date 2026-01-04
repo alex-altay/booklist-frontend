@@ -11,12 +11,7 @@ export function useApi() {
       isLoading.value = true
       return await fn()
     } catch (apiError) {
-      if (
-        typeof apiError == 'object' &&
-        apiError != null &&
-        'status' in apiError &&
-        apiError.status == 401
-      ) {
+      if (typeof apiError == 'object' && apiError != null && 'status' in apiError && apiError.status == 401) {
         return handleAuthError()
       } else if (typeof apiError === 'string') {
         error.value = apiError

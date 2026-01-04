@@ -1,12 +1,14 @@
 <template>
-  <div ref="wrapperRef" class="h-[600vh] relative">
-    <div ref="stickyRef" class="h-screen min-h-screen sticky top-0">
+  <div ref="wrapperRef" class="relative h-[600vh]">
+    <div ref="stickyRef" class="sticky top-0 h-screen min-h-screen">
       <slot :progress="progress" />
+      <SlideSelector :progress="progress" class="absolute bottom-[5vh]" />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import SlideSelector from '@/components/main/slides/SlideSelector.vue'
 import { ref, computed } from 'vue'
 import { useElementBounding } from '@vueuse/core'
 
