@@ -5,7 +5,8 @@
     "module": "ESNext",
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "skipLibCheck": true,
-    "types": ["vite/client"],
+    // "types": ["vite/client"],
+    // "typeRoots": ["./node_modules/@types", "./src/types"],
 
     /* Bundler mode */
     "moduleResolution": "bundler",
@@ -22,11 +23,12 @@
     "noFallthroughCasesInSwitch": true,
 
     /* Paths */
+    "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"],
       "@api/*": ["./api/*"]
     }
   },
-  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.vue", "types/shims-vue.d.ts"],
+  "include": ["src/**/*.ts", "**/*.d.ts", "src/**/*.vue", "api/**/*.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

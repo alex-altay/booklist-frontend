@@ -4,4 +4,4 @@ coverage
 node_modules
 types
 # shadcn
-src/components/ui
+src/components/ui/*

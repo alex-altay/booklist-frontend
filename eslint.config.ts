@@ -1,24 +1,38 @@
-import js from '@eslint/js'
-import globals from 'globals'
-import tseslint from 'typescript-eslint'
+import eslintConfigPrettier from 'eslint-config-prettier'
 import pluginVue from 'eslint-plugin-vue'
-import { defineConfig } from 'eslint/config'
-import eslintConfigPrettier from 'eslint-config-prettier/flat'
+import tseslint from '@typescript-eslint/eslint-plugin'
+import vueParser from 'vue-eslint-parser'
+import { defineConfig, globalIgnores } from 'eslint/config'
 
 export default defineConfig([
+  ...pluginVue.configs['flat/recommended'],
+  globalIgnores(['src/components/ui/**']),
   {
-    files: ['**/*.{js,mjs,cjs,ts,mts,cts,vue}'],
-    plugins: { js },
-    extends: ['js/recommended', eslintConfigPrettier],
-    languageOptions: { globals: globals.browser },
-  },
-  tseslint.configs.recommended,
-  pluginVue.configs['flat/essential'],
-  {
-    files: ['**/*.vue'],
-    languageOptions: { parserOptions: { parser: tseslint.parser } },
+    files: ['**/*.{ts,vue}'],
+    plugins: { '@typescript-eslint': tseslint },
+    languageOptions: {
+      parser: vueParser,
+      parserOptions: {
+        parser: '@typescript-eslint/parser',
+        project: './tsconfig.eslint.json',
+        tsconfigRootDir: import.meta.dirname,
+        extraFileExtensions: ['.vue'],
+        ecmaVersion: 2022,
+        sourceType: 'module',
+        EXPERIMENTAL_useProjectService: true,
+      },
+    },
     rules: {
+      ...tseslint.configs.recommended.rules,
+      '@typescript-eslint/no-unsafe-assignment': 'error',
+      '@typescript-eslint/no-unsafe-call': 'error',
+      '@typescript-eslint/no-unsafe-member-access': 'error',
+      '@typescript-eslint/await-thenable': 'error',
       'vue/multi-word-component-names': 'warn',
     },
+  },
+  {
+    files: ['**/*.{js,ts,vue}'],
+    extends: [eslintConfigPrettier],
   },
 ])
