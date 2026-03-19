@@ -3,7 +3,7 @@ import axios, { AxiosError, AxiosResponse, type AxiosRequestConfig } from 'axios
 const axiosConfig: AxiosRequestConfig = {}
 
 const _axios = axios.create({
-  baseURL: import.meta.env.VITE_HOST,
+  baseURL: import.meta.env.VITE_HOST! as unknown as string,
 })
 
 _axios.interceptors.response.use(
@@ -16,12 +16,8 @@ const axiosInstance = {
     return (await _axios.get<GetRequest>(url, axiosConfig)).data
   },
 
-  async post<PostRequest = unknown, PostResponse = unknown>(
-    url: string,
-    data?: PostRequest,
-  ): Promise<PostResponse> {
-    return (await _axios.post<PostResponse, AxiosResponse<PostResponse>>(url, data, axiosConfig))
-      .data
+  async post<PostRequest = unknown, PostResponse = unknown>(url: string, data?: PostRequest): Promise<PostResponse> {
+    return (await _axios.post<PostResponse, AxiosResponse<PostResponse>>(url, data, axiosConfig)).data
   },
 
   async delete<DeleteResponse = unknown>(url: string) {
