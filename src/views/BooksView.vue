@@ -1,8 +1,72 @@
 <template>
-  <div class="flex flex-col justify-center items-center">
-    <h1 class="mb-6 text-3xl">It's alive, alive!</h1>
-    <img class="mb-6 rounded-2xl" src="@/assets/work.gif" />
-    <div class="text-sm">Welcome to the authorized area</div>
-    <div class="text-sm">Do whatever you want, except for the hunger strike</div>
+  <div>
+    <TheHeader />
+    <!-- TODO Wrap this in nested router-view -->
+    <main class="container mx-auto pt-24 pb-4 px-4">
+      <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+        <ListFilter v-model="filter" :years="years" @reset-filter="resetFilter" />
+        <PaginatedList :books="filteredBooks" />
+      </div>
+    </main>
+    <TheFooter />
   </div>
 </template>
+
+<script setup lang="ts">
+import TheHeader from '@/components/TheHeader.vue'
+import TheFooter from '@/components/TheFooter.vue'
+import ListFilter from '@/components/books/ListFilter.vue'
+import PaginatedList from '@/components/books/PaginatedList.vue'
+import { bookStore } from '@/stores/book'
+import { computed, ref } from 'vue'
+import { useApi } from '@/composables/useApi'
+import type { Book } from '@/schemas/book'
+
+const { request } = useApi()
+const { getBooks } = bookStore()
+const books = (await request(() => getBooks())) || []
+const years = getYears(books)
+
+const ALL = 'all' as const
+const defaultFilter: Filter = {
+  search: '',
+  rating: ALL,
+  endYear: ALL,
+  category: ALL,
+  language: ALL,
+  hasFinished: undefined,
+}
+const filter = ref<Filter>({ ...defaultFilter })
+const filteredBooks = computed<Book[]>(() => {
+  let filtered = [...books]
+  for (const [k, v] of Object.entries(filter.value)) {
+    if (v == ALL) {
+      continue
+    } else if (k == 'search') {
+      if (v && typeof v == 'string' && v.length > 0) {
+        filtered = filtered.filter((book) => book.author.includes(v) || book.title.includes(v))
+      }
+    } else if (k == 'endYear') {
+      filtered = filtered.filter((book) => (book.endDate ? new Date(book.endDate).getFullYear() == Number(v) : false))
+    } else if (v !== undefined) {
+      // Rating, Category, hasFinished, Language
+      filtered = filtered.filter((el: Book) => el[k as keyof Book] == v)
+    }
+  }
+  return filtered
+})
+
+function resetFilter() {
+  filter.value = { ...defaultFilter }
+}
+
+function getYears(books: Book[]): number[] {
+  const unique = new Set<number>()
+  for (const { endDate } of books) {
+    if (endDate) {
+      unique.add(new Date(endDate).getFullYear())
+    }
+  }
+  return [...unique].sort((a, b) => b - a)
+}
+</script>

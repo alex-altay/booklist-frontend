@@ -11,10 +11,10 @@
           </CardHeader>
           <CardContent>
             <div class="grid gap-6">
-              <form @submit.prevent="register" class="h-full">
+              <form class="h-full" @submit.prevent="register">
                 <Field>
-                  <FieldLabel for="email" class="mb-0">Email</FieldLabel>
-                  <Input v-model="email" id="email" type="email" placeholder="example@mail.com" />
+                  <FieldLabel for="email" class="mb-0"> Email </FieldLabel>
+                  <Input id="email" v-model="email" type="email" placeholder="example@mail.com" />
                   <div class="min-h-5 mb-4">
                     <FieldError>{{ error }}</FieldError>
                   </div>

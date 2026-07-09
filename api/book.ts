@@ -7,7 +7,7 @@ export const bookApi = {
   },
 
   getBooks() {
-    return axiosInstance.get<Book>('books')
+    return axiosInstance.get<Book[]>('books')
   },
 
   createBook(book: NewBook) {

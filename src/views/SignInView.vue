@@ -17,7 +17,7 @@
                 <FieldError>{{ error }}</FieldError>
               </div>
               <div class="flex flex-col gap-4">
-                <Button @click="login" class="w-full cursor-pointer"> Sign In </Button>
+                <Button class="w-full cursor-pointer" @click="login">Sign In</Button>
               </div>
               <div class="text-center text-sm">
                 Don't have an account?

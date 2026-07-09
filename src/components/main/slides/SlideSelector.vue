@@ -12,11 +12,14 @@
 import { watch, ref } from 'vue'
 
 const props = defineProps<{ progress: number }>()
-const selector = ref()
+const selector = ref<HTMLDivElement>()
 
 watch(
   () => props.progress,
   (v) => {
+    if (!selector.value) {
+      return
+    }
     if (v > 0 && v < 0.3) {
       selector.value.style.right = `${10 + v * 100}%`
     }

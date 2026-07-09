@@ -1,11 +1,11 @@
 import { ERRORS } from '@/utils/errors'
 import { authResponse } from '@/schemas/auth'
-import { computed, ref } from 'vue'
 import { defineStore } from 'pinia'
 import { isLocalStorageAvailable } from '@/utils/storage'
-import { isNotAllowedError, isBadRequestError } from '@/utils/handleAuthError'
+import { isNotAllowedError, isBadRequestError } from '@/utils/errors'
 import { startAuthentication, startRegistration } from '@simplewebauthn/browser'
 import { webauthnApi } from '@api/webauthn'
+import { computed, ref } from 'vue'
 
 const TOKEN_STORAGE_KEY = 'AccessToken'
 

@@ -16,12 +16,15 @@ import SavingSlide from '@/components/main/slides/SavingSlide.vue'
 import { ref, watch } from 'vue'
 
 const props = defineProps<{ progress: number }>()
-const slidesContainer = ref()
+const slidesContainer = ref<HTMLDivElement>()
 
 watch(
   () => props.progress,
   (progress) => {
-    const width = slidesContainer.value.scrollWidth
+    if (!slidesContainer.value) {
+      return
+    }
+    const width = slidesContainer.value.scrollWidth as unknown as number
     slidesContainer.value.scroll(width * progress, 0)
   },
 )

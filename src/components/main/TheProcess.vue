@@ -1,10 +1,10 @@
 <template>
   <div class="relative">
-    <div class="bg-main-additional" :style="{ height: `${SCREEN_DELIMETER_VH}vh` }"></div>
+    <div class="bg-main-additional" :style="{ height: `${SCREEN_DELIMETER_VH}vh` }" />
     <SideScroll v-slot="{ progress }">
       <DescriptionSlides :progress="progress" />
     </SideScroll>
-    <div class="bg-main-additional" :style="{ height: `${SCREEN_DELIMETER_VH}vh` }"></div>
+    <div class="bg-main-additional" :style="{ height: `${SCREEN_DELIMETER_VH}vh` }" />
   </div>
 </template>
 

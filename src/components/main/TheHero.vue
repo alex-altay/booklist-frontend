@@ -7,7 +7,7 @@
       <div class="cursor-pointer" @click="$router.push({ name: 'signin' })">SIGN IN</div>
     </div>
 
-    <div class="symmetric-flex-filler"></div>
+    <div class="symmetric-flex-filler" />
 
     <div class="flex justify-center text-main-additional">
       <div class="w-[min(1420px,calc(100vw-7rem))] flex flex-col leading-none font-black gap-0">
@@ -49,7 +49,7 @@
 
     <div class="flex flex-col justify-center items-center mb-5">
       <div class="text-xs lg:text-sm mb-5">KEEP SCROLLING</div>
-      <img class="w-6 cursor-pointer" @click="scroll" src="@/assets/main-page/mouse.svg" />
+      <img class="w-6 cursor-pointer" src="@/assets/main-page/mouse.svg" @click="scroll" />
     </div>
   </div>
 </template>

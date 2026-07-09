@@ -1,10 +1,11 @@
 import * as z from 'zod/v4'
 import { User } from '@/schemas/user'
 
-const language = z.enum(['RU', 'EN', 'DE'])
+const languages = ['RU', 'EN', 'DE'] as const
+const language = z.enum(languages)
 type Language = z.infer<typeof language>
 
-const rating = z.enum([
+const ratings = [
   'WORST',
   'VERY_BAD',
   'BAD',
@@ -15,10 +16,12 @@ const rating = z.enum([
   'GOOD',
   'EXCELLENT',
   'BEST',
-])
+] as const
+const rating = z.enum(ratings)
 type Rating = z.infer<typeof rating>
 
-const category = z.enum(['NON_FICTION', 'SCIENCE', 'POETRY', 'TECHNICAL', 'PHILOSOPHY', 'FICTION'])
+const categories = ['NON_FICTION', 'SCIENCE', 'POETRY', 'TECHNICAL', 'PHILOSOPHY', 'FICTION'] as const
+const category = z.enum(categories)
 type Category = z.infer<typeof category>
 
 const book = z.object({
@@ -52,4 +55,4 @@ type UpdatedBookResponse = z.infer<typeof updatedBookResponse>
 
 export type { CreateBookResponse, UpdatedBookResponse, Language, Rating, Category, Book, NewBook }
 
-export { book, createBookResponse, updatedBookResponse }
+export { book, categories, languages, ratings, createBookResponse, updatedBookResponse }

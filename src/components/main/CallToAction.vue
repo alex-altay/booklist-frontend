@@ -10,9 +10,9 @@
 
     <div class="flex flex-col justify-center items-center">
       <div ref="header" class="mb-10 uppercase text-8xl font-black text-main-additional">Just give it a try</div>
-      <Button ref="button" class="relative w-[100px] cursor-pointer" @click="$router.push({ name: 'signup' })"
-        >Sign Up</Button
-      >
+      <Button ref="button" class="relative w-[100px] cursor-pointer" @click="$router.push({ name: 'signup' })">
+        Sign Up
+      </Button>
     </div>
 
     <div
