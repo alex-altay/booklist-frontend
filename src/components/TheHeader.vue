@@ -31,7 +31,7 @@
 
 <script setup lang="ts">
 import Button from '@/components/ui/button/Button.vue'
-import { BookOpen, LogOut, Plus } from 'lucide-vue-next'
+import { BookOpen, LogOut, Plus } from '@lucide/vue'
 import { userStore } from '@/stores/user'
 import { router } from '@/router/router'
 
