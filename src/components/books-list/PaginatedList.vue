@@ -41,8 +41,8 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from '@/components/ui/pagination'
-import BookCard from '@/components/books/BookCard.vue'
-import EmptyList from '@/components/books/EmptyList.vue'
+import BookCard from '@/components/books-list/BookCard.vue'
+import EmptyList from '@/components/books-list/EmptyList.vue'
 import { PAGINATION_SIZE } from '@/data/constants'
 import { computed, ref, watch } from 'vue'
 import type { Book } from '@/schemas/book'

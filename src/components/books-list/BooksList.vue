@@ -1,22 +1,13 @@
 <template>
-  <div>
-    <TheHeader />
-    <!-- TODO Wrap this in nested router-view -->
-    <main class="container mx-auto pt-24 pb-4 px-4">
-      <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
-        <ListFilter v-model="filter" :years="years" @reset-filter="resetFilter" />
-        <PaginatedList :books="filteredBooks" />
-      </div>
-    </main>
-    <TheFooter />
+  <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+    <ListFilter v-model="filter" :years="years" @reset-filter="resetFilter" />
+    <PaginatedList :books="filteredBooks" />
   </div>
 </template>
 
 <script setup lang="ts">
-import TheHeader from '@/components/TheHeader.vue'
-import TheFooter from '@/components/TheFooter.vue'
-import ListFilter from '@/components/books/ListFilter.vue'
-import PaginatedList from '@/components/books/PaginatedList.vue'
+import ListFilter from '@/components/books-list/ListFilter.vue'
+import PaginatedList from '@/components/books-list/PaginatedList.vue'
 import { bookStore } from '@/stores/book'
 import { computed, ref } from 'vue'
 import { useApi } from '@/composables/useApi'
