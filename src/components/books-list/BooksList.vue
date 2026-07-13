@@ -1,7 +1,7 @@
 <template>
   <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
     <ListFilter v-model="filter" :years="years" @reset-filter="resetFilter" />
-    <PaginatedList :books="filteredBooks" />
+    <PaginatedList :books="filteredBooks" :is-new-user @reset-filter="resetFilter" />
   </div>
 </template>
 
@@ -46,6 +46,7 @@ const filteredBooks = computed<Book[]>(() => {
   }
   return filtered
 })
+const isNewUser = books.length == filteredBooks.value.length && books.length == 0
 
 function resetFilter() {
   filter.value = { ...defaultFilter }

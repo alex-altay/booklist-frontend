@@ -29,7 +29,7 @@
       </Pagination>
     </div>
   </div>
-  <EmptyList v-else />
+  <EmptyList v-else :is-new-user class="lg:col-span-3 flex flex-col" @reset-filter="$emit('resetFilter')" />
 </template>
 
 <script setup lang="ts">
@@ -47,7 +47,8 @@ import { PAGINATION_SIZE } from '@/data/constants'
 import { computed, ref, watch } from 'vue'
 import type { Book } from '@/schemas/book'
 
-const props = defineProps<{ books: Book[] }>()
+defineEmits(['resetFilter'])
+const props = defineProps<{ books: Book[]; isNewUser: boolean }>()
 const page = ref<number>(1)
 
 const paginatedBooks = computed(() => {
