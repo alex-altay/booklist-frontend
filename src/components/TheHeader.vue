@@ -17,7 +17,7 @@
             'transition-colors': $route.name != 'books',
             'pointer-none': $route.name == 'books',
           }"
-          @click="$router.push('books')"
+          @click="$router.push({ name: 'books' })"
         >
           Books
         </button>
@@ -32,7 +32,7 @@
             'transition-colors': $route.name != 'stats',
             'pointer-none': $route.name == 'stats',
           }"
-          @click="$router.push('stats')"
+          @click="$router.push({ name: 'stats' })"
         >
           Stats
         </button>
