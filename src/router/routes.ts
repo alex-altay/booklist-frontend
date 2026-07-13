@@ -2,6 +2,7 @@ import RootView from '@/views/RootView.vue'
 import InnerView from '@/views/InnerView.vue'
 import SignInView from '@/views/SignInView.vue'
 import SignUpView from '@/views/SignUpView.vue'
+import AddBook from '@/components/single-book/AddBook.vue'
 import BooksList from '@/components/books-list/BooksList.vue'
 import SingleBook from '@/components/single-book/SingleBook.vue'
 import TheStats from '@/components/TheStats.vue'
@@ -27,6 +28,11 @@ export const routes = [
         path: '/stats',
         component: TheStats,
         name: 'stats',
+      },
+      {
+        path: 'add',
+        component: AddBook,
+        name: 'add',
       },
     ],
   },

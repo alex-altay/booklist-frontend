@@ -7,8 +7,11 @@
     <p class="text-muted-foreground text-sm max-w-55 mx-auto mt-2 leading-relaxed">
       Add your first book to see it here
     </p>
-    <!-- TODO Push to add book route -->
-    <Button size="sm" class="mt-6 gap-2 hover:opacity-90 transition-opacity cursor-pointer">
+    <Button
+      size="sm"
+      class="mt-6 gap-2 hover:opacity-90 transition-opacity cursor-pointer"
+      @click="$router.push({ name: 'add' })"
+    >
       <Plus class="w-4 h-4" />
       Add Book
     </Button>

@@ -2,7 +2,11 @@
   <header class="border-b fixed w-full top-0 z-10 bg-background/80 backdrop-blur-md">
     <div className="container mx-auto px-4 h-16 flex items-center justify-between">
       <div className="flex items-center">
-        <Button size="sm" class="gap-2 min-w-25 hover:opacity-90 transition-opacity cursor-pointer">
+        <Button
+          size="sm"
+          class="gap-2 min-w-25 hover:opacity-90 transition-opacity cursor-pointer"
+          @click="$router.push({ name: 'add' })"
+        >
           <Plus class="w-4 h-4" />
           <span class="hidden sm:inline">Add Book</span>
         </Button>
