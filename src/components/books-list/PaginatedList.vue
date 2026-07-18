@@ -1,7 +1,12 @@
 <template>
   <div v-if="paginatedBooks.length" class="lg:col-span-3 flex flex-col gap-8">
     <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
-      <BookCard v-for="book in paginatedBooks" :key="book.id" :book="book" />
+      <BookCard
+        v-for="book in paginatedBooks"
+        :key="book.id"
+        :book="book"
+        @click="$router.push({ name: 'book', params: { id: book.id } })"
+      />
     </div>
     <div class="flex flex-col gap-6">
       <Pagination
