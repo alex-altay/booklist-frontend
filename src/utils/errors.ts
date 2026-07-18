@@ -24,6 +24,10 @@ function isUnauthorizedError(error: unknown): boolean {
   return typeof error == 'object' && error != null && 'statusCode' in error && error.statusCode == 401
 }
 
+function isNotFoundError(error: unknown): boolean {
+  return typeof error == 'object' && error != null && 'statusCode' in error && error.statusCode == 404
+}
+
 // TODO Think about it. It make sense to split this module into two: vue-dependable (handlers) and independable - error determination
 function handleAuthError() {
   userStore().signOut()
@@ -33,6 +37,8 @@ function handleAuthError() {
 function globalErrorHandler(error: unknown) {
   if (isUnauthorizedError(error)) {
     handleAuthError() // TODO Show modal - Expired session, sign in
+  } else if (isNotFoundError(error)) {
+    router.push({ name: '404' })
   } else {
     // TODO Show modal - unexpected error, try one more time
   }
