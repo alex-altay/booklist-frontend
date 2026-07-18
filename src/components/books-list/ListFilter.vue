@@ -84,7 +84,7 @@
               <SelectContent>
                 <SelectItem value="all"> All languages </SelectItem>
                 <SelectItem v-for="l in languages" :key="l" :value="l">
-                  {{ l }}
+                  {{ languageMap[l] }}
                 </SelectItem>
               </SelectContent>
             </Select>
@@ -117,6 +117,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { X, Search } from '@lucide/vue'
 import { categories, languages, ratings } from '@/schemas/book'
 import { capitalizeProperty } from '@/utils/capitalize'
+import { languageMap } from '@/utils/maps'
 import { computed } from 'vue'
 
 defineEmits(['resetFilter'])
