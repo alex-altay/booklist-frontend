@@ -1,7 +1,7 @@
 import * as z from 'zod'
 import { User } from '@/schemas/user'
 import { category, rating, language } from '@/schemas/book'
-import { dropTime } from '@/schemas/book/codecs'
+import { dropTime } from '@/utils'
 
 const book = z.object({
   id: z.number(),

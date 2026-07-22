@@ -3,7 +3,7 @@
     <BookControls
       v-model="mode"
       class="mb-8"
-      :class="{ invisible: hasScrolled }"
+      :class="{ invisible: mode == 'editing' && hasScrolled }"
       :can-be-saved
       @back="goBack"
       @cancel="cancel"
@@ -18,7 +18,7 @@
     <BookContent v-else :book />
 
     <BookControls
-      v-if="hasScrolled"
+      v-if="mode == 'editing' && hasScrolled"
       v-model="mode"
       class="mt-8"
       :can-be-saved
