@@ -4,7 +4,7 @@
       <div className="flex items-center">
         <Button
           size="sm"
-          class="gap-2 min-w-25 hover:opacity-90 transition-opacity cursor-pointer"
+          class="gap-2 sm:min-w-25 min-w-12 hover:opacity-90 transition-opacity cursor-pointer"
           @click="$router.push({ name: 'add' })"
         >
           <Plus class="w-4 h-4" />
@@ -43,7 +43,7 @@
       </nav>
 
       <div class="flex items-center">
-        <Button size="sm" variant="outline" class="gap-2 min-w-25 cursor-pointer" @click="signOut">
+        <Button size="sm" variant="outline" class="gap-2 sm:min-w-25 min-w-12 cursor-pointer" @click="signOut">
           <LogOut class="w-4 h-4" />
           <span class="hidden sm:inline">Sign Out</span>
         </Button>
