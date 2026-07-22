@@ -1,24 +1,45 @@
 import { axiosInstance } from '@api/axios-config'
-import type { Book, CreateBookResponse, NewBook, UpdatedBookResponse } from '@/schemas/book'
+import { book as bookSchema } from '@/schemas/book'
+import type { Book, NewBook, CreateBookResponse, UpdatedBookResponse } from '@/schemas/book'
+
+function parseBook(book: Book): Book {
+  return bookSchema.parse(book)
+}
+
+function parseList(books: Book[]): Book[] {
+  return books
+    .map((book) => {
+      const { success, data } = bookSchema.safeParse(book)
+      return success ? data : null
+    })
+    .filter((book) => book != null)
+}
 
 export const bookApi = {
-  getBook(id: string) {
-    return axiosInstance.get<Book>(`books/${id}`)
+  async getBook(id: number): Promise<Book> {
+    const book = await axiosInstance.get<Book>(`books/${id}`)
+    return parseBook(book)
   },
 
-  getBooks() {
-    return axiosInstance.get<Book[]>('books')
+  async getBooks(): Promise<Book[]> {
+    const books = await axiosInstance.get<Book[]>('books')
+    return parseList(books)
   },
 
-  createBook(book: NewBook) {
-    return axiosInstance.post<NewBook, CreateBookResponse>('books/create', book)
+  async createBook(book: NewBook) {
+    const { allBooks, newBook } = await axiosInstance.post<NewBook, CreateBookResponse>('books/create', book)
+    return { allBooks: parseList(allBooks), newBook: parseBook(newBook) }
   },
 
-  updateBook(book: Book) {
-    return axiosInstance.patch<Book, UpdatedBookResponse>(`books/update/${book.id}`, book)
+  async updateBook(book: Book) {
+    const { allBooks, updatedBook } = await axiosInstance.patch<Book, UpdatedBookResponse>(
+      `books/update/${book.id}`,
+      book,
+    )
+    return { allBooks: parseList(allBooks), updatedBook: parseBook(updatedBook) }
   },
 
-  deleteBook(id: Book['id']) {
-    return axiosInstance.delete<Book[]>(`books/delete/${id}`)
+  async deleteBook(id: Book['id']) {
+    return parseList(await axiosInstance.delete<Book[]>(`books/delete/${id}`))
   },
 }

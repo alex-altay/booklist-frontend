@@ -1,7 +1,7 @@
-import * as z from 'zod/v4'
+import * as z from 'zod'
 
 export const User = z.object({
-  userId: z.coerce.number(),
+  userId: z.coerce.number<string | number>(),
   email: z.email(),
 })
 

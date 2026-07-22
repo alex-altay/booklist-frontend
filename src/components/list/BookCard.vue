@@ -29,7 +29,7 @@
 import Card from '@/components/ui/card/Card.vue'
 import { ratings } from '@/schemas/book'
 import { capitalizeProperty } from '@/utils/capitalize'
-import type { Book } from '@/schemas/book'
+import type { Book } from '@/schemas/book/book'
 
 defineProps<{ book: Book }>()
 </script>

@@ -28,6 +28,7 @@ export default defineConfig([
       '@typescript-eslint/no-unsafe-call': 'error',
       '@typescript-eslint/no-unsafe-member-access': 'error',
       '@typescript-eslint/await-thenable': 'error',
+      '@/no-console': 'error',
       'vue/multi-word-component-names': 'warn',
     },
   },

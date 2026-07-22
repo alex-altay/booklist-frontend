@@ -1,5 +1,5 @@
 <template>
-  <div class="flex items-center justify-between mb-8">
+  <div class="flex items-center justify-between">
     <Button variant="ghost" size="sm" class="gap-2 -ml-2 cursor-pointer" @click="$emit('back')">
       <ArrowLeft class="w-4 h-4" />
       Back

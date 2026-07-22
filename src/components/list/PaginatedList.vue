@@ -46,11 +46,11 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from '@/components/ui/pagination'
-import BookCard from '@/components/books-list/BookCard.vue'
-import EmptyList from '@/components/books-list/EmptyList.vue'
+import BookCard from '@/components/list/BookCard.vue'
+import EmptyList from '@/components/list/EmptyList.vue'
 import { PAGINATION_SIZE } from '@/data/constants'
 import { computed, ref, watch } from 'vue'
-import type { Book } from '@/schemas/book'
+import type { Book } from '@/schemas/book/book'
 
 defineEmits(['resetFilter'])
 const props = defineProps<{ books: Book[]; isNewUser: boolean }>()

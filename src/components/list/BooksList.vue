@@ -6,12 +6,12 @@
 </template>
 
 <script setup lang="ts">
-import ListFilter from '@/components/books-list/ListFilter.vue'
-import PaginatedList from '@/components/books-list/PaginatedList.vue'
+import ListFilter from '@/components/list/ListFilter.vue'
+import PaginatedList from '@/components/list/PaginatedList.vue'
 import { bookStore } from '@/stores/book'
 import { computed, ref } from 'vue'
 import { useApi } from '@/composables/useApi'
-import type { Book } from '@/schemas/book'
+import type { Book } from '@/schemas/book/book'
 
 const { request } = useApi()
 const { getBooks } = bookStore()

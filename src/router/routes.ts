@@ -2,9 +2,9 @@ import RootView from '@/views/RootView.vue'
 import InnerView from '@/views/InnerView.vue'
 import SignInView from '@/views/SignInView.vue'
 import SignUpView from '@/views/SignUpView.vue'
-import AddBook from '@/components/single-book/AddBook.vue'
-import BooksList from '@/components/books-list/BooksList.vue'
-import SingleBook from '@/components/single-book/SingleBook.vue'
+import SingleBook from '@/components/book/SingleBook.vue'
+import BooksList from '@/components/list/BooksList.vue'
+import The404Error from '@/components/The404Error.vue'
 import TheStats from '@/components/TheStats.vue'
 
 export const routes = [
@@ -31,11 +31,12 @@ export const routes = [
       },
       {
         path: 'add',
-        component: AddBook,
+        component: SingleBook,
         name: 'add',
       },
     ],
   },
   { path: '/signup', name: 'signup', component: SignUpView },
   { path: '/signin', name: 'signin', component: SignInView, props: true },
+  { path: '/404', name: '404', component: The404Error },
 ]

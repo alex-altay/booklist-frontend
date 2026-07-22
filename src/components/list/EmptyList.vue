@@ -6,8 +6,8 @@
 </template>
 
 <script setup lang="ts">
-import EmptyListFiltered from '@/components/books-list/EmptyListFiltered.vue'
-import EmptyListNewUser from '@/components/books-list/EmptyListNewUser.vue'
+import EmptyListFiltered from '@/components/list/EmptyListFiltered.vue'
+import EmptyListNewUser from '@/components/list/EmptyListNewUser.vue'
 
 defineProps<{ isNewUser: boolean }>()
 defineEmits(['resetFilter'])
