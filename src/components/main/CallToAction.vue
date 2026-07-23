@@ -10,14 +10,14 @@
 
     <div class="flex flex-col justify-center items-center">
       <div ref="header" class="mb-10 uppercase text-8xl font-black text-main-additional">Just give it a try</div>
-      <Button ref="button" class="relative w-[100px] cursor-pointer" @click="$router.push({ name: 'signup' })">
+      <Button ref="button" class="relative w-25 cursor-pointer" @click="$router.push({ name: 'signup' })">
         Sign Up
       </Button>
     </div>
 
     <div
       ref="links"
-      class="absolute bottom-[59px] px-5 sm:px-14 flex flex-row w-full justify-between uppercase sm:text-lg 2xl:text-2xl"
+      class="absolute bottom-15 px-5 sm:px-14 flex flex-row w-full justify-between uppercase sm:text-lg 2xl:text-2xl"
     >
       <div ref="linkLeft" class="cursor-pointer text-left">BORING TERMS OF AGREEMENT</div>
       <div ref="linkRight" class="cursor-pointer text-right">EVEN MORE BORING PRIVACY POLICY</div>
