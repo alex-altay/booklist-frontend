@@ -5,27 +5,26 @@
       class="mb-8"
       :class="{ invisible: mode == 'editing' && hasScrolled }"
       :can-be-saved
-      @back="goBack"
-      @cancel="cancel"
-      @save="() => saveBook(book)"
+      @delete="confirmDelete(book)"
+      @back="confirmReturn"
+      @cancel="confirmReturn"
+      @save="saveBook(book)"
     />
-    <BookForm
-      v-if="mode == 'editing'"
-      v-model:book="book"
-      v-model:has-errors="hasErrors"
-      @save="() => saveBook(book)"
-    />
-    <BookContent v-else :book />
+    <BookForm v-if="mode == 'editing'" v-model:book="book" v-model:has-errors="hasErrors" @save="saveBook(book)" />
+    <BookContent v-else :book @back="goBack" @delete="confirmDelete(book)" @edit="() => (mode = 'editing')" />
 
     <BookControls
       v-if="mode == 'editing' && hasScrolled"
       v-model="mode"
       class="mt-8"
       :can-be-saved
-      @back="goBack"
-      @cancel="cancel"
-      @save="() => saveBook(book)"
+      @back="confirmReturn"
+      @cancel="confirmReturn"
+      @save="saveBook(book)"
     />
+
+    <DeleteGuardDialog v-model:open="isDeleteGuardOpen" :title="book.title" @delete-confirmed="removeBook(book)" />
+    <ReturnGuardDialog v-model:open="isReturnGuardOpen" @return-confirmed="goBack" />
   </div>
 </template>
 
@@ -33,9 +32,11 @@
 import BookControls from '@/components/book/BookControls.vue'
 import BookContent from '@/components/book/BookContent.vue'
 import BookForm from '@/components/book/BookForm.vue'
+import DeleteGuardDialog from '@/components/guards/DeleteGuardDialog.vue'
+import ReturnGuardDialog from '@/components/guards/ReturnGuardDialog.vue'
 import { bookStore } from '@/stores/book'
 import { router } from '@/router/router'
-import { isNewBook } from '@/types/guards'
+import { isBook, isNewBook } from '@/types/guards'
 import { useApi } from '@/composables/useApi'
 import { useGlobalSpinner } from '@/composables/useGlobalSpinner'
 import { useRoute } from 'vue-router'
@@ -43,7 +44,7 @@ import { useWindowScroll } from '@vueuse/core'
 import { newBook, type Book, type NewBook } from '@/schemas/book'
 import { computed, ref, watch } from 'vue'
 
-const { getBook, createBook, updateBook } = bookStore()
+const { getBook, createBook, updateBook, deleteBook } = bookStore()
 const { request, isLoading } = useApi()
 
 const defaultValues = { title: '', author: '' } as NewBook
@@ -52,6 +53,8 @@ const mode = ref<BookControlsMode>('editing')
 const hasChanges = ref(false)
 const hasErrors = ref(false)
 const canBeSaved = computed(() => hasChanges.value && !hasErrors.value)
+const isDeleteGuardOpen = ref(false)
+const isReturnGuardOpen = ref(false)
 
 const { id } = useRoute().params
 if (id) {
@@ -77,20 +80,39 @@ async function saveBook(bookToSave: Book | NewBook) {
   // TODO Popup with success or modal with choice what to do next
 }
 
-function goBack() {
+// TODO This component is too big. Refactor it
+// TODO Add key controls to edit mode too
+// TODO Guards on route change, on browser attempt
+
+function confirmReturn() {
   if (hasChanges.value) {
-    // TODO Navigation guard and modal
-    return
+    isReturnGuardOpen.value = true
+  } else {
+    goBack()
   }
-  router.back()
 }
 
-function cancel() {
-  if (hasChanges.value) {
-    // TODO Navigation guard and modal
+// TODO Move to draft, do not change source data. It comes to errors when you change mode, discard something, than change mode back
+function goBack() {
+  if (mode.value == 'editing') {
+    mode.value = 'viewing'
+  } else {
+    router.back()
+  }
+}
+
+function confirmDelete(book: Book | NewBook) {
+  if (isNewBook(book)) {
     return
   }
-  mode.value = 'viewing'
+  isDeleteGuardOpen.value = true
+}
+
+async function removeBook(book: Book | NewBook) {
+  if (isBook(book)) {
+    await request(() => deleteBook(book.id))
+    router.push({ name: 'books' })
+  }
 }
 
 watch(
