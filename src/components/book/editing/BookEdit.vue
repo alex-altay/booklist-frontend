@@ -5,7 +5,7 @@
     autofocus
     class="relative container mx-auto px-4 max-w-2xl outline-none"
     @keydown.ctrl.delete="goBack('show')"
-    @keydown.esc="goBack('list')"
+    @keydown.esc.prevent="goBack('list')"
     @keydown.ctrl.enter="saveBook(draft)"
     @keydown.meta.enter="saveBook(draft)"
   >
