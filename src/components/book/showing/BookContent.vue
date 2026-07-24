@@ -1,13 +1,5 @@
 <template>
-  <div
-    ref="focused"
-    class="space-y-8 outline-0"
-    tabindex="0"
-    autofocus
-    @keydown.delete="$emit('delete')"
-    @keydown.esc="$emit('back')"
-    @keydown.enter="$emit('edit')"
-  >
+  <div class="space-y-8">
     <div>
       <h1 class="text-3xl font-bold leading-tight">{{ book.title }}</h1>
       <p class="text-lg text-muted-foreground mt-1">{{ book.author }}</p>
@@ -69,13 +61,8 @@
 <script setup lang="ts">
 import { Separator } from '@/components/ui/separator'
 import { languageMap, ratingMap, formatDate, capitalizeProperty } from '@/utils'
-import { useFocus } from '@vueuse/core'
-import { useTemplateRef } from 'vue'
 import type { Book, NewBook } from '@/schemas/book'
 
 defineProps<{ book: Book | NewBook }>()
 defineEmits(['back', 'edit', 'delete'])
-
-const focused = useTemplateRef('focused')
-useFocus(focused, { initialValue: true })
 </script>

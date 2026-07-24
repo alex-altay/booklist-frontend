@@ -2,7 +2,8 @@ import RootView from '@/views/RootView.vue'
 import InnerView from '@/views/InnerView.vue'
 import SignInView from '@/views/SignInView.vue'
 import SignUpView from '@/views/SignUpView.vue'
-import SingleBook from '@/components/book/SingleBook.vue'
+import BookShow from '@/components/book/showing/BookShow.vue'
+import BookEdit from '@/components/book/editing/BookEdit.vue'
 import BooksList from '@/components/list/BooksList.vue'
 import The404Error from '@/components/The404Error.vue'
 import TheStats from '@/components/TheStats.vue'
@@ -21,8 +22,13 @@ export const routes = [
       },
       {
         path: ':id',
-        component: SingleBook,
+        component: BookShow,
         name: 'book',
+      },
+      {
+        path: ':id/edit',
+        component: BookEdit,
+        name: 'edit',
       },
       {
         path: '/stats',
@@ -31,7 +37,7 @@ export const routes = [
       },
       {
         path: 'add',
-        component: SingleBook,
+        component: BookEdit,
         name: 'add',
       },
     ],

@@ -1,14 +1,14 @@
 <template>
-  <form @keydown.meta.enter="$emit('save')" @keydown.ctrl.enter="$emit('save')" @submit.prevent>
+  <form @submit.prevent>
     <div class="space-y-6">
       <div class="space-y-2">
         <Label for="title">Title<span className="text-destructive">*</span></Label>
-        <Input id="title" v-model="book.title" class="text-sm" placeholder="Enter the title" autofocus required />
+        <Input id="title" v-model="draft.title" class="text-sm" placeholder="Enter the title" autofocus required />
       </div>
 
       <div class="space-y-2">
         <Label for="author">Author<span className="text-destructive">*</span></Label>
-        <Input id="author" v-model="book.author" class="text-sm" placeholder="Enter the author" />
+        <Input id="author" v-model="draft.author" class="text-sm" placeholder="Enter the author" />
       </div>
 
       <Separator />
@@ -22,9 +22,9 @@
           They turned it it off because of VueJS boolean casting. Considering that limitation you can use it
           -->
           <!-- @vue-ignore -->
-          <Select v-model="book.category" :value="book.category" :nullable-value="null">
+          <Select v-model="draft.category" :value="draft.category" :nullable-value="null">
             <SelectTrigger class="w-full">
-              <SelectValue :placeholder="book.category ? capitalizeProperty(book.category) : 'Not chosen'" />
+              <SelectValue :placeholder="draft.category ? capitalizeProperty(draft.category) : 'Not chosen'" />
             </SelectTrigger>
             <SelectContent>
               <SelectItem :value="null">Not chosen</SelectItem>
@@ -38,9 +38,9 @@
         <div class="space-y-2">
           <Label>Language</Label>
           <!-- @vue-ignore -->
-          <Select v-model="book.language" :value="book.language" :nullable-value="null">
+          <Select v-model="draft.language" :value="draft.language" :nullable-value="null">
             <SelectTrigger class="w-full">
-              <SelectValue :placeholder="book.language ? languageMap[book.language] : 'Not chosen'" />
+              <SelectValue :placeholder="draft.language ? languageMap[draft.language] : 'Not chosen'" />
             </SelectTrigger>
             <SelectContent>
               <SelectItem :value="null">Not chosen</SelectItem>
@@ -54,7 +54,7 @@
         <div class="space-y-2">
           <Label>Rating</Label>
           <!-- @vue-ignore -->
-          <Select v-model="book.rating" :value="book.rating" :nullable-value="null">
+          <Select v-model="draft.rating" :value="draft.rating" :nullable-value="null">
             <SelectTrigger class="w-full">
               <SelectValue placeholder="Not chosen" />
             </SelectTrigger>
@@ -70,7 +70,7 @@
         <div class="space-y-2 w-full flex flex-col">
           <Label class="text-left">Status</Label>
           <!-- @vue-ignore -->
-          <Select v-model="book.hasFinished" :nullable-value="null">
+          <Select v-model="draft.hasFinished" :nullable-value="null">
             <SelectTrigger class="w-full">
               <SelectValue :placeholder="hasFinishedPlaceholder" />
             </SelectTrigger>
@@ -89,10 +89,10 @@
           <!-- @vue-ignore -->
           <Input
             id="startDate"
-            v-model="book.startDate"
+            v-model="draft.startDate"
             type="date"
             class="text-sm"
-            :class="{ 'text-muted-foreground': !book.startDate }"
+            :class="{ 'text-muted-foreground': !draft.startDate }"
           />
         </div>
 
@@ -101,13 +101,13 @@
           <!-- @vue-ignore -->
           <Input
             id="endDate"
-            v-model="book.endDate"
+            v-model="draft.endDate"
             type="date"
             class="text-sm"
             :class="{
               'border-destructive': hasDateError,
               'focus-visible:ring-destructive': hasDateError,
-              'text-muted-foreground': !book.endDate,
+              'text-muted-foreground': !draft.endDate,
             }"
           />
         </div>
@@ -120,7 +120,7 @@
         <!-- @vue-ignore -->
         <Textarea
           id="description"
-          v-model="book.description"
+          v-model="draft.description"
           class="text-sm"
           placeholder="Impressions, quotes, thoughs..."
           rows="6"
@@ -141,15 +141,14 @@ import { languageMap } from '@/utils/maps'
 import { newBook, categories, languages, ratings, type NewBook } from '@/schemas/book'
 import { computed, watch } from 'vue'
 
-defineEmits(['save'])
-const book = defineModel<NewBook>('book', { required: true })
+const draft = defineModel<NewBook>('draft', { required: true })
 const hasErrors = defineModel<boolean>('hasErrors', { required: true })
 const hasDateError = computed(
-  () => book.value.startDate && book.value.endDate && new Date(book.value.endDate) < new Date(book.value.startDate),
+  () => draft.value.startDate && draft.value.endDate && new Date(draft.value.endDate) < new Date(draft.value.startDate),
 )
 
 const hasFinishedPlaceholder = computed(() => {
-  switch (book.value.hasFinished) {
+  switch (draft.value.hasFinished) {
     case null:
       return 'Not chosen'
     case true:
@@ -161,9 +160,9 @@ const hasFinishedPlaceholder = computed(() => {
 })
 
 watch(
-  book,
+  draft,
   () => {
-    const { success } = newBook.safeParse(book.value)
+    const { success } = newBook.safeParse(draft.value)
     hasErrors.value = !(success && !hasDateError.value)
   },
   { deep: true },

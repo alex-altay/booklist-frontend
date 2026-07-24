@@ -13,4 +13,6 @@ router.beforeEach(async (to) => {
   }
 })
 
+// TODO On route change - scroll everywhere
+
 export { router }

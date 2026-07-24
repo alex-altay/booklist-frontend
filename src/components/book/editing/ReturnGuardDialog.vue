@@ -8,11 +8,8 @@
         </AlertDialogDescription>
       </AlertDialogHeader>
       <AlertDialogFooter>
-        <AlertDialogCancel class="cursor-pointer">Continue editing</AlertDialogCancel>
-        <AlertDialogAction
-          class="bg-destructive text-white hover:bg-destructive/90 cursor-pointer"
-          @click="$emit('return-confirmed')"
-        >
+        <AlertDialogCancel class="cursor-pointer" @click="reject">Continue editing</AlertDialogCancel>
+        <AlertDialogAction class="bg-destructive text-white hover:bg-destructive/90 cursor-pointer" @click="resolve">
           Cancel changes
         </AlertDialogAction>
       </AlertDialogFooter>
@@ -31,7 +28,12 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog'
+import { GuardReject, GuardResolve } from '@/types/guards'
 
 defineEmits(['return-confirmed'])
 const open = defineModel<boolean>('open', { required: true })
+defineProps<{
+  reject: GuardReject
+  resolve: GuardResolve
+}>()
 </script>
