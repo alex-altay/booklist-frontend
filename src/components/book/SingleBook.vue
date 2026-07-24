@@ -34,9 +34,10 @@ import BookContent from '@/components/book/BookContent.vue'
 import BookForm from '@/components/book/BookForm.vue'
 import DeleteGuardDialog from '@/components/guards/DeleteGuardDialog.vue'
 import ReturnGuardDialog from '@/components/guards/ReturnGuardDialog.vue'
+import { isBook, isNewBook } from '@/types/guards'
 import { bookStore } from '@/stores/book'
 import { router } from '@/router/router'
-import { isBook, isNewBook } from '@/types/guards'
+import { toast } from 'vue-sonner'
 import { useApi } from '@/composables/useApi'
 import { useGlobalSpinner } from '@/composables/useGlobalSpinner'
 import { useRoute } from 'vue-router'
@@ -77,7 +78,8 @@ async function saveBook(bookToSave: Book | NewBook) {
     await request(() => updateBook(bookToSave as Book))
   }
   hasChanges.value = false
-  // TODO Popup with success or modal with choice what to do next
+  toast.success('The book has been saved')
+  // TODO Decide what to do next and display error toast too
 }
 
 // TODO This component is too big. Refactor it

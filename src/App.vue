@@ -1,5 +1,6 @@
 <template>
   <div class="relative top-0 left-0 min-h-dvh min-w-full">
+    <Toaster />
     <GlobalSpinner />
     <RouterView v-slot="{ Component }">
       <template v-if="Component">
@@ -12,7 +13,9 @@
 </template>
 
 <script setup lang="ts">
+import 'vue-sonner/style.css'
 import GlobalSpinner from '@/components/GlobalSpinner.vue'
+import { Toaster } from '@/components/ui/sonner'
 import { globalErrorHandler } from '@/utils/errors'
 import { useGlobalSpinner } from '@/composables/useGlobalSpinner'
 import { onErrorCaptured } from 'vue'
