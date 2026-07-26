@@ -6,7 +6,7 @@ import BookShow from '@/components/book/showing/BookShow.vue'
 import BookEdit from '@/components/book/editing/BookEdit.vue'
 import BooksList from '@/components/list/BooksList.vue'
 import The404Error from '@/components/The404Error.vue'
-import TheStats from '@/components/TheStats.vue'
+import TheStats from '@/components/stats/TheStats.vue'
 
 export const routes = [
   { path: '/', name: 'root', component: RootView },
