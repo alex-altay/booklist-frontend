@@ -17,9 +17,11 @@
     "node": "22"
   },
   "dependencies": {
-    "@lucide/vue": "^1.26.0",
+    "@lucide/vue": "^1.27.0",
     "@simplewebauthn/browser": "^13.2.0",
     "@tailwindcss/vite": "^4.1.16",
+    "@unovis/ts": "^1.6.7",
+    "@unovis/vue": "^1.6.7",
     "@vueuse/core": "^14.3.0",
     "axios": "^1.8.4",
     "class-variance-authority": "^0.7.1",
