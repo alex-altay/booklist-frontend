@@ -1,3 +1,5 @@
+import type { Book } from '@/schemas/book'
+
 function formatDate(iso?: string | null | undefined): string {
   if (!iso) {
     return '-'
@@ -16,4 +18,14 @@ function dropTime(datetime: string | null | undefined) {
   return `${year}-${month}-${day}`
 }
 
-export { formatDate, dropTime }
+function getYears(books: Book[]): number[] {
+  const unique = new Set<number>()
+  for (const { endDate } of books) {
+    if (endDate) {
+      unique.add(new Date(endDate).getFullYear())
+    }
+  }
+  return [...unique].sort((a, b) => b - a)
+}
+
+export { formatDate, dropTime, getYears }

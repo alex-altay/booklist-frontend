@@ -11,6 +11,7 @@ import PaginatedList from '@/components/list/PaginatedList.vue'
 import { bookStore } from '@/stores/book'
 import { computed, ref } from 'vue'
 import { useApi } from '@/composables/useApi'
+import { getYears } from '@/utils/date'
 import type { Book } from '@/schemas/book/book'
 
 const { request } = useApi()
@@ -50,15 +51,5 @@ const isNewUser = books.length == filteredBooks.value.length && books.length == 
 
 function resetFilter() {
   filter.value = { ...defaultFilter }
-}
-
-function getYears(books: Book[]): number[] {
-  const unique = new Set<number>()
-  for (const { endDate } of books) {
-    if (endDate) {
-      unique.add(new Date(endDate).getFullYear())
-    }
-  }
-  return [...unique].sort((a, b) => b - a)
 }
 </script>
