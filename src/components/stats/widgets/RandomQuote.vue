@@ -16,8 +16,10 @@
       </button>
     </div>
     <template v-if="withDescription.length">
-      <p class="text-sm text-left leading-relaxed text-foreground line-clamp-3 italic">{{ quote }}</p>
-      <p class="text-xs text-left text-muted-foreground truncate">{{ title }}, {{ author }}</p>
+      <p class="text-sm text-left leading-relaxed text-foreground min-h-[3lh] line-clamp-3 italic">{{ quote }}</p>
+      <p class="text-xs text-left text-muted-foreground line-clamp-1 truncate whitespace-normal">
+        {{ title }}, {{ author }}
+      </p>
     </template>
     <template v-else>
       <p class="text-sm text-left leading-relaxed text-foreground line-clamp-3 italic">
@@ -36,12 +38,28 @@ import type { Book } from '@/schemas/book'
 const { books } = defineProps<{ books: Book[] }>()
 const withDescription = books.filter((b: Book) => b.description != null)
 
-const quote = ref<string>('')
+const quote = ref<string>('Add some description to your books to see your random notes here')
 const author = ref<Book['author']>('')
 const title = ref<Book['title']>('')
+let previousIndex = -1
+
+function getNewRandomIndex(): number {
+  if (withDescription.length == 1) {
+    return 0
+  }
+  let randomIndex = Math.floor(Math.random() * withDescription.length)
+  while (randomIndex == previousIndex) {
+    randomIndex = Math.floor(Math.random() * withDescription.length)
+  }
+  previousIndex = randomIndex
+  return randomIndex
+}
 
 function updateQuote() {
-  const randomIndex = Math.floor(Math.random() * withDescription.length)
+  if (!withDescription.length) {
+    return
+  }
+  const randomIndex = getNewRandomIndex()
   const randomBook = withDescription[randomIndex]
   quote.value = randomBook.description || ''
   author.value = randomBook.author

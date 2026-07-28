@@ -1,9 +1,14 @@
 <template>
   <Card>
     <CardHeader class="text-left">
-      <CardTitle>Rating Distribution</CardTitle>
-      <CardDescription v-if="hasRatings">See how many books received each rating</CardDescription>
-      <CardDescription v-else>Add some ratings to your books to see the distribution</CardDescription>
+      <CardTitle class="text-xs text-muted-foreground uppercase tracking-wider">Rating Distribution</CardTitle>
+      <CardDescription class="text-xs">
+        {{
+          hasRatings
+            ? 'See how many books received each rating'
+            : 'Add some ratings to your books to see the distribution'
+        }}
+      </CardDescription>
     </CardHeader>
     <CardContent>
       <ChartContainer :config="chartConfig">
