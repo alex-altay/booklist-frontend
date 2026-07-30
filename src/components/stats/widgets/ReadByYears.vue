@@ -27,9 +27,9 @@
             :domain-line="false"
             :grid-line="false"
             :num-ticks="BAR_NUMBER"
-            :tick-values="chartData.map((d) => d.year)"
+            :min-max-ticks-only-when-width-is-less="TICKS_HIDE_WIDTH"
           />
-          <VisAxis type="y" :num-ticks="3" :tick-line="false" :domain-line="false" />
+          <VisAxis type="y" :num-ticks="3" :tick-line="false" :domain-line="false" :label-font-size="8" />
           <ChartTooltip />
           <ChartCrosshair
             :template="
@@ -66,6 +66,7 @@ const withDateAndLanguage = books.filter((b) => b.language && b.endDate)
 const hasData = withDateAndLanguage.length > 0
 
 const BAR_NUMBER = 10
+const TICKS_HIDE_WIDTH = 400
 const CHART_COLOR_DE = 'oklch(26.9% 0 none)' // tailwind neutral-800
 const CHART_COLOR_EN = 'oklch(37.1% 0 none)' // tailwind neutral-700
 const CHART_COLOR_RU = 'oklch(43.9% 0 none)' // tailwind neutral-600
