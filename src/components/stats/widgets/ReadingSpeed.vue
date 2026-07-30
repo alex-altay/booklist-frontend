@@ -34,11 +34,10 @@
 import { Card } from '@/components/ui/card'
 import { Timer } from '@lucide/vue'
 import { languageMap } from '@/utils'
+import { MS } from '@/utils/date'
 import type { Book, Language } from '@/schemas/book'
 
 const { books } = defineProps<{ books: Book[] }>()
-
-const MS = 24 * 60 * 60 * 1000
 const spendByLanguage: Record<Language, [number, number]> = {
   DE: [0, 0],
   EN: [0, 0],
