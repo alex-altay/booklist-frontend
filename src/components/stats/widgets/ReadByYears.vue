@@ -1,16 +1,28 @@
 <template>
-  <Card>
-    <CardHeader class="text-left">
-      <CardTitle class="text-xs text-muted-foreground uppercase tracking-wider">Read By Years By Language</CardTitle>
-      <CardDescription class="text-xs">
-        {{
-          hasData
-            ? 'See how many books you read every year'
-            : 'Add an end date and language to your books to see the distribution'
-        }}
-      </CardDescription>
+  <Card class="py-4 sm:py-0">
+    <CardHeader class="flex flex-col items-stretch border-b p-0! sm:flex-row">
+      <div class="flex flex-1 flex-col justify-center gap-1 px-6 py-5 sm:py-6 text-left">
+        <CardTitle class="text-xs text-muted-foreground uppercase tracking-wider">Read By Years By Language</CardTitle>
+        <CardDescription class="text-xs">
+          {{
+            hasData
+              ? 'See how many books you read every year'
+              : 'Add an end date and language to your books to see the distribution'
+          }}
+        </CardDescription>
+      </div>
+      <div class="flex">
+        <div
+          class="flex flex-1 flex-col justify-center gap-1 border-t px-6 py-4 text-left even:border-l sm:border-t-0 sm:border-l sm:px-8 sm:py-6"
+        >
+          <span class="text-muted-foreground text-xs"> Read in {{ currentYear }} </span>
+          <span class="text-lg text-right leading-none font-bold sm:text-3xl">
+            {{ totalReadInCurrent }}
+          </span>
+        </div>
+      </div>
     </CardHeader>
-    <CardContent>
+    <CardContent class="pb-6">
       <ChartContainer :config="chartConfig">
         <VisXYContainer :data="chartData" :margin="{ left: -24 }" :y-domain="[0, undefined]">
           <VisStackedBar
@@ -35,7 +47,7 @@
             :template="
               componentToString(chartConfig, ChartTooltipContent, {
                 labelFormatter(d) {
-                  return `Total books read in ${d}`
+                  return `In ${d} you've read ${totalByYears[+d] || 0} books`
                 },
               })
             "
@@ -75,12 +87,15 @@ type ChartData = { year: string; DE: number; EN: number; RU: number }
 const chartData: ChartData[] = []
 const years = getYears(withDateAndLanguage)
 const yearDictionary: Record<(typeof years)[number], { DE: number; EN: number; RU: number }> = {}
+const totalByYears: Record<(typeof years)[number], number> = {}
 for (const year of years) {
   yearDictionary[year] = { DE: 0, EN: 0, RU: 0 }
+  totalByYears[year] = 0
 }
 for (const book of withDateAndLanguage) {
   const year = new Date(book.endDate!).getFullYear()
   yearDictionary[year][book.language!]++
+  totalByYears[year]++
 }
 for (const [k, v] of Object.entries(yearDictionary)) {
   chartData.push({ year: k, ...v })
@@ -92,6 +107,12 @@ if (chartData.length != 0 && chartData.length < BAR_NUMBER) {
     chartData.unshift({ year: `${i}`, DE: 0, EN: 0, RU: 0 })
   }
 }
+
+const currentYear = new Date().getFullYear()
+const totalReadInCurrent = withDateAndLanguage.reduce(
+  (acc, b) => (acc + new Date(b.endDate!).getFullYear() == currentYear ? 1 : 0),
+  0,
+)
 
 const chartConfig: ChartConfig = {
   books: {

@@ -1,14 +1,29 @@
 <template>
-  <Card>
-    <CardHeader class="text-left">
-      <CardTitle class="text-xs text-muted-foreground uppercase tracking-wider">Rating Distribution</CardTitle>
-      <CardDescription class="text-xs">
-        {{
-          hasRatings
-            ? 'See how many books received each rating'
-            : 'Add some ratings to your books to see the distribution'
-        }}
-      </CardDescription>
+  <Card class="py-4 sm:py-0">
+    <CardHeader class="flex flex-col items-stretch border-b p-0! sm:flex-row">
+      <div class="flex">
+        <div
+          class="flex flex-1 flex-col justify-center gap-1 border-t px-6 py-4 text-left even:border-r sm:border-t-0 sm:border-r sm:px-8 sm:py-6"
+        >
+          <span class="text-muted-foreground text-xs"> Average Rating </span>
+          <span class="text-left leading-none">
+            <span class="text-lg text-left leading-none font-bold sm:text-3xl">
+              {{ averageRating }}
+            </span>
+            <span class="text-xs text-muted-foreground"> of 10 </span>
+          </span>
+        </div>
+      </div>
+      <div class="flex flex-1 flex-col justify-center gap-1 px-6 py-5 sm:py-6 text-left">
+        <CardTitle class="text-xs text-muted-foreground uppercase tracking-wider">Rating Distribution</CardTitle>
+        <CardDescription class="text-xs">
+          {{
+            hasRatings
+              ? 'See how many books received each rating'
+              : 'Add some ratings to your books to see the distribution'
+          }}
+        </CardDescription>
+      </div>
     </CardHeader>
     <CardContent>
       <ChartContainer :config="chartConfig">
@@ -83,6 +98,13 @@ for (const book of books) {
     chartData[index]['books']++
   }
 }
+
+const [totalRating, totalBooks] = books.reduce(
+  (acc: [number, number], el: Book): [number, number] =>
+    el.rating ? [acc[0] + ratingMap[el.rating][0], acc[1] + 1] : acc,
+  [0, 0],
+)
+const averageRating = Math.round((totalRating / totalBooks) * 10) / 10
 
 const chartConfig: ChartConfig = {
   books: {
