@@ -5,19 +5,24 @@
         <span class="mr-2 bg-muted inline-block rounded-lg p-2.5">
           <Quote class="w-5 h-5 text-muted-foreground" />
         </span>
-        <span class="text-xs text-muted-foreground uppercase tracking-wider">Random Quote</span>
+        <span class="text-xs text-muted-foreground uppercase tracking-wider select-none">Random Quote</span>
       </span>
       <button
         v-if="withDescription.length > 1"
         class="text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
-        @click="updateQuote()"
+        @click.stop="updateQuote()"
       >
         <RefreshCw class="w-3.5 h-3.5" />
       </button>
     </div>
     <template v-if="withDescription.length">
-      <p class="text-sm text-left leading-relaxed text-foreground min-h-[3lh] line-clamp-3 italic">{{ quote }}</p>
-      <p class="text-xs text-left text-muted-foreground line-clamp-1 truncate whitespace-normal">
+      <p class="text-sm text-left leading-relaxed text-foreground min-h-[3lh] line-clamp-3 italic select-none">
+        {{ quote }}
+      </p>
+      <p
+        class="text-xs text-left text-muted-foreground line-clamp-1 truncate whitespace-normal cursor-pointer"
+        @click="$router.push({ name: 'book', params: { id: id } })"
+      >
         {{ title }}, {{ author }}
       </p>
     </template>
@@ -41,17 +46,16 @@ const withDescription = books.filter((b: Book) => b.description != null)
 const quote = ref<string>('Add some description to your books to see your random notes here')
 const author = ref<Book['author']>('')
 const title = ref<Book['title']>('')
-let previousIndex = -1
+const id = ref<Book['id']>(-1)
 
 function getNewRandomIndex(): number {
   if (withDescription.length == 1) {
     return 0
   }
   let randomIndex = Math.floor(Math.random() * withDescription.length)
-  while (randomIndex == previousIndex) {
+  while (withDescription[randomIndex].id == id.value) {
     randomIndex = Math.floor(Math.random() * withDescription.length)
   }
-  previousIndex = randomIndex
   return randomIndex
 }
 
@@ -64,6 +68,7 @@ function updateQuote() {
   quote.value = randomBook.description || ''
   author.value = randomBook.author
   title.value = randomBook.title
+  id.value = randomBook.id
 }
 
 updateQuote()
