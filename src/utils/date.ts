@@ -1,5 +1,7 @@
 import type { Book } from '@/schemas/book'
 
+const MS = 24 * 60 * 60 * 1000
+
 function formatDate(iso?: string | null | undefined): string {
   if (!iso) {
     return '-'
@@ -28,4 +30,12 @@ function getYears(books: Book[]): number[] {
   return [...unique].sort((a, b) => b - a)
 }
 
-export { formatDate, dropTime, getYears }
+function getDaysDuration(book: Book): number {
+  if (!book.endDate || !book.startDate) {
+    return 0
+  }
+  const duration = new Date(book.endDate).getTime() - new Date(book.startDate).getTime()
+  return Math.round(duration / MS)
+}
+
+export { formatDate, dropTime, getYears, getDaysDuration, MS }
