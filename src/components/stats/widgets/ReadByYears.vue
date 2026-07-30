@@ -83,7 +83,7 @@ const CHART_COLOR_DE = 'oklch(26.9% 0 none)' // tailwind neutral-800
 const CHART_COLOR_EN = 'oklch(37.1% 0 none)' // tailwind neutral-700
 const CHART_COLOR_RU = 'oklch(43.9% 0 none)' // tailwind neutral-600
 
-type ChartData = { year: string; DE: number; EN: number; RU: number }
+type ChartData = { year: number; DE: number; EN: number; RU: number }
 const chartData: ChartData[] = []
 const years = getYears(withDateAndLanguage)
 const yearDictionary: Record<(typeof years)[number], { DE: number; EN: number; RU: number }> = {}
@@ -98,13 +98,13 @@ for (const book of withDateAndLanguage) {
   totalByYears[year]++
 }
 for (const [k, v] of Object.entries(yearDictionary)) {
-  chartData.push({ year: k, ...v })
+  chartData.push({ year: +k, ...v })
 }
 if (chartData.length != 0 && chartData.length < BAR_NUMBER) {
   const padNumber = BAR_NUMBER - chartData.length
   const minYear = years.sort((a, b) => a - b)[0]
   for (let i = minYear - 1; i >= minYear - padNumber; i--) {
-    chartData.unshift({ year: `${i}`, DE: 0, EN: 0, RU: 0 })
+    chartData.unshift({ year: i, DE: 0, EN: 0, RU: 0 })
   }
 }
 
