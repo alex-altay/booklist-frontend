@@ -1,8 +1,8 @@
 <template>
-  <Card class="p-6 flex items-start gap-4">
+  <Card class="p-6 flex justify-between gap-4">
     <div class="w-full flex flex-row justify-between items-center">
       <span class="flex flex-row items-center">
-        <span class="mr-2 bg-muted inline-block rounded-lg p-2.5">
+        <span class="mr-4 p-2.5 bg-muted inline-block rounded-lg">
           <Quote class="w-5 h-5 text-muted-foreground" />
         </span>
         <span class="text-xs text-muted-foreground uppercase tracking-wider select-none">Random Quote</span>
@@ -16,7 +16,7 @@
       </button>
     </div>
     <template v-if="withDescription.length">
-      <p class="text-sm text-left leading-relaxed text-foreground min-h-[3lh] line-clamp-3 italic select-none">
+      <p class="min-h-[3lh] text-sm text-foreground text-left leading-relaxed line-clamp-3 select-none">
         {{ quote }}
       </p>
       <p

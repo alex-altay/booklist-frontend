@@ -3,14 +3,13 @@
     <CardHeader class="flex flex-col items-stretch border-b p-0! sm:flex-row">
       <div class="flex">
         <div
-          class="flex flex-1 flex-col justify-center gap-1 border-t px-6 py-4 text-left even:border-r sm:border-t-0 sm:border-r sm:px-8 sm:py-6"
+          class="flex flex-1 flex-col justify-center gap-1 border-b px-6 py-4 text-left even:border-r sm:border-b-0 sm:border-r sm:px-8 sm:py-6"
         >
-          <span class="text-muted-foreground text-xs"> Average Rating </span>
+          <span class="text-muted-foreground text-xs"> Average&nbsp;Rating </span>
           <span class="text-left leading-none">
             <span class="text-lg text-left leading-none font-bold sm:text-3xl">
-              {{ averageRating }}
-            </span>
-            <span class="text-xs text-muted-foreground"> of 10 </span>
+              {{ averageRating }} </span
+            >&nbsp;<span class="text-xs text-muted-foreground">of&nbsp;10</span>
           </span>
         </div>
       </div>

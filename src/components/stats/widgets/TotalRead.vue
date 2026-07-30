@@ -1,31 +1,31 @@
 <template>
-  <Card class="p-6 flex items-start gap-4">
-    <div class="bg-muted rounded-lg p-2.5">
-      <BookCheck class="w-5 h-5 text-muted-foreground" />
+  <Card class="p-6 flex justify-between gap-4">
+    <div class="flex items-center justify-start">
+      <div class="p-2.5 mr-4 bg-muted rounded-lg">
+        <BookCheck class="w-5 h-5 text-muted-foreground" />
+      </div>
+      <p class="inline-block text-left text-xs text-muted-foreground uppercase tracking-wider">Total Read</p>
     </div>
-    <div>
-      <p class="text-left text-xs text-muted-foreground uppercase tracking-wider mb-1">Total Read</p>
-      <div class="flex items-end space-x-3">
-        <p class="text-3xl font-bold text-left tracking-wider">{{ totalRead.length }}</p>
-        <div class="flex items-center space-x-3 pb-1.5">
-          <div class="flex flex-col">
-            <span class="text-xxs uppercase leading-none">DE</span>
-            <span class="text-xxs font-headline-md leading-none">{{ de }}</span>
-          </div>
-          <div class="w-px h-4 bg-gray-300" />
-          <div class="flex flex-col">
-            <span class="text-xxs uppercase leading-none">EN</span>
-            <span class="text-xxs font-headline-md leading-none">{{ en }}</span>
-          </div>
-          <div class="w-px h-4 bg-gray-300" />
-          <div class="flex flex-col">
-            <span class="text-xxs uppercase leading-none">RU</span>
-            <span class="text-xxs leading-none">{{ ru }}</span>
-          </div>
+    <div class="flex items-end space-x-3">
+      <p class="text-3xl font-bold text-left tracking-wider">{{ totalRead.length }}</p>
+      <div class="flex items-center space-x-3 pb-1.5">
+        <div class="flex flex-col">
+          <span class="text-xxs uppercase leading-none">DE</span>
+          <span class="text-xxs font-headline-md leading-none">{{ de }}</span>
+        </div>
+        <div class="w-px h-4 bg-gray-300" />
+        <div class="flex flex-col">
+          <span class="text-xxs uppercase leading-none">EN</span>
+          <span class="text-xxs font-headline-md leading-none">{{ en }}</span>
+        </div>
+        <div class="w-px h-4 bg-gray-300" />
+        <div class="flex flex-col">
+          <span class="text-xxs uppercase leading-none">RU</span>
+          <span class="text-xxs leading-none">{{ ru }}</span>
         </div>
       </div>
-      <p class="text-xs text-left text-muted-foreground mt-0.5">and {{ inProgress.length }} in progress</p>
     </div>
+    <p class="text-xs text-left text-muted-foreground mt-0.5">and {{ inProgress.length }} in progress</p>
   </Card>
 </template>
 

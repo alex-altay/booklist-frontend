@@ -2,7 +2,7 @@
   <Card class="py-4 sm:py-0">
     <CardHeader class="flex flex-col items-stretch border-b p-0! sm:flex-row">
       <div class="flex flex-1 flex-col justify-center gap-1 px-6 py-5 sm:py-6 text-left">
-        <CardTitle class="text-xs text-muted-foreground uppercase tracking-wider">Read By Years By Language</CardTitle>
+        <CardTitle class="text-xs text-muted-foreground uppercase tracking-wider">Read By Years</CardTitle>
         <CardDescription class="text-xs">
           {{
             hasData
@@ -16,7 +16,7 @@
           class="flex flex-1 flex-col justify-center gap-1 border-t px-6 py-4 text-left even:border-l sm:border-t-0 sm:border-l sm:px-8 sm:py-6"
         >
           <span class="text-muted-foreground text-xs"> Read in {{ currentYear }} </span>
-          <span class="text-lg text-right leading-none font-bold sm:text-3xl">
+          <span class="text-lg sm:text-right leading-none font-bold sm:text-3xl">
             {{ totalReadInCurrent }}
           </span>
         </div>

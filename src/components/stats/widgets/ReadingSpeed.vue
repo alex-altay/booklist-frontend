@@ -1,10 +1,12 @@
 <template>
-  <Card class="p-6 flex items-start gap-4">
-    <div class="bg-muted rounded-lg p-2.5">
-      <Timer class="w-5 h-5 text-muted-foreground" />
+  <Card class="p-6 flex justify-between gap-4">
+    <div class="flex items-center justify-start">
+      <div class="p-2.5 mr-4 bg-muted rounded-lg">
+        <Timer class="w-5 h-5 text-muted-foreground" />
+      </div>
+      <p class="text-xs text-muted-foreground uppercase tracking-wider mb-1">Reading Speed</p>
     </div>
     <div class="text-left">
-      <p class="text-xs text-muted-foreground uppercase tracking-wider mb-1">Reading Speed</p>
       <p>
         <span class="mr-1 text-3xl font-bold">{{ totalSpeed }}</span>
         <span class="text-xs text-muted-foreground mt-0.5 truncate">days / book</span>
