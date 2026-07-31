@@ -9,7 +9,7 @@
     <div v-if="longestBooks.length" class="space-y-3">
       <div v-for="(book, index) in longestBooks" :key="index" class="flex items-center gap-4">
         <span class="w-4 shrink-0text-xs text-muted-foreground text-right">{{ index + 1 }}</span>
-        <div class="flex-1 min-w-0">
+        <div class="flex-1 min-w-0 cursor-pointer" @click="$router.push({ name: 'book', params: { id: book.id } })">
           <div class="mb-1 flex items-baseline justify-between gap-2">
             <span class="text-sm font-medium truncate">{{ book.title }}, {{ book.author }}</span>
             <span class="shrink-0 text-sm font-semibold">{{ book.duration }} days</span>
@@ -37,10 +37,15 @@ import type { Book } from '@/schemas/book'
 const { books } = defineProps<{ books: Book[] }>()
 const LIST_LENGTH = 10
 
-type Longest = { title: Book['title']; author: Book['author']; duration: number }
+type Longest = {
+  id: Book['id']
+  author: Book['author']
+  title: Book['title']
+  duration: number
+}
 const longestBooks: Longest[] = books
   .filter((b) => b.startDate && b.endDate)
-  .map((b: Book): Longest => ({ title: b.title, author: b.author, duration: getDaysDuration(b) }))
+  .map((b: Book): Longest => ({ id: b.id, title: b.title, author: b.author, duration: getDaysDuration(b) }))
   .sort((a, b) => b.duration - a.duration)
   .slice(0, LIST_LENGTH)
 const maxDays = longestBooks.length ? longestBooks[0].duration : 0
