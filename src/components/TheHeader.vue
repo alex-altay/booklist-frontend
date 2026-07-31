@@ -16,8 +16,8 @@
         <button
           class="min-w-12 text-right text-sm font-medium cursor-pointer"
           :class="{
-            'text-muted-foreground': $route.name == 'books',
-            'hover:text-gray-500': $route.name != 'books',
+            'text-muted-foreground': $route.name != 'books',
+            'hover:text-foreground': $route.name != 'books',
             'transition-colors': $route.name != 'books',
             'pointer-none': $route.name == 'books',
           }"
@@ -31,8 +31,8 @@
         <button
           class="min-w-12 text-left text-sm font-medium cursor-pointer"
           :class="{
-            'text-muted-foreground': $route.name == 'stats',
-            'hover:text-gray-500': $route.name != 'stats',
+            'text-muted-foreground': $route.name != 'stats',
+            'hover:text-foreground': $route.name != 'stats',
             'transition-colors': $route.name != 'stats',
             'pointer-none': $route.name == 'stats',
           }"
