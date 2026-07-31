@@ -7,9 +7,10 @@
         >
           <span class="text-muted-foreground text-xs"> Average&nbsp;Rating </span>
           <span class="text-left leading-none">
-            <span class="text-lg text-left leading-none font-bold sm:text-3xl">
-              {{ averageRating }} </span
-            >&nbsp;<span class="text-xs text-muted-foreground">of&nbsp;10</span>
+            <span class="text-lg text-left leading-none font-bold sm:text-3xl"> {{ averageRating }} </span>&nbsp;<span
+              class="text-xs text-muted-foreground"
+              >of&nbsp;10</span
+            >
           </span>
         </div>
       </div>
@@ -24,15 +25,10 @@
         </CardDescription>
       </div>
     </CardHeader>
-    <CardContent>
+    <CardContent class="pb-4">
       <ChartContainer :config="chartConfig">
         <VisXYContainer :data="chartData" :margin="{ left: -24 }" :y-domain="[0, undefined]">
-          <VisGroupedBar
-            :x="(d: ChartData) => d.rating"
-            :y="(d: ChartData) => d.books"
-            :color="chartConfig.rating.color"
-            :rounded-corners="6"
-          />
+          <VisArea :x="(d: ChartData) => d.rating" :y="(d: ChartData) => d.books" :color="chartConfig.rating.color" />
           <VisAxis
             type="x"
             :x="(d: ChartData) => d.rating"
@@ -67,7 +63,7 @@
 </template>
 
 <script setup lang="ts">
-import { VisAxis, VisGroupedBar, VisXYContainer } from '@unovis/vue'
+import { VisAxis, VisArea, VisXYContainer } from '@unovis/vue'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import {
   ChartContainer,

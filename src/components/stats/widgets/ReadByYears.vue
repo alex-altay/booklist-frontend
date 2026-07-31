@@ -22,7 +22,7 @@
         </div>
       </div>
     </CardHeader>
-    <CardContent class="pb-6">
+    <CardContent class="pb-4 flex flex-col justify-center items-center h-full">
       <ChartContainer :config="chartConfig">
         <VisXYContainer :data="chartData" :margin="{ left: -24 }" :y-domain="[0, undefined]">
           <VisStackedBar
