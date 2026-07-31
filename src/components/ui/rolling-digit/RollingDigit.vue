@@ -1,20 +1,17 @@
 <template>
-  <NumberFlow 
-    class="" 
-    :value="rollingDigit" 
-    :trend="0" 
-    :format="{ style: 'decimal', trailingZeroDisplay: 'auto' }"
-    locales="en-US"
-    />
+  {{ tweened.number.toFixed(decimalCount) }}
 </template>
 
 <script setup lang="ts">
-import NumberFlow from '@number-flow/vue'
-import { onMounted, ref } from 'vue'
+import { reactive, onMounted } from 'vue'
+import gsap from 'gsap'
 
 const { digit } = defineProps<{ digit: number }>()
-const rollingDigit = ref(Number('1'.padEnd(`${digit}`.length, '1')))
+const tweened = reactive({ number: 0 })
+const diff = `${digit}`.length - digit.toFixed(0).length
+const decimalCount = diff == 0 ? diff : diff - 1
+
 onMounted(() => {
-  rollingDigit.value = digit
+  gsap.to(tweened, { duration: 0.5, number: Number(digit) || 0 })
 })
 </script>
