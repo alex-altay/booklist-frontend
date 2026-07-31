@@ -72,7 +72,7 @@ for (const lang of Object.keys(spendByLanguage) as Language[]) {
 
 <style scoped>
 .grow-right {
-  animation: grow 1s ease-in-out;
+  animation: grow 500ms ease-in-out;
 }
 
 @keyframes grow {

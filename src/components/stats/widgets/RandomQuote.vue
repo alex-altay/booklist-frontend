@@ -16,11 +16,15 @@
       </button>
     </div>
     <template v-if="withDescription.length">
-      <p class="min-h-[3lh] text-sm text-foreground text-left leading-relaxed line-clamp-3 select-none">
+      <p
+        class="min-h-[3lh] text-sm text-foreground text-left leading-relaxed line-clamp-3 select-none"
+        :class="{ shimmer: isAnimated }"
+      >
         {{ quote }}
       </p>
       <p
         class="text-xs text-left text-muted-foreground line-clamp-1 truncate whitespace-normal cursor-pointer"
+        :class="{ shimmer: isAnimated }"
         @click="$router.push({ name: 'book', params: { id: id } })"
       >
         {{ title }}, {{ author }}
@@ -58,11 +62,14 @@ function getNewRandomIndex(): number {
   }
   return randomIndex
 }
+const isAnimated = ref(false)
 
 function updateQuote() {
   if (!withDescription.length) {
     return
   }
+  isAnimated.value = true
+  setTimeout(() => (isAnimated.value = false), 500)
   const randomIndex = getNewRandomIndex()
   const randomBook = withDescription[randomIndex]
   quote.value = randomBook.description || ''
@@ -73,3 +80,18 @@ function updateQuote() {
 
 updateQuote()
 </script>
+
+<style scoped>
+.shimmer {
+  animation: shimmer 500ms ease-in-out both;
+}
+
+@keyframes shimmer {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+</style>
