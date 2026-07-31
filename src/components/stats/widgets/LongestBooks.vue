@@ -32,10 +32,10 @@
 import { Card } from '@/components/ui/card'
 import { Infinity } from '@lucide/vue'
 import { getDaysDuration } from '@/utils/date'
+import { LONGEST_BOOKS_LIST_LENGTH } from '@/data/constants'
 import type { Book } from '@/schemas/book'
 
 const { books } = defineProps<{ books: Book[] }>()
-const LIST_LENGTH = 10
 
 type Longest = {
   id: Book['id']
@@ -47,6 +47,6 @@ const longestBooks: Longest[] = books
   .filter((b) => b.startDate && b.endDate)
   .map((b: Book): Longest => ({ id: b.id, title: b.title, author: b.author, duration: getDaysDuration(b) }))
   .sort((a, b) => b.duration - a.duration)
-  .slice(0, LIST_LENGTH)
+  .slice(0, LONGEST_BOOKS_LIST_LENGTH)
 const maxDays = longestBooks.length ? longestBooks[0].duration : 0
 </script>

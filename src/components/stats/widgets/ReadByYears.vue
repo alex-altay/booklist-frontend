@@ -38,7 +38,7 @@
             :tick-line="false"
             :domain-line="false"
             :grid-line="false"
-            :num-ticks="BAR_NUMBER"
+            :num-ticks="YEARS_BAR_NUMBER"
             :min-max-ticks-only-when-width-is-less="TICKS_HIDE_WIDTH"
           />
           <VisAxis type="y" :num-ticks="3" :tick-line="false" :domain-line="false" :label-font-size="8" />
@@ -71,6 +71,7 @@ import {
 } from '@/components/ui/chart'
 import { RollingDigit } from '@/components/ui/rolling-digit'
 import { getYears } from '@/utils/date'
+import { YEARS_BAR_NUMBER } from '@/data/constants'
 import type { ChartConfig } from '@/components/ui/chart'
 import type { Book } from '@/schemas/book'
 
@@ -78,7 +79,6 @@ const { books } = defineProps<{ books: Book[] }>()
 const withDateAndLanguage = books.filter((b) => b.language && b.endDate)
 const hasData = withDateAndLanguage.length > 0
 
-const BAR_NUMBER = 10
 const TICKS_HIDE_WIDTH = 400
 const CHART_COLOR_DE = 'oklch(26.9% 0 none)' // tailwind neutral-800
 const CHART_COLOR_EN = 'oklch(37.1% 0 none)' // tailwind neutral-700
@@ -101,8 +101,8 @@ for (const book of withDateAndLanguage) {
 for (const [k, v] of Object.entries(yearDictionary)) {
   chartData.push({ year: +k, ...v })
 }
-if (chartData.length != 0 && chartData.length < BAR_NUMBER) {
-  const padNumber = BAR_NUMBER - chartData.length
+if (chartData.length != 0 && chartData.length < YEARS_BAR_NUMBER) {
+  const padNumber = YEARS_BAR_NUMBER - chartData.length
   const minYear = years.sort((a, b) => a - b)[0]
   for (let i = minYear - 1; i >= minYear - padNumber; i--) {
     chartData.unshift({ year: i, DE: 0, EN: 0, RU: 0 })
