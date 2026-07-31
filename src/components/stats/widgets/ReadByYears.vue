@@ -17,7 +17,7 @@
         >
           <span class="text-muted-foreground text-xs"> Read in {{ currentYear }} </span>
           <span class="text-lg sm:text-right leading-none font-bold sm:text-3xl">
-            {{ totalReadInCurrent }}
+            <RollingDigit :digit="totalReadInCurrent" />
           </span>
         </div>
       </div>
@@ -69,6 +69,7 @@ import {
   ChartTooltipContent,
   componentToString,
 } from '@/components/ui/chart'
+import { RollingDigit } from '@/components/ui/rolling-digit'
 import { getYears } from '@/utils/date'
 import type { ChartConfig } from '@/components/ui/chart'
 import type { Book } from '@/schemas/book'

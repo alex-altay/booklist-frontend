@@ -6,8 +6,10 @@
       </div>
       <p class="inline-block text-left text-xs text-muted-foreground uppercase tracking-wider">Total Read</p>
     </div>
-    <div class="flex items-end space-x-3">
-      <p class="text-3xl font-bold text-left tracking-wider">{{ totalRead.length }}</p>
+    <div class="flex items-baseline-last space-x-3">
+      <p class="text-3xl font-bold text-left tracking-wider leading-none">
+        <RollingDigit :digit="totalRead.length" />
+      </p>
       <div class="flex items-center space-x-3 pb-1.5">
         <div class="flex flex-col">
           <span class="text-xxs uppercase leading-none">DE</span>
@@ -32,6 +34,7 @@
 <script setup lang="ts">
 import { Card } from '@/components/ui/card'
 import { BookCheck } from '@lucide/vue'
+import { RollingDigit } from '@/components/ui/rolling-digit'
 import type { Book } from '@/schemas/book'
 
 const { books } = defineProps<{ books: Book[] }>()

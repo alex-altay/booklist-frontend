@@ -7,7 +7,9 @@
       <p class="inline-block text-left text-xs text-muted-foreground uppercase tracking-wider">Time Spent</p>
     </div>
     <div class="flex items-end space-x-3">
-      <p class="text-3xl font-bold text-left tracking-wider">{{ totalDays }}</p>
+      <p class="text-3xl font-bold text-left tracking-wider">
+        <RollingDigit :digit="totalDays" />
+      </p>
     </div>
     <p class="mt-0.5 text-xs text-left text-muted-foreground">days total</p>
   </Card>
@@ -15,6 +17,7 @@
 
 <script setup lang="ts">
 import { Card } from '@/components/ui/card'
+import { RollingDigit } from '@/components/ui/rolling-digit'
 import { Watch } from '@lucide/vue'
 import { getDaysDuration } from '@/utils/date'
 import type { Book } from '@/schemas/book'

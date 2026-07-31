@@ -7,10 +7,9 @@
         >
           <span class="text-muted-foreground text-xs"> Average&nbsp;Rating </span>
           <span class="text-left leading-none">
-            <span class="text-lg text-left leading-none font-bold sm:text-3xl"> {{ averageRating }} </span>&nbsp;<span
-              class="text-xs text-muted-foreground"
-              >of&nbsp;10</span
-            >
+            <span class="text-lg text-left leading-none font-bold sm:text-3xl">
+              <RollingDigit :digit="averageRating" /> </span
+            >&nbsp;<span class="text-xs text-muted-foreground">of&nbsp;10</span>
           </span>
         </div>
       </div>
@@ -72,6 +71,7 @@ import {
   ChartTooltipContent,
   componentToString,
 } from '@/components/ui/chart'
+import { RollingDigit } from '@/components/ui/rolling-digit'
 import { ratingMap } from '@/utils'
 import { ratings } from '@/schemas/book'
 import type { ChartConfig } from '@/components/ui/chart'

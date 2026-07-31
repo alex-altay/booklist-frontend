@@ -8,7 +8,9 @@
     </div>
     <div class="text-left">
       <p>
-        <span class="mr-1 text-3xl font-bold">{{ totalSpeed }}</span>
+        <span class="mr-1 text-3xl text-left font-bold">
+          <RollingDigit :digit="totalSpeed" />
+        </span>
         <span class="text-xs text-muted-foreground mt-0.5 truncate">days / book</span>
       </p>
     </div>
@@ -32,6 +34,7 @@
 
 <script setup lang="ts">
 import { Card } from '@/components/ui/card'
+import { RollingDigit } from '@/components/ui/rolling-digit'
 import { Timer } from '@lucide/vue'
 import { languageMap } from '@/utils'
 import { MS } from '@/utils/date'
