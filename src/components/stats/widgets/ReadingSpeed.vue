@@ -19,9 +19,9 @@
           >&nbsp;
           <span>{{ speed }}</span>
         </div>
-        <div class="relative h-2 bg-gray-300 rounded-xs">
+        <div class="relative h-2 bg-gray-300 rounded-xs overflow-hidden">
           <div
-            class="absolute top-0 left-0 h-full bg-gray-900 rounded-xs"
+            class="grow-right absolute top-0 left-0 h-full bg-gray-900 rounded-xs"
             :style="{ width: `${Math.round((speed / minSpeed) * 100)}%` }"
           />
         </div>
@@ -66,3 +66,18 @@ for (const lang of Object.keys(spendByLanguage) as Language[]) {
   minSpeed = Math.max(langSpeed, minSpeed)
 }
 </script>
+
+<style scoped>
+.grow-right {
+  animation: grow 1s ease-in-out;
+}
+
+@keyframes grow {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+</style>
