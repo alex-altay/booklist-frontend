@@ -1,1 +1,0 @@
-type BookControlsMode = 'editing' | 'viewing'
