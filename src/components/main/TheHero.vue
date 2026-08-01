@@ -12,7 +12,7 @@
     <div class="flex justify-center text-main-additional">
       <div class="w-[min(1420px,calc(100vw-7rem))] flex flex-col leading-none font-black gap-0">
         <div
-          class="text-[clamp(3rem,15vw,200px)] 2xl:pr-[6.8ch] -ml-[0.05ch] lg:self-start lg:pr-0 max-lg:pr-0"
+          class="text-[clamp(3rem,15vw,200px)] 2xl:pr-[6.8ch] ml-[-0.05ch] lg:self-start lg:pr-0 max-lg:pr-0"
           :style="{
             fontStretch: `${firstLineFontStretch}%`,
             letterSpacing: `${firstLineLetterSpacing}em`,
@@ -21,7 +21,7 @@
           KEEP
         </div>
         <div
-          class="text-[clamp(3rem,15vw,200px)] -mt-[0.1em]"
+          class="text-[clamp(3rem,15vw,200px)] mt-[-0.1em]"
           :style="{
             fontStretch: `${secondLineFontStretch}%`,
             letterSpacing: `${secondLineLetterSpacing}em`,

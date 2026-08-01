@@ -19,8 +19,8 @@
       ref="links"
       class="absolute bottom-15 px-5 sm:px-14 flex flex-row w-full justify-between uppercase sm:text-lg 2xl:text-2xl"
     >
-      <div ref="linkLeft" class="cursor-pointer text-left">BORING TERMS OF AGREEMENT</div>
-      <div ref="linkRight" class="cursor-pointer text-right">EVEN MORE BORING PRIVACY POLICY</div>
+      <RouterLink to="/terms" class="cursor-pointer text-left">BORING TERMS OF AGREEMENT</RouterLink>
+      <RouterLink to="/privacy" class="cursor-pointer text-right">EVEN MORE BORING PRIVACY POLICY</RouterLink>
     </div>
   </div>
 </template>
@@ -28,13 +28,13 @@
 <script setup lang="ts">
 import Button from '@/components/ui/button/Button.vue'
 import { useElementBounding } from '@vueuse/core'
-import { ref, watch, computed } from 'vue'
+import { watch, computed, useTemplateRef } from 'vue'
 
-const wrapper = ref()
-const pen = ref<HTMLImageElement>()
-const pencil = ref<HTMLImageElement>()
-const laptop = ref<HTMLImageElement>()
-const header = ref<HTMLDivElement>()
+const wrapper = useTemplateRef<HTMLDivElement>('wrapper')
+const pen = useTemplateRef<HTMLImageElement>('pen')
+const pencil = useTemplateRef<HTMLImageElement>('pencil')
+const laptop = useTemplateRef<HTMLImageElement>('laptop')
+const header = useTemplateRef<HTMLDivElement>('header')
 
 const { height, top } = useElementBounding(wrapper)
 const progress = computed(() => (height.value - top.value) / height.value)
