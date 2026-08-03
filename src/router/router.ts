@@ -5,6 +5,7 @@ import { userStore } from '@/stores/user'
 const router = createRouter({
   history: createWebHistory(),
   routes,
+  scrollBehavior: () => ({ top: 0 }),
 })
 
 router.beforeEach(async (to) => {
@@ -12,7 +13,5 @@ router.beforeEach(async (to) => {
     return { name: 'signin' }
   }
 })
-
-// TODO On route change - scroll everywhere
 
 export { router }
