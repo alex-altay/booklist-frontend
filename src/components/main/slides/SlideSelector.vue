@@ -9,10 +9,10 @@
 </template>
 
 <script setup lang="ts">
-import { watch, ref } from 'vue'
+import { watch, useTemplateRef } from 'vue'
 
 const props = defineProps<{ progress: number }>()
-const selector = ref<HTMLDivElement>()
+const selector = useTemplateRef<HTMLDivElement>('selector')
 
 watch(
   () => props.progress,

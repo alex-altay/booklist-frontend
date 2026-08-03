@@ -13,10 +13,10 @@
 import PresentingSlide from '@/components/main/slides/PresentingSlide.vue'
 import ReadingSlide from '@/components/main/slides/ReadingSlide.vue'
 import SavingSlide from '@/components/main/slides/SavingSlide.vue'
-import { ref, watch } from 'vue'
+import { watch, useTemplateRef } from 'vue'
 
 const props = defineProps<{ progress: number }>()
-const slidesContainer = ref<HTMLDivElement>()
+const slidesContainer = useTemplateRef<HTMLDivElement>('slidesContainer')
 
 watch(
   () => props.progress,

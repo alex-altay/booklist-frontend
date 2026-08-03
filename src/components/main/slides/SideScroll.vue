@@ -9,11 +9,11 @@
 
 <script setup lang="ts">
 import SlideSelector from '@/components/main/slides/SlideSelector.vue'
-import { ref, computed } from 'vue'
+import { computed, useTemplateRef } from 'vue'
 import { useElementBounding } from '@vueuse/core'
 
-const wrapperRef = ref<HTMLElement | null>(null)
-const stickyRef = ref<HTMLElement | null>(null)
+const wrapperRef = useTemplateRef<HTMLElement>('wrapperRef')
+const stickyRef = useTemplateRef<HTMLElement>('stickyRef')
 const { height: wrapperHeight, y: wrapperY } = useElementBounding(wrapperRef)
 const { height: stickyHeight, y: stickyY } = useElementBounding(stickyRef)
 const progress = computed(() => {
