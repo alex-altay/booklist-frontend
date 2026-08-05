@@ -86,30 +86,12 @@
 
         <div class="space-y-2">
           <Label for="startDate">Start date</Label>
-          <!-- @vue-ignore -->
-          <Input
-            id="startDate"
-            v-model="draft.startDate"
-            type="date"
-            class="text-sm"
-            :class="{ 'text-muted-foreground': !draft.startDate }"
-          />
+          <DatePicker v-model:date="draft.startDate" class="w-full" />
         </div>
 
         <div class="space-y-2">
-          <Label for="endDate">End Date</Label>
-          <!-- @vue-ignore -->
-          <Input
-            id="endDate"
-            v-model="draft.endDate"
-            type="date"
-            class="text-sm"
-            :class="{
-              'border-destructive': hasDateError,
-              'focus-visible:ring-destructive': hasDateError,
-              'text-muted-foreground': !draft.endDate,
-            }"
-          />
+          <Label for="startDate">End date</Label>
+          <DatePicker v-model:date="draft.endDate" :has-date-error />
         </div>
       </div>
 
@@ -131,6 +113,7 @@
 </template>
 
 <script setup lang="ts">
+import DatePicker from '@/components/book/editing/DatePicker.vue'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
@@ -143,8 +126,10 @@ import { computed, watch } from 'vue'
 
 const draft = defineModel<NewBook>('draft', { required: true })
 const hasErrors = defineModel<boolean>('hasErrors', { required: true })
-const hasDateError = computed(
-  () => draft.value.startDate && draft.value.endDate && new Date(draft.value.endDate) < new Date(draft.value.startDate),
+const hasDateError = computed(() =>
+  Boolean(
+    draft.value.startDate && draft.value.endDate && new Date(draft.value.endDate) < new Date(draft.value.startDate),
+  ),
 )
 
 const hasFinishedPlaceholder = computed(() => {

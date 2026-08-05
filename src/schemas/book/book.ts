@@ -1,15 +1,14 @@
 import * as z from 'zod'
 import { User } from '@/schemas/user'
 import { category, rating, language } from '@/schemas/book'
-import { dropTime } from '@/utils'
 
 const book = z.object({
   id: z.number(),
   title: z.string().trim().min(1),
   author: z.string().trim().min(1),
   language: language.nullish(),
-  startDate: z.string().nullish().transform(dropTime),
-  endDate: z.string().nullish().transform(dropTime),
+  startDate: z.string().nullish(),
+  endDate: z.string().nullish(),
   hasFinished: z.boolean().nullish(),
   description: z.string().nullish(),
   rating: rating.nullish(),

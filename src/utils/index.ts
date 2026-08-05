@@ -1,5 +1,5 @@
-import { dropTime, formatDate } from './date'
+import { formatDate } from './date'
 import { languageMap, ratingMap } from './maps'
 import { capitalizeProperty } from './capitalize'
 
-export { dropTime, formatDate, languageMap, ratingMap, capitalizeProperty }
+export { formatDate, languageMap, ratingMap, capitalizeProperty }
