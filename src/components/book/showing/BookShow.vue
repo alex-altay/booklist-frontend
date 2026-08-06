@@ -34,7 +34,7 @@ const isDeleteGuardOpen = ref(false)
 const { id } = useRoute().params
 const book = await getBook(+id)
 if (!id || !book) {
-  router.push({ name: '404' })
+  await router.push({ name: '404', params: { pathMatch: '' } })
 }
 
 function confirmDelete() {
