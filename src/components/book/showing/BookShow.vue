@@ -9,8 +9,8 @@
     @keydown.enter="edit"
   >
     <BookShowControls class="mb-8" @back="$router.back()" @edit="edit" @delete="confirmDelete" />
-    <BookContent :book />
-    <DeleteGuardDialog v-model:open="isDeleteGuardOpen" :title="book.title" @delete-confirmed="removeBook" />
+    <BookContent v-if="book" :book />
+    <DeleteGuardDialog v-model:open="isDeleteGuardOpen" :title="book!.title" @delete-confirmed="removeBook" />
   </div>
 </template>
 
@@ -32,9 +32,9 @@ const { request, isLoading } = useApi()
 const isDeleteGuardOpen = ref(false)
 
 const { id } = useRoute().params
-const book = await getBook(+id)
-if (!id || !book) {
-  await router.push({ name: '404', params: { pathMatch: '' } })
+const book = Number.isInteger(+id) ? await request(() => getBook(+id)) : null
+if (!book) {
+  await router.replace({ name: '404', params: { pathMatch: '' } })
 }
 
 function confirmDelete() {
@@ -42,12 +42,12 @@ function confirmDelete() {
 }
 
 function edit() {
-  router.push({ name: 'edit', params: { id: book.id } })
+  router.push({ name: 'edit', params: { id: book?.id } })
 }
 
 async function removeBook() {
-  await request(() => deleteBook(book.id))
-  toast.success(`«${book.title}» was successfully deleted`)
+  await request(() => deleteBook(book!.id))
+  toast.success(`«${book!.title}» was successfully deleted`)
   await router.push({ name: 'books' })
 }
 
