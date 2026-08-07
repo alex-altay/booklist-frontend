@@ -31,13 +31,14 @@ import MorphSVGPlugin from 'gsap/MorphSVGPlugin'
 import { ref, onMounted, onUnmounted } from 'vue'
 
 gsap.registerPlugin(MorphSVGPlugin)
+let animation: GSAPAnimation | null
 const book = ref<SVGPathElement | null>(null)
 
 onMounted(() => {
   if (!book.value) {
     return
   }
-  gsap.to(book.value, {
+  animation = gsap.to(book.value, {
     morphSVG: '#flame',
     duration: 2,
     ease: 'expo.inOut',
@@ -46,7 +47,5 @@ onMounted(() => {
   })
 })
 
-onUnmounted(() => {
-  gsap.context().revert()
-})
+onUnmounted(() => animation?.kill())
 </script>
