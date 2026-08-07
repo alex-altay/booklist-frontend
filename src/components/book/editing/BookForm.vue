@@ -134,13 +134,12 @@ const hasDateError = computed(() =>
 
 const hasFinishedPlaceholder = computed(() => {
   switch (draft.value.hasFinished) {
-    case null:
-      return 'Not chosen'
     case true:
       return 'Finished'
     case false:
-    default:
       return 'Not finished'
+    default:
+      return 'Not chosen'
   }
 })
 
