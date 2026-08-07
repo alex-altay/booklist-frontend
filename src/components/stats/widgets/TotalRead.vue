@@ -27,7 +27,9 @@
         </div>
       </div>
     </div>
-    <p class="text-xs text-left text-muted-foreground mt-0.5">and {{ inProgress.length }} in progress</p>
+    <p class="text-xs text-left text-muted-foreground mt-0.5">
+      {{ inProgress.length }} in progress and {{ dropped.length }} dropped
+    </p>
   </Card>
 </template>
 
@@ -38,8 +40,9 @@ import { RollingDigit } from '@/components/ui/rolling-digit'
 import type { Book } from '@/schemas/book'
 
 const { books } = defineProps<{ books: Book[] }>()
-const totalRead = books.filter((b: Book) => !b.hasFinished)
+const totalRead = books.filter((b: Book) => b.hasFinished)
 const inProgress = books.filter((b: Book) => b.hasFinished == undefined || b.hasFinished == null)
+const dropped = books.filter((b: Book) => b.hasFinished === false)
 const [de, en, ru] = totalRead.reduce(
   (acc: [number, number, number], el: Book): [number, number, number] => {
     switch (el.language) {

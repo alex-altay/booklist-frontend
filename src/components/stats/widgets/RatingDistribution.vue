@@ -90,7 +90,7 @@ for (let i = 1; i <= 10; i++) {
 for (const book of books) {
   if (book.rating!) {
     const index = ratingMap[book.rating][0]
-    chartData[index]['books']++
+    chartData[index - 1]['books']++
   }
 }
 
