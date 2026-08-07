@@ -1,4 +1,4 @@
-import { ERRORS, isUnauthorizedError } from '@/utils/errors'
+import { ERRORS, isBadRequestError, isNotFoundError, isUnauthorizedError } from '@/utils/errors'
 import { ref } from 'vue'
 
 export function useApi() {
@@ -10,7 +10,7 @@ export function useApi() {
       isLoading.value = true
       return await fn()
     } catch (apiError) {
-      if (isUnauthorizedError(apiError)) {
+      if (isUnauthorizedError(apiError) || isBadRequestError(apiError) || isNotFoundError(apiError)) {
         throw apiError
       } else if (typeof apiError === 'string') {
         error.value = apiError
