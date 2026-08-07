@@ -17,7 +17,13 @@
         :default-page="1"
       >
         <PaginationContent v-slot="{ items }">
-          <PaginationPrevious class="cursor-pointer" />
+          <PaginationFirst class="cursor-pointer">
+            <ChevronsLeft class="h-4 w-auto" />
+          </PaginationFirst>
+          <PaginationPrevious :class="{ 'px-1!': isSmallerThanLg }" class="cursor-pointer">
+            <ChevronLeft v-if="isSmallerThanLg" class="h-4 w-auto" />
+            <Button v-else variant="ghost" class="px-0 cursor-pointer"> Previous </Button>
+          </PaginationPrevious>
           <template v-for="(item, index) in items" :key="index">
             <PaginationItem
               v-if="item.type === 'page'"
@@ -29,7 +35,13 @@
             </PaginationItem>
             <PaginationEllipsis v-else-if="item.type === 'ellipsis'" :key="`ellipsis-${index}`" />
           </template>
-          <PaginationNext class="cursor-pointer" />
+          <PaginationNext :class="{ 'px-1!': isSmallerThanLg }" class="cursor-pointer">
+            <ChevronRight v-if="isSmallerThanLg" class="h-4 w-auto" />
+            <Button v-else variant="ghost" class="px-0 cursor-pointer">Next</Button>
+          </PaginationNext>
+          <PaginationLast class="cursor-pointer">
+            <ChevronsRight class="h-4 w-auto" />
+          </PaginationLast>
         </PaginationContent>
       </Pagination>
     </div>
@@ -45,12 +57,17 @@ import {
   PaginationItem,
   PaginationNext,
   PaginationPrevious,
+  PaginationFirst,
+  PaginationLast,
 } from '@/components/ui/pagination'
 import BookCard from '@/components/list/BookCard.vue'
 import EmptyList from '@/components/list/EmptyList.vue'
+import { Button } from '@/components/ui/button'
+import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from '@lucide/vue'
 import { PAGINATION_SIZE } from '@/data/constants'
 import { computed, ref, watch } from 'vue'
-import type { Book } from '@/schemas/book/book'
+import { useBreakpoints, breakpointsTailwind } from '@vueuse/core'
+import type { Book } from '@/schemas/book'
 
 defineEmits(['resetFilter'])
 const props = defineProps<{ books: Book[]; isNewUser: boolean }>()
@@ -72,4 +89,7 @@ watch(
 watch(page, () => {
   window.scrollTo({ top: 0 })
 })
+
+const breakpoints = useBreakpoints(breakpointsTailwind)
+const isSmallerThanLg = breakpoints.smaller('lg')
 </script>
