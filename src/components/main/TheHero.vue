@@ -1,18 +1,18 @@
 <template>
   <div
-    class="relative h-screen px-14 pt-14 pb-3 flex flex-col justify-between bg-main-bg text-main-dark uppercase select-none"
+    class="relative h-screen px-3 py-3 sm:px-14 sm:pt-14 sm:pb-3 flex flex-col justify-between bg-main-bg text-main-dark uppercase select-none"
   >
-    <div class="flex flex-row justify-between text-2xl font-bold">
-      <div>MY BOOK LIST</div>
+    <div class="flex flex-row justify-between text-xl sm:text-2xl text-gray-800 font-bold">
+      <div>MY BOOKLIST</div>
       <div class="cursor-pointer" @click="$router.push({ name: 'signin' })">SIGN IN</div>
     </div>
 
     <div class="symmetric-flex-filler" />
 
     <div class="flex justify-center text-main-additional">
-      <div class="w-[min(1420px,calc(100vw-7rem))] flex flex-col leading-none font-black gap-0">
+      <div class="w-[min(1420px,calc(100vw-1rem))] flex flex-col leading-none font-black gap-0">
         <div
-          class="text-[clamp(3rem,15vw,200px)] 2xl:pr-[6.8ch] ml-[-0.05ch] lg:self-start lg:pr-0 max-lg:pr-0"
+          class="text-[clamp(3rem,22vw,200px)] 2xl:pr-[6.8ch] ml-[-0.05ch] lg:self-start lg:pr-0 max-lg:pr-0"
           :style="{
             fontStretch: `${firstLineFontStretch}%`,
             letterSpacing: `${firstLineLetterSpacing}em`,
@@ -21,7 +21,7 @@
           KEEP
         </div>
         <div
-          class="text-[clamp(3rem,15vw,200px)] mt-[-0.1em]"
+          class="text-[clamp(3rem,22vw,200px)] mt-[-0.1em] ml-[-0.15em]"
           :style="{
             fontStretch: `${secondLineFontStretch}%`,
             letterSpacing: `${secondLineLetterSpacing}em`,
@@ -41,14 +41,16 @@
       </div>
     </div>
 
-    <div class="flex flex-row self-center lg:self-end gap-16 text-xs lg:text-sm lg:font-bold">
-      <div>CONVENIENT</div>
-      <div>INTERESTING</div>
-      <div>AD&nbsp;FREE</div>
+    <div
+      class="flex flex-row w-full sm:w-auto self-center justify-between lg:self-end sm:gap-16 text-xs lg:text-sm lg:font-bold"
+    >
+      <div class="min-w-20">USEFUL</div>
+      <div class="text-center">INTERESTING</div>
+      <div class="min-w-20 text-right">AD&nbsp;FREE</div>
     </div>
 
     <div class="flex flex-col justify-center items-center mb-5">
-      <div class="text-xs lg:text-sm mb-5">KEEP SCROLLING</div>
+      <div class="hidden sm:block lg:text-sm mb-5">KEEP SCROLLING</div>
       <img class="w-6 cursor-pointer" src="@/assets/main-page/mouse.svg" @click="scroll" />
     </div>
   </div>

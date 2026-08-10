@@ -1,9 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="36" height="80" fill="#2C2C2C">
-    <!-- <animate 
+  <animate 
       attributeName="fill" 
-      values="#F7CACA;#2C2C2C" 
-      dur="3s" 
-      repeatCount="indefinite" /> -->
+      values="#2C2C2C;#FF6F61" 
+      dur="1.25s" 
+      repeatCount="indefinite" 
+      />
 
   <path class="color-change" d="M34.4 38.946V16.542c0-9.14-7.71-15-16.495-14.944C9.128 1.653 1.6 7.588 1.6 16.744v22.403c0 8.552 7.55 15.1 16.304 15.147 8.845.048 16.496-6.785 16.496-15.348Zm1.6 0c0 9.565-8.495 16.997-18.105 16.945C8.415 55.84 0 48.724 0 39.147V16.744C0 6.524 8.438.061 17.894 0 27.341-.06 36 6.306 36 16.542v22.404Z"/>
   <path href="#moveDown" class="color-change"  d="M20.515 17.457c0 1.752-1.134 3.131-2.428 3.121-1.28-.01-2.4-1.33-2.4-3.082v-4.33c0-1.873 1.12-3.072 2.4-3.083 1.279-.011 2.428 1.17 2.428 3.043v4.331Z">
@@ -14,7 +15,7 @@
       type="translate"
       from="0 0"
       to="0 10"
-      dur="3s"
+      dur="1.25s"
       repeatCount="indefinite" />
   </path>
   
@@ -28,7 +29,7 @@
       type="translate"
       from="0 0"
       to="0 5"
-      dur="3s"
+      dur="1.25s"
       repeatCount="indefinite" />
   </g>
 </svg>
