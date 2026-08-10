@@ -1,10 +1,10 @@
 <template>
   <div ref="wrapper" class="relative h-screen w-screen flex items-center justify-center select-none bg-main-bg">
-    <img ref="pencil" class="absolute h-[10vh] left-[16vw] top-0" src="@/assets/main-page/pencil.png" />
-    <img ref="pen" class="absolute h-[14vh] top-0 right-[18vw]" src="@/assets/main-page/pen.png" />
+    <img ref="pencil" class="absolute top-0 h-[10vh] left-[16vw]" src="@/assets/main-page/pencil.png" />
+    <img ref="pen" class="absolute top-0 h-[14vh] right-[18vw]" src="@/assets/main-page/pen.png" />
     <img
       ref="laptop"
-      class="absolute h-[12vh] bottom-0 translate-x-1 hidden md:block"
+      class="absolute bottom-0 h-[12vh] translate-x-1 hidden sm:block"
       src="@/assets/main-page/laptop.png"
     />
 
@@ -17,10 +17,16 @@
 
     <div
       ref="links"
-      class="absolute bottom-15 px-5 sm:px-14 flex flex-row w-full justify-between uppercase sm:text-lg 2xl:text-2xl"
+      class="absolute bottom-3 sm:bottom-15 px-3 sm:px-14 flex flex-row w-full justify-between uppercase sm:text-lg 2xl:text-2xl"
     >
-      <RouterLink to="/terms" class="cursor-pointer text-left">BORING TERMS OF AGREEMENT</RouterLink>
-      <RouterLink to="/privacy" class="cursor-pointer text-right">EVEN MORE BORING PRIVACY POLICY</RouterLink>
+      <RouterLink to="/terms" class="max-w-30 lg:max-w-none text-xs lg:text-lg text-gray-800 text-left cursor-pointer"
+        >BORING TERMS OF AGREEMENT</RouterLink
+      >
+      <RouterLink
+        to="/privacy"
+        class="max-w-30 lg:max-w-none text-xs lg:text-lg text-gray-800 text-right cursor-pointer"
+        >EVEN MORE BORING PRIVACY POLICY</RouterLink
+      >
     </div>
   </div>
 </template>
