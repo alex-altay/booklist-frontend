@@ -1,18 +1,22 @@
 <template>
   <div
     ref="slidesContainer"
-    class="slides relative overflow-x-auto min-w-full h-full flex flex-row no-scrollbar bg-main-additional"
+    class="slides relative overflow-x-auto overflow-y-hidden min-w-full h-screen max-h-screen min-h-screen flex flex-row no-scrollbar bg-main-additional"
   >
     <ReadingSlide />
+    <ReadingText />
     <SavingSlide />
+    <PresentingText />
     <PresentingSlide />
   </div>
 </template>
 
 <script setup lang="ts">
-import PresentingSlide from '@/components/main/slides/PresentingSlide.vue'
 import ReadingSlide from '@/components/main/slides/ReadingSlide.vue'
+import ReadingText from '@/components/main/slides/ReadingText.vue'
 import SavingSlide from '@/components/main/slides/SavingSlide.vue'
+import PresentingText from '@/components/main/slides/PresentingText.vue'
+import PresentingSlide from '@/components/main/slides/PresentingSlide.vue'
 import { watch, useTemplateRef } from 'vue'
 
 const props = defineProps<{ progress: number }>()

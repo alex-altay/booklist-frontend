@@ -1,6 +1,6 @@
 <template>
   <div ref="wrapperRef" class="relative h-[600vh]">
-    <div ref="stickyRef" class="sticky top-0 h-screen min-h-screen">
+    <div ref="stickyRef" class="sticky top-0 h-screen min-h-screen overflow-y-hidden">
       <slot :progress="progress" />
       <SlideSelector :progress="progress" class="absolute bottom-[5vh]" />
     </div>
