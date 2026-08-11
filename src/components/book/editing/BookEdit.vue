@@ -11,7 +11,7 @@
   >
     <BookEditControls
       :can-be-saved
-      class="mb-8"
+      class="mb-8 2xl:mb-12"
       :class="{ invisible: hasScrolled }"
       @back="goBack('list')"
       @cancel="goBack('show')"

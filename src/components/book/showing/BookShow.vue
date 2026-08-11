@@ -8,7 +8,7 @@
     @keydown.esc="$router.back()"
     @keydown.enter="edit"
   >
-    <BookShowControls class="mb-8" @back="$router.back()" @edit="edit" @delete="confirmDelete" />
+    <BookShowControls class="mb-8 2xl:mb-12" @back="$router.back()" @edit="edit" @delete="confirmDelete" />
     <BookContent v-if="book" :book />
     <DeleteGuardDialog v-model:open="isDeleteGuardOpen" :title="book!.title" @delete-confirmed="removeBook" />
   </div>

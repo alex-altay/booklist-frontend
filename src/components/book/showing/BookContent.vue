@@ -1,5 +1,5 @@
 <template>
-  <div class="space-y-8">
+  <div class="space-y-8 2xl:space-y-12">
     <div>
       <h1 class="text-3xl font-bold leading-tight">{{ book.title }}</h1>
       <p class="text-lg text-muted-foreground mt-1">{{ book.author }}</p>
