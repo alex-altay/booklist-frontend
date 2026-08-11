@@ -64,7 +64,7 @@ import BookCard from '@/components/list/BookCard.vue'
 import EmptyList from '@/components/list/EmptyList.vue'
 import { Button } from '@/components/ui/button'
 import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from '@lucide/vue'
-import { PAGINATION_SIZE } from '@/data/constants'
+import { PAGINATION_SIZE_BASE, PAGINATION_SIZE_XL } from '@/data/constants'
 import { computed, ref, watch } from 'vue'
 import { useBreakpoints, breakpointsTailwind } from '@vueuse/core'
 import type { Book } from '@/schemas/book'
@@ -72,6 +72,9 @@ import type { Book } from '@/schemas/book'
 defineEmits(['resetFilter'])
 const props = defineProps<{ books: Book[]; isNewUser: boolean }>()
 const page = ref<number>(1)
+const breakpoints = useBreakpoints(breakpointsTailwind)
+const isSmallerThanLg = breakpoints.smaller('lg')
+const PAGINATION_SIZE = breakpoints.smaller('2xl').value ? PAGINATION_SIZE_BASE : PAGINATION_SIZE_XL
 
 const paginatedBooks = computed(() => {
   const start = (page.value - 1) * PAGINATION_SIZE
@@ -89,7 +92,4 @@ watch(
 watch(page, () => {
   window.scrollTo({ top: 0 })
 })
-
-const breakpoints = useBreakpoints(breakpointsTailwind)
-const isSmallerThanLg = breakpoints.smaller('lg')
 </script>
