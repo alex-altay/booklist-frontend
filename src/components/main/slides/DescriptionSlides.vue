@@ -29,7 +29,7 @@ watch(
       return
     }
     const width = slidesContainer.value.scrollWidth as unknown as number
-    slidesContainer.value.scroll({ top: 0, left: width * progress, behavior: 'smooth' })
+    slidesContainer.value.scroll({ left: width * progress })
   },
 )
 </script>
