@@ -2,7 +2,7 @@
   <div ref="wrapperRef" class="relative h-[600vh]">
     <div ref="stickyRef" class="sticky top-0 h-screen min-h-screen overflow-y-hidden">
       <slot :progress="progress" />
-      <KeepScrolling class="absolute bottom-5" />
+      <KeepScrolling class="absolute bottom-3 lg:bottom-5" />
     </div>
   </div>
 </template>
