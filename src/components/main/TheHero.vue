@@ -48,15 +48,12 @@
       <div class="text-center">INTERESTING</div>
       <div class="min-w-20 text-right">AD&nbsp;FREE</div>
     </div>
-
-    <div class="flex flex-col justify-center items-center mb-5">
-      <div class="hidden sm:block lg:text-sm mb-5">KEEP SCROLLING</div>
-      <img class="w-6 cursor-pointer" src="@/assets/main-page/mouse.svg" @click="scroll" />
-    </div>
+    <KeepScrolling class="relative bottom-5 cursor-pointer" @click="scroll" />
   </div>
 </template>
 
 <script setup lang="ts">
+import KeepScrolling from '@/components/main/KeepScrolling.vue'
 import { useWindowSize } from '@vueuse/core'
 import { ref, onMounted, onUnmounted } from 'vue'
 import { SCREEN_DELIMETER_VH } from '@/data/constants'

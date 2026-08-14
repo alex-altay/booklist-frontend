@@ -1,0 +1,6 @@
+<template>
+  <div class="w-full flex flex-col justify-center items-center text-gray-600">
+    <div class="mb-3 2xl:mb-5 hidden sm:block text-xs 2xl:text-sm select-none">KEEP SCROLLING</div>
+    <img class="w-4 2xl:w-6" src="@/assets/main-page/mouse.svg" />
+  </div>
+</template>

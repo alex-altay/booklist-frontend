@@ -1,7 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="36" height="80" fill="#2C2C2C">
+<svg xmlns="http://www.w3.org/2000/svg" width="36" height="80" fill="4a5565">
   <animate 
       attributeName="fill" 
-      values="#2C2C2C;#FF6F61" 
+      values="#4A5565;#FF6F61"
       dur="1.25s" 
       repeatCount="indefinite" 
       />
