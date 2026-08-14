@@ -6,7 +6,7 @@
   >
     <div
       :style="{ transform: `rotateX(${parallax.roll * 10}deg) rotateY(${parallax.tilt * 10}deg)` }"
-      class="relative top-[3vh] h-[72vh] w-[94vh] duration-300 ease-out transition-all"
+      class="relative top-[3vh] w-screen h-[66vw] sm:h-[72vh] sm:w-[94vh] duration-300 ease-out transition-all"
     >
       <img
         :style="{ transform: `translateX(${parallax.tilt * 120}px) translateY(${parallax.roll * 120}px)` }"
@@ -39,9 +39,13 @@
 <script setup lang="ts">
 import { useParallax } from '@vueuse/core'
 import { reactive, useTemplateRef } from 'vue'
+import { useBreakpoints, breakpointsTailwind, usePreferredReducedMotion } from '@vueuse/core'
 
+const breakpoints = useBreakpoints(breakpointsTailwind)
+const isSmallerThanMd = breakpoints.smaller('md').value
+const isPreferReducedMotion = usePreferredReducedMotion().value == 'reduce'
 const target = useTemplateRef('target')
-const parallax = reactive(useParallax(target))
+const parallax = isPreferReducedMotion || isSmallerThanMd ? { tilt: 0, roll: 0 } : reactive(useParallax(target))
 </script>
 
 <style scoped>
