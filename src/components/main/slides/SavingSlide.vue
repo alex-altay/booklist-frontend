@@ -13,13 +13,13 @@
           :style="{ transform: `translateX(${parallax.tilt * 120}px) translateY(${parallax.roll * 120}px)` }"
           class="layer"
           src="@/assets/main-page/illustrations/saving/bottom.png"
-          alt="shelf"
+          alt="bottom"
         />
         <img
           :style="{ transform: `translateX(${parallax.tilt * -50}px) translateY(${parallax.roll * 60}px)` }"
           class="layer"
           src="@/assets/main-page/illustrations/saving/top.png"
-          alt="chart"
+          alt="top"
         />
         <img
           :style="{ transform: `translateX(${parallax.tilt * 80}px) translateY(${parallax.roll * -80}px)` }"
