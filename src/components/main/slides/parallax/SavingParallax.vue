@@ -36,11 +36,11 @@
 </template>
 
 <script setup lang="ts">
-import { useParallax } from '@vueuse/core'
-import { reactive, useTemplateRef } from 'vue'
+import { useSlideParallax } from '@/composables/useSlideParallax'
+import { useTemplateRef } from 'vue'
 
-const target = useTemplateRef('target')
-const parallax = reactive(useParallax(target))
+const target = useTemplateRef<HTMLDivElement>('target')
+const parallax = useSlideParallax(target)
 </script>
 
 <style scoped>
