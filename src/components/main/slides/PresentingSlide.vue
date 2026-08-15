@@ -1,57 +1,18 @@
 <template>
-  <div
-    id="presenting"
-    ref="target"
-    class="relative sm:left-[-6vw] sm:pl-[3vw] perspective-near h-screen landscape:max-w-screen overflow-hidden no-scrollbar shrink-0 flex justify-between items-center"
-  >
-    <div
-      :style="{ transform: `rotateX(${parallax.roll * 10}deg) rotateY(${parallax.tilt * 10}deg)` }"
-      class="relative top-[3vh] w-screen h-[66vw] sm:h-[72vh] sm:w-[94vh] duration-300 ease-out transition-all"
-    >
-      <img
-        :style="{ transform: `translateX(${parallax.tilt * 120}px) translateY(${parallax.roll * 120}px)` }"
-        class="layer"
-        src="@/assets/main-page/illustrations/presenting/shelf.png"
-        alt="shelf"
-      />
-      <img
-        :style="{ transform: `translateX(${parallax.tilt * -50}px) translateY(${parallax.roll * 60}px)` }"
-        class="layer"
-        src="@/assets/main-page/illustrations/presenting/chart.png"
-        alt="chart"
-      />
-      <img
-        :style="{ transform: `translateX(${parallax.tilt * 80}px) translateY(${parallax.roll * -80}px)` }"
-        class="layer"
-        src="@/assets/main-page/illustrations/presenting/cat.png"
-        alt="cat"
-      />
-      <img
-        :style="{ transform: `translateX(${parallax.tilt * -140}px) translateY(${parallax.roll * 140}px)` }"
-        class="layer"
-        src="@/assets/main-page/illustrations/presenting/dog.png"
-        alt="dog"
-      />
-    </div>
+  <div v-if="isSmallerThanLg || isPreferReducedMotion" class="flex shrink-0 h-full w-full justify-center items-center">
+    <img
+      class="relative h-[min(100vw,100vh)] object-contain"
+      src="@/assets/main-page/illustrations/presenting/mobile.png"
+    />
   </div>
+  <PresentingParallax v-else />
 </template>
 
 <script setup lang="ts">
-import { useParallax } from '@vueuse/core'
-import { reactive, useTemplateRef } from 'vue'
+import PresentingParallax from '@/components/main/slides/parallax/PresentingParallax.vue'
 import { useBreakpoints, breakpointsTailwind, usePreferredReducedMotion } from '@vueuse/core'
 
 const breakpoints = useBreakpoints(breakpointsTailwind)
-const isSmallerThanMd = breakpoints.smaller('md').value
+const isSmallerThanLg = breakpoints.smaller('lg').value
 const isPreferReducedMotion = usePreferredReducedMotion().value == 'reduce'
-const target = useTemplateRef('target')
-const parallax = isPreferReducedMotion || isSmallerThanMd ? { tilt: 0, roll: 0 } : reactive(useParallax(target))
 </script>
-
-<style scoped>
-@reference "tailwindcss";
-
-.layer {
-  @apply absolute h-full w-full duration-300 ease-out transition-all;
-}
-</style>
