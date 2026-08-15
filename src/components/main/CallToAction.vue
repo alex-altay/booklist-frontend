@@ -4,7 +4,7 @@
     <img ref="pen" class="absolute top-0 h-[14vh] right-[18vw]" src="@/assets/main-page/pen.png" />
     <img
       ref="laptop"
-      class="absolute bottom-0 h-[12vh] translate-x-1 hidden sm:block"
+      class="absolute bottom-0 h-[12vh] translate-x-1 hidden lg:block"
       src="@/assets/main-page/laptop.png"
     />
 
