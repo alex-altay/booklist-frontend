@@ -1,7 +1,7 @@
 <template>
   <header class="border-b fixed w-full top-0 z-10 bg-background/80 backdrop-blur-md">
-    <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-      <div className="flex items-center">
+    <div class="container mx-auto px-4 h-16 flex items-center justify-between">
+      <div class="flex items-center">
         <Button
           size="sm"
           class="gap-2 sm:min-w-28 min-w-12 hover:opacity-90 transition-opacity cursor-pointer"
@@ -12,7 +12,7 @@
         </Button>
       </div>
 
-      <nav className="flex items-center gap-6">
+      <nav class="flex items-center gap-6">
         <button
           class="min-w-12 text-right text-sm font-medium cursor-pointer"
           :class="{

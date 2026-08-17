@@ -2,12 +2,12 @@
   <form @submit.prevent>
     <div class="space-y-6 2xl:space-y-12">
       <div class="space-y-2">
-        <Label for="title">Title<span className="text-destructive">*</span></Label>
+        <Label for="title">Title<span class="text-destructive">*</span></Label>
         <Input id="title" v-model="draft.title" class="text-sm" placeholder="Enter the title" autofocus required />
       </div>
 
       <div class="space-y-2">
-        <Label for="author">Author<span className="text-destructive">*</span></Label>
+        <Label for="author">Author<span class="text-destructive">*</span></Label>
         <Input id="author" v-model="draft.author" class="text-sm" placeholder="Enter the author" />
       </div>
 
