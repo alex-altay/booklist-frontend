@@ -37,7 +37,7 @@ import { Card } from '@/components/ui/card'
 import { RollingDigit } from '@/components/ui/rolling-digit'
 import { Timer } from '@lucide/vue'
 import { languageMap } from '@/utils'
-import { MS } from '@/utils/date'
+import { MS_PER_DAY } from '@/utils/date'
 import type { Book, Language } from '@/schemas/book'
 
 const { books } = defineProps<{ books: Book[] }>()
@@ -58,13 +58,13 @@ const [totalSpend, totalCount] = Object.values(spendByLanguage).reduce(
   (acc: [number, number], el: [number, number]) => [acc[0] + el[0], acc[1] + el[1]],
   [0, 0],
 )
-const totalSpeed = totalCount && totalSpend ? Math.round((totalSpend / totalCount / MS) * 10) / 10 : 0
+const totalSpeed = totalCount && totalSpend ? Math.round((totalSpend / totalCount / MS_PER_DAY) * 10) / 10 : 0
 
 let minSpeed = 0
 const speedByLanguage: Record<Language, number> = { DE: 0, EN: 0, RU: 0 }
 for (const lang of Object.keys(spendByLanguage) as Language[]) {
   const [spend, count] = spendByLanguage[lang]
-  const langSpeed = Math.round(spend / count / MS) || 0
+  const langSpeed = Math.round(spend / count / MS_PER_DAY) || 0
   speedByLanguage[lang] = langSpeed
   minSpeed = Math.max(langSpeed, minSpeed)
 }

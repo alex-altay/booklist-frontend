@@ -23,12 +23,12 @@
 import KeepScrolling from '@/components/main/KeepScrolling.vue'
 import TheTagline from '@/components/main/TheTagline.vue'
 import { useWindowSize } from '@vueuse/core'
-import { SCREEN_DELIMETER_VH } from '@/data/constants'
+import { SCREEN_DELIMITER_VH } from '@/data/constants'
 
 const { height } = useWindowSize()
 
 function scroll() {
-  const scrollStep = height.value + (height.value / 100) * SCREEN_DELIMETER_VH
+  const scrollStep = height.value + (height.value / 100) * SCREEN_DELIMITER_VH
   window.scrollTo({ top: scrollStep, behavior: 'smooth' })
 }
 </script>

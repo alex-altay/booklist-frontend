@@ -64,7 +64,7 @@
             <Label>Finished in</Label>
             <Select v-model:model-value="model.endYear" :value="model.endYear">
               <SelectTrigger class="w-full">
-                <SelectValue placeholder="Все годы" />
+                <SelectValue placeholder="All years" />
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="all"> All years </SelectItem>

@@ -1,6 +1,6 @@
 import type { Book } from '@/schemas/book'
 
-const MS = 24 * 60 * 60 * 1000
+const MS_PER_DAY = 24 * 60 * 60 * 1000
 
 function formatDate(iso?: string | null | undefined): string {
   if (!iso) {
@@ -24,7 +24,7 @@ function getDaysDuration(book: Book): number {
     return 0
   }
   const duration = new Date(book.endDate).getTime() - new Date(book.startDate).getTime()
-  return Math.round(duration / MS)
+  return Math.round(duration / MS_PER_DAY)
 }
 
-export { formatDate, getYears, getDaysDuration, MS }
+export { formatDate, getYears, getDaysDuration, MS_PER_DAY }

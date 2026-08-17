@@ -30,7 +30,7 @@ async function downloadBooks() {
   toast.promise(promise, {
     loading: 'Preparing your books...',
     success: () => 'Your books are ready for saving',
-    error: () => 'Something got wrong. Try again later',
+    error: () => 'Something went wrong. Try again later',
   })
 }
 </script>

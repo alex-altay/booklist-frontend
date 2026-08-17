@@ -104,7 +104,7 @@
           id="description"
           v-model="draft.description"
           class="text-sm"
-          placeholder="Impressions, quotes, thoughs..."
+          placeholder="Impressions, quotes, thoughts..."
           rows="6"
         />
       </div>
