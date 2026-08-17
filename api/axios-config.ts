@@ -1,10 +1,13 @@
+import { ERRORS } from '@/utils/errors/pure'
 import axios, { AxiosError, AxiosResponse, type AxiosRequestConfig } from 'axios'
 
-const axiosConfig: AxiosRequestConfig = {}
+const baseURL = import.meta.env.VITE_HOST
+if (!baseURL) {
+  throw new Error(ERRORS.NO_HOST)
+}
 
-const _axios = axios.create({
-  baseURL: import.meta.env.VITE_HOST! as unknown as string,
-})
+const axiosConfig: AxiosRequestConfig = {}
+const _axios = axios.create({ baseURL })
 
 _axios.interceptors.response.use(
   (response) => response,
