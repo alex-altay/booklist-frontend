@@ -13,33 +13,19 @@
       </div>
 
       <nav class="flex items-center gap-6">
-        <button
-          class="min-w-12 text-right text-sm font-medium cursor-pointer"
-          :class="{
-            'text-muted-foreground': $route.name != 'books',
-            'hover:text-foreground': $route.name != 'books',
-            'transition-colors': $route.name != 'books',
-            'pointer-none': $route.name == 'books',
-          }"
-          @click="$router.push({ name: 'books' })"
+        <RouterLink
+          class="min-w-12 text-right text-muted-foreground hover:text-foreground select-none text-sm font-medium cursor-pointer"
+          to="books"
+          >Books</RouterLink
         >
-          Books
-        </button>
         <div class="bg-primary p-2 rounded-lg text-primary-foreground">
           <BookOpen class="w-5 h-5" />
         </div>
-        <button
-          class="min-w-12 text-left text-sm font-medium cursor-pointer"
-          :class="{
-            'text-muted-foreground': $route.name != 'stats',
-            'hover:text-foreground': $route.name != 'stats',
-            'transition-colors': $route.name != 'stats',
-            'pointer-none': $route.name == 'stats',
-          }"
-          @click="$router.push({ name: 'stats' })"
+        <RouterLink
+          class="min-w-12 text-left text-muted-foreground hover:text-foreground select-none text-sm font-medium cursor-pointer"
+          to="stats"
+          >Stats</RouterLink
         >
-          Stats
-        </button>
       </nav>
 
       <div class="flex items-center">
@@ -63,3 +49,11 @@ function signOut() {
   router.push({ name: 'root' })
 }
 </script>
+
+<style scoped>
+@reference "#style.css";
+
+.router-link-exact-active {
+  @apply text-foreground hover:text-muted-foreground transition-colors pointer-events-none;
+}
+</style>

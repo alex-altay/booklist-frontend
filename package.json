@@ -60,5 +60,8 @@
   "lint-staged": {
     "*.{js,ts,vue}": "eslint --cache --fix",
     "*.{js,ts,css,md,vue}": "prettier --write"
+  },
+  "imports": {
+    "#style.css": "./src/styles/style.css"
   }
 }
