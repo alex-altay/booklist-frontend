@@ -1,5 +1,4 @@
-// vue dependable
-import { ERRORS } from '@/utils/errors/texts'
+import { ERRORS } from '@/utils/errors/pure'
 import { router } from '@/router/router'
 import { userStore } from '@/stores/user'
 import { toast } from 'vue-sonner'
