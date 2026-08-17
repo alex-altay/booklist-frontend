@@ -21,9 +21,7 @@
               </div>
               <div class="text-center text-sm">
                 Don't have an account?
-                <a class="underline underline-offset-4 cursor-pointer" @click="$router.push({ name: 'signup' })">
-                  Sign up
-                </a>
+                <RouterLink class="underline underline-offset-4 cursor-pointer" to="signup"> Sign up </RouterLink>
               </div>
             </div>
           </CardContent>
@@ -31,7 +29,8 @@
         <div
           class="text-balance text-center text-xs text-muted-foreground [&_a]:underline [&_a]:underline-offset-4 [&_a]:hover:text-primary"
         >
-          By clicking sign in, you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.
+          By clicking sign in, you agree to our <RouterLink to="terms">Terms of Service</RouterLink> and
+          <RouterLink to="privacy">Privacy Policy</RouterLink>.
         </div>
       </div>
     </div>
