@@ -6,41 +6,8 @@
       <div>MY BOOKLIST</div>
       <div class="cursor-pointer" @click="$router.push({ name: 'signin' })">SIGN IN</div>
     </div>
-
     <div class="symmetric-flex-filler" />
-
-    <div class="flex justify-center text-main-additional">
-      <div class="w-[min(1420px,calc(100vw-1rem))] flex flex-col leading-none font-black gap-0">
-        <div
-          class="text-[clamp(3rem,22vw,200px)] 2xl:pr-[6.8ch] ml-[-0.05ch] lg:self-start lg:pr-0 max-lg:pr-0"
-          :style="{
-            fontStretch: `${firstLineFontStretch}%`,
-            letterSpacing: `${firstLineLetterSpacing}em`,
-          }"
-        >
-          KEEP
-        </div>
-        <div
-          class="text-[clamp(3rem,22vw,200px)] mt-[-0.1em] ml-[-0.15em]"
-          :style="{
-            fontStretch: `${secondLineFontStretch}%`,
-            letterSpacing: `${secondLineLetterSpacing}em`,
-          }"
-        >
-          TRACK
-        </div>
-        <div
-          class="text-[clamp(0.8rem,3vw,50px)] lg:self-end whitespace-nowrap"
-          :style="{
-            fontStretch: `${thirdLineFontStretch}%`,
-            letterSpacing: `${thirdLineLetterSpacing}em`,
-          }"
-        >
-          OF BOOKS YOU'VE READ
-        </div>
-      </div>
-    </div>
-
+    <TheTagline />
     <div
       class="flex flex-row w-full sm:w-auto self-center justify-between lg:self-end sm:gap-16 text-xs lg:text-sm lg:font-bold"
     >
@@ -48,54 +15,20 @@
       <div class="text-center">INTERESTING</div>
       <div class="min-w-20 text-right">AD&nbsp;FREE</div>
     </div>
-    <KeepScrolling class="relative bottom-5 cursor-pointer" @click="scroll" />
+    <KeepScrolling class="relative lg:bottom-5 cursor-pointer" @click="scroll" />
   </div>
 </template>
 
 <script setup lang="ts">
 import KeepScrolling from '@/components/main/KeepScrolling.vue'
+import TheTagline from '@/components/main/TheTagline.vue'
 import { useWindowSize } from '@vueuse/core'
-import { ref, onMounted, onUnmounted } from 'vue'
 import { SCREEN_DELIMETER_VH } from '@/data/constants'
 
 const { height } = useWindowSize()
-
-const firstLineFontStretch = ref(100)
-const firstLineLetterSpacing = ref(0)
-
-const secondLineFontStretch = ref(100)
-const secondLineLetterSpacing = ref(0)
-
-const thirdLineFontStretch = ref(100)
-const thirdLineLetterSpacing = ref(0)
-
-const firstLineConfig = { minFontStretch: 5, maxLetterSpacing: 0.3 }
-const secondLineConfig = { minFontStretch: 5, maxLetterSpacing: 0.4 }
-const thirdLineConfig = { minFontStretch: 1, maxLetterSpacing: 0.4 }
-
-function handleScroll() {
-  const progress = Math.min(window.scrollY / height.value, 1)
-
-  firstLineFontStretch.value = 100 - progress * (100 - firstLineConfig.minFontStretch)
-  firstLineLetterSpacing.value = progress * firstLineConfig.maxLetterSpacing
-
-  secondLineFontStretch.value = 100 - progress * (100 - secondLineConfig.minFontStretch)
-  secondLineLetterSpacing.value = progress * secondLineConfig.maxLetterSpacing
-
-  thirdLineFontStretch.value = 100 - progress * (100 - thirdLineConfig.minFontStretch)
-  thirdLineLetterSpacing.value = progress * thirdLineConfig.maxLetterSpacing
-}
 
 function scroll() {
   const scrollStep = height.value + (height.value / 100) * SCREEN_DELIMETER_VH
   window.scrollTo({ top: scrollStep, behavior: 'smooth' })
 }
-
-onMounted(() => {
-  window.addEventListener('scroll', handleScroll)
-})
-
-onUnmounted(() => {
-  window.removeEventListener('scroll', handleScroll)
-})
 </script>
