@@ -100,14 +100,6 @@ watch(
   { deep: true },
 )
 
-watch(route, () => {
-  book.value = { ...defaultValues }
-  draft.value = { ...defaultValues }
-  hasErrors.value = false
-  hasChanges.value = false
-  isReturnGuardOpen.value = false
-})
-
 const { setSpinnerState } = useGlobalSpinner()
 watch(isLoading, () => setSpinnerState(isLoading.value))
 

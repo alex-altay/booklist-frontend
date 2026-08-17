@@ -2,7 +2,7 @@
   <div class="flex flex-col min-h-screen">
     <TheHeader />
     <main class="container mx-auto flex flex-1 flex-col px-4 pt-24 pb-4">
-      <RouterView />
+      <RouterView :key="$route.fullPath" />
     </main>
     <TheFooter />
   </div>
