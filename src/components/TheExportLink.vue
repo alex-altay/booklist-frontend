@@ -24,7 +24,7 @@ async function downloadBooks() {
     const { request } = useApi()
     const books = (await request(() => bookStore().getBooks())) || []
     const content = booksToCSV(books)
-    const file = new Blob([content], { type: 'text/plain' })
+    const file = new Blob([content], { type: 'text/csv;charset=utf-8' })
     href.value = URL.createObjectURL(file)
   }
   toast.promise(promise, {
