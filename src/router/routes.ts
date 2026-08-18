@@ -2,9 +2,9 @@ import RootView from '@/views/RootView.vue'
 import InnerView from '@/views/InnerView.vue'
 import SignInView from '@/views/SignInView.vue'
 import SignUpView from '@/views/SignUpView.vue'
-import BookShow from '@/components/book/showing/BookShow.vue'
-import BookEdit from '@/components/book/editing/BookEdit.vue'
-import BooksList from '@/components/list/BooksList.vue'
+const BookShow = () => import('@/components/book/showing/BookShow.vue')
+const BookEdit = () => import('@/components/book/editing/BookEdit.vue')
+const BooksList = () => import('@/components/list/BooksList.vue')
 const The404Error = () => import('@/components/404/The404Error.vue')
 const TheStats = () => import('@/components/stats/TheStats.vue')
 const ThePrivacy = () => import('@/components/ThePrivacy.vue')
