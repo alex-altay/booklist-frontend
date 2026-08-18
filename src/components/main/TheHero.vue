@@ -1,6 +1,6 @@
 <template>
   <div
-    class="relative h-screen px-3 py-3 sm:px-14 sm:pt-14 sm:pb-3 flex flex-col justify-between bg-main-bg text-main-dark uppercase select-none"
+    class="relative h-screen px-3 py-3 md:p-14 md:pb-3 flex flex-col justify-between bg-main-bg text-main-dark uppercase select-none"
   >
     <div class="flex flex-row justify-between text-xl sm:text-2xl text-gray-800 font-bold">
       <div>MY BOOKLIST</div>
