@@ -79,7 +79,7 @@ const PAGINATION_SIZE = breakpoints.smaller('2xl').value ? PAGINATION_SIZE_BASE 
 const paginatedBooks = computed(() => {
   const start = (page.value - 1) * PAGINATION_SIZE
   const end = start + PAGINATION_SIZE
-  return [...props.books].slice(start, end)
+  return props.books.slice(start, end)
 })
 
 watch(
