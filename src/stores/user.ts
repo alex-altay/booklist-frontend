@@ -4,6 +4,7 @@ import { isLocalStorageAvailable } from '@/utils/storage'
 import { isNotAllowedError, isBadRequestError, ERRORS } from '@/utils/errors/pure'
 import { startAuthentication, startRegistration } from '@simplewebauthn/browser'
 import { webauthnApi } from '@api/webauthn'
+import { useBookStore } from '@/stores/book'
 import { computed, ref } from 'vue'
 
 const TOKEN_STORAGE_KEY = 'AccessToken'
@@ -81,6 +82,7 @@ export const useUserStore = defineStore('user', () => {
   }
 
   function signOut() {
+    useBookStore().reset()
     removeAccessToken()
   }
 

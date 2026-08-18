@@ -9,15 +9,18 @@
 import ListFilter from '@/components/list/ListFilter.vue'
 import PaginatedList from '@/components/list/PaginatedList.vue'
 import { useBookStore } from '@/stores/book'
-import { computed, ref } from 'vue'
 import { useApi } from '@/composables/useApi'
 import { getYears } from '@/utils/date'
+import { storeToRefs } from 'pinia'
+import { computed, ref } from 'vue'
 import type { Book } from '@/schemas/book/book'
 
 const { request } = useApi()
-const { getBooks } = useBookStore()
-const books = (await request(() => getBooks())) || []
-const years = getYears(books)
+const bookStore = useBookStore()
+await request(() => bookStore.fetchBooks())
+const { books } = storeToRefs(bookStore)
+const years = computed(() => getYears(books.value))
+const isNewUser = computed(() => books.value.length == 0)
 
 const ALL = 'all' as const
 const defaultFilter: Filter = {
@@ -30,7 +33,7 @@ const defaultFilter: Filter = {
 }
 const filter = ref<Filter>({ ...defaultFilter })
 const filteredBooks = computed<Book[]>(() => {
-  let filtered = [...books]
+  let filtered = books.value
   for (const [k, v] of Object.entries(filter.value)) {
     if (v == ALL) {
       continue
@@ -47,7 +50,6 @@ const filteredBooks = computed<Book[]>(() => {
   }
   return filtered
 })
-const isNewUser = computed(() => books.length == 0)
 
 function resetFilter() {
   filter.value = { ...defaultFilter }

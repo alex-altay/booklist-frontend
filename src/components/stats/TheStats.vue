@@ -25,7 +25,11 @@ import ReadingSpeed from '@/components/stats/widgets/ReadingSpeed.vue'
 import TimeSpent from '@/components/stats/widgets/TimeSpent.vue'
 import TotalRead from '@/components/stats/widgets/TotalRead.vue'
 import { useBookStore } from '@/stores/book'
+import { useApi } from '@/composables/useApi'
+import { storeToRefs } from 'pinia'
 
-const { getBooks } = useBookStore()
-const books = await getBooks()
+const { request } = useApi()
+const bookStore = useBookStore()
+await request(() => bookStore.fetchBooks())
+const { books } = storeToRefs(bookStore)
 </script>

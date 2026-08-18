@@ -17,15 +17,16 @@ import { toast } from 'vue-sonner'
 import { useApi } from '@/composables/useApi'
 
 const fileName = 'export.csv'
+const bookStore = useBookStore()
 const { request, error, isLoading } = useApi()
 
 async function downloadBooks() {
   const promise = async () => {
-    const books = (await request(() => useBookStore().getBooks())) || []
+    await request(() => bookStore.fetchBooks())
     if (error.value) {
       throw new Error(error.value)
     }
-    const content = booksToCSV(books)
+    const content = booksToCSV(bookStore.books)
     const file = new Blob([content], { type: 'text/csv;charset=utf-8' })
     const url = URL.createObjectURL(file)
     const link = document.createElement('a')
