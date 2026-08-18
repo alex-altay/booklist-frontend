@@ -1,17 +1,23 @@
 <template>
-  <button class="hover:text-primary transition-colors cursor-pointer select-none" @click="downloadBooks">
+  <button
+    class="inline-flex items-center gap-1.5 hover:text-primary transition-colors cursor-pointer select-none"
+    :disabled="isLoading"
+    @click="downloadBooks"
+  >
+    <Download class="w-3.5 h-3.5" />
     Data Export
   </button>
 </template>
 
 <script setup lang="ts">
+import { Download } from '@lucide/vue'
 import { useBookStore } from '@/stores/book'
 import { booksToCSV } from '@/utils/booksToCSV'
 import { toast } from 'vue-sonner'
 import { useApi } from '@/composables/useApi'
 
 const fileName = 'export.csv'
-const { request, error } = useApi()
+const { request, error, isLoading } = useApi()
 
 async function downloadBooks() {
   const promise = async () => {
