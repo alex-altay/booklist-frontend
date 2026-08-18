@@ -62,7 +62,9 @@ if (isAuthorized.value) {
 
 async function login() {
   await request(signIn)
-  router.push({ name: 'books' })
+  if (isAuthorized.value) {
+    router.push({ name: 'books' })
+  }
 }
 
 const isAfterRegistration = useRoute().query.isAfterRegistration
