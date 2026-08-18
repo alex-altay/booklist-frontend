@@ -10,9 +10,9 @@
     </div>
     <div class="flex flex-col gap-6">
       <Pagination
-        v-if="books.length > PAGINATION_SIZE"
+        v-if="books.length > paginationSize"
         v-model:page="page"
-        :items-per-page="PAGINATION_SIZE"
+        :items-per-page="paginationSize"
         :total="books.length"
         :default-page="1"
       >
@@ -74,11 +74,11 @@ const props = defineProps<{ books: Book[]; isNewUser: boolean }>()
 const page = ref<number>(1)
 const breakpoints = useBreakpoints(breakpointsTailwind)
 const isSmallerThanLg = breakpoints.smaller('lg')
-const PAGINATION_SIZE = breakpoints.smaller('2xl').value ? PAGINATION_SIZE_BASE : PAGINATION_SIZE_XL
+const paginationSize = computed(() => (breakpoints.smaller('2xl').value ? PAGINATION_SIZE_BASE : PAGINATION_SIZE_XL))
 
 const paginatedBooks = computed(() => {
-  const start = (page.value - 1) * PAGINATION_SIZE
-  const end = start + PAGINATION_SIZE
+  const start = (page.value - 1) * paginationSize.value
+  const end = start + paginationSize.value
   return props.books.slice(start, end)
 })
 
@@ -91,5 +91,10 @@ watch(
 
 watch(page, () => {
   window.scrollTo({ top: 0 })
+})
+
+watch(paginationSize, (newSize, oldSize) => {
+  const firstBookIndex = (page.value - 1) * oldSize
+  page.value = Math.floor(firstBookIndex / newSize) + 1
 })
 </script>
