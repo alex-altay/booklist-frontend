@@ -61,7 +61,6 @@ if (isAuthorized.value) {
 }
 
 async function login() {
-  error.value = ''
   await request(signIn)
   router.push({ name: 'books' })
 }

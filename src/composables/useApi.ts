@@ -8,6 +8,7 @@ export function useApi() {
   async function request<T>(fn: () => Promise<T>): Promise<T | void> {
     try {
       isLoading.value = true
+      error.value = undefined
       return await fn()
     } catch (apiError) {
       if (isUnauthorizedError(apiError) || isBadRequestError(apiError) || isNotFoundError(apiError)) {
