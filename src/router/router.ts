@@ -1,6 +1,6 @@
 import { routes } from '@/router/routes'
 import { createRouter, createWebHistory } from 'vue-router'
-import { userStore } from '@/stores/user'
+import { useUserStore } from '@/stores/user'
 
 const router = createRouter({
   history: createWebHistory(),
@@ -9,7 +9,7 @@ const router = createRouter({
 })
 
 router.beforeEach(async (to) => {
-  if (!userStore().isAuthorized && to.meta.requiresAuth) {
+  if (!useUserStore().isAuthorized && to.meta.requiresAuth) {
     return { name: 'signin' }
   }
 })

@@ -3,11 +3,11 @@ import { bookApi } from '@api/book'
 import { ref } from 'vue'
 import type { Book, NewBook } from '@/schemas/book'
 
-export const bookStore = defineStore('book', () => {
+export const useBookStore = defineStore('book', () => {
   const _books = ref<Book[]>([])
 
   function updateList(books: Book[]) {
-    _books.value = books && books.length ? books.sort((a, b) => a.id - b.id) : []
+    _books.value = [...books].sort((a, b) => a.id - b.id)
   }
 
   async function getBook(id: number): Promise<Book> {

@@ -24,8 +24,8 @@ import ReadByYears from '@/components/stats/widgets/ReadByYears.vue'
 import ReadingSpeed from '@/components/stats/widgets/ReadingSpeed.vue'
 import TimeSpent from '@/components/stats/widgets/TimeSpent.vue'
 import TotalRead from '@/components/stats/widgets/TotalRead.vue'
-import { bookStore } from '@/stores/book'
+import { useBookStore } from '@/stores/book'
 
-const { getBooks } = bookStore()
+const { getBooks } = useBookStore()
 const books = await getBooks()
 </script>

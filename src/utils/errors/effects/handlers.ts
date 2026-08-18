@@ -1,10 +1,10 @@
 import { ERRORS } from '@/utils/errors/pure'
 import { router } from '@/router/router'
-import { userStore } from '@/stores/user'
+import { useUserStore } from '@/stores/user'
 import { toast } from 'vue-sonner'
 
 function handleAuthError() {
-  userStore().signOut()
+  useUserStore().signOut()
   toast.error(ERRORS.EXPIRED_SESSION)
   router.push({ name: 'signin' })
 }

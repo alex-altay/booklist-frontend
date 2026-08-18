@@ -36,7 +36,7 @@
 import BookEditControls from '@/components/book/editing/BookEditControls.vue'
 import BookForm from '@/components/book/editing/BookForm.vue'
 import ReturnGuardDialog from '@/components/book/editing/ReturnGuardDialog.vue'
-import { bookStore } from '@/stores/book'
+import { useBookStore } from '@/stores/book'
 import { isNewBook, GuardReject, GuardResolve } from '@/types/guards'
 import { onBeforeRouteLeave } from 'vue-router'
 import { router } from '@/router/router'
@@ -48,7 +48,7 @@ import { useWindowScroll, useFocus } from '@vueuse/core'
 import { type Book, type NewBook } from '@/schemas/book'
 import { computed, ref, watch, useTemplateRef } from 'vue'
 
-const { getBook, createBook, updateBook } = bookStore()
+const { getBook, createBook, updateBook } = useBookStore()
 const { request, isLoading, error } = useApi()
 
 const defaultValues = { title: '', author: '' } as NewBook

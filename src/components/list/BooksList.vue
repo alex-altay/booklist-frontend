@@ -8,14 +8,14 @@
 <script setup lang="ts">
 import ListFilter from '@/components/list/ListFilter.vue'
 import PaginatedList from '@/components/list/PaginatedList.vue'
-import { bookStore } from '@/stores/book'
+import { useBookStore } from '@/stores/book'
 import { computed, ref } from 'vue'
 import { useApi } from '@/composables/useApi'
 import { getYears } from '@/utils/date'
 import type { Book } from '@/schemas/book/book'
 
 const { request } = useApi()
-const { getBooks } = bookStore()
+const { getBooks } = useBookStore()
 const books = (await request(() => getBooks())) || []
 const years = getYears(books)
 
@@ -47,7 +47,7 @@ const filteredBooks = computed<Book[]>(() => {
   }
   return filtered
 })
-const isNewUser = books.length == filteredBooks.value.length && books.length == 0
+const isNewUser = computed(() => books.length == 0)
 
 function resetFilter() {
   filter.value = { ...defaultFilter }

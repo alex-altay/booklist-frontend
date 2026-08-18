@@ -10,7 +10,7 @@
 </template>
 
 <script setup lang="ts">
-import { bookStore } from '@/stores/book'
+import { useBookStore } from '@/stores/book'
 import { booksToCSV } from '@/utils/booksToCSV'
 import { toast } from 'vue-sonner'
 import { useApi } from '@/composables/useApi'
@@ -22,7 +22,7 @@ const href = ref(fileName)
 async function downloadBooks() {
   const promise = async () => {
     const { request } = useApi()
-    const books = (await request(() => bookStore().getBooks())) || []
+    const books = (await request(() => useBookStore().getBooks())) || []
     const content = booksToCSV(books)
     const file = new Blob([content], { type: 'text/csv;charset=utf-8' })
     href.value = URL.createObjectURL(file)

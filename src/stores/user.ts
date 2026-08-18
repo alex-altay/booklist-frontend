@@ -8,7 +8,7 @@ import { computed, ref } from 'vue'
 
 const TOKEN_STORAGE_KEY = 'AccessToken'
 
-export const userStore = defineStore('user', () => {
+export const useUserStore = defineStore('user', () => {
   const _accessToken = ref<null | string>(getTokenFromLocalStorage())
   const isAuthorized = computed(() => _accessToken.value !== null)
 

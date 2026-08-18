@@ -20,7 +20,7 @@
 import BookContent from '@/components/book/showing/BookContent.vue'
 import BookShowControls from '@/components/book/showing/BookShowControls.vue'
 import DeleteGuardDialog from '@/components/book/showing/DeleteGuardDialog.vue'
-import { bookStore } from '@/stores/book'
+import { useBookStore } from '@/stores/book'
 import { router } from '@/router/router'
 import { toast } from 'vue-sonner'
 import { useApi } from '@/composables/useApi'
@@ -29,7 +29,7 @@ import { useRoute } from 'vue-router'
 import { useFocus } from '@vueuse/core'
 import { ref, watch, useTemplateRef } from 'vue'
 
-const { getBook, deleteBook } = bookStore()
+const { getBook, deleteBook } = useBookStore()
 const { request, isLoading } = useApi()
 const isDeleteGuardOpen = ref(false)
 

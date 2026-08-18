@@ -41,11 +41,11 @@
 <script setup lang="ts">
 import Button from '@/components/ui/button/Button.vue'
 import { BookOpen, LogOut, Plus } from '@lucide/vue'
-import { userStore } from '@/stores/user'
+import { useUserStore } from '@/stores/user'
 import { router } from '@/router/router'
 
 function signOut() {
-  userStore().signOut()
+  useUserStore().signOut()
   router.push({ name: 'root' })
 }
 </script>

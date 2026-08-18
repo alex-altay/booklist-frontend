@@ -54,11 +54,11 @@ import { storeToRefs } from 'pinia'
 import { useApi } from '@/composables/useApi'
 import { useGlobalSpinner } from '@/composables/useGlobalSpinner'
 import { useRouter } from 'vue-router'
-import { userStore } from '@/stores/user'
+import { useUserStore } from '@/stores/user'
 
 const router = useRouter()
-const { signUp } = userStore()
-const { isAuthorized } = storeToRefs(userStore())
+const { signUp } = useUserStore()
+const { isAuthorized } = storeToRefs(useUserStore())
 const { setSpinnerState } = useGlobalSpinner()
 
 if (isAuthorized.value) {
