@@ -22,13 +22,13 @@
       >
         {{ quote }}
       </p>
-      <p
+      <RouterLink
         class="text-xs text-left text-muted-foreground line-clamp-1 truncate whitespace-normal cursor-pointer"
         :class="{ shimmer: isAnimated }"
-        @click="$router.push({ name: 'book', params: { id: id } })"
+        :to="{ name: 'book', params: { id: id } }"
       >
         {{ title }}, {{ author }}
-      </p>
+      </RouterLink>
     </template>
     <template v-else>
       <p class="text-sm text-left leading-relaxed text-foreground line-clamp-3 italic">
