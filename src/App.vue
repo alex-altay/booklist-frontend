@@ -4,7 +4,7 @@
     <GlobalSpinner />
     <RouterView v-slot="{ Component }">
       <template v-if="Component">
-        <Suspense @fallback="setSpinnerState(true)" @resolve="setSpinnerState(false)">
+        <Suspense @pending="setSpinnerState(true)" @resolve="setSpinnerState(false)">
           <component :is="Component" />
         </Suspense>
       </template>

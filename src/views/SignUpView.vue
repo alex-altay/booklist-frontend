@@ -59,7 +59,6 @@ import { useUserStore } from '@/stores/user'
 const router = useRouter()
 const { signUp } = useUserStore()
 const { isAuthorized } = storeToRefs(useUserStore())
-const { setSpinnerState } = useGlobalSpinner()
 
 if (isAuthorized.value) {
   router.push({ name: 'books' })
@@ -95,7 +94,5 @@ function isValidEmail(): boolean {
 }
 
 watch(email, isValidEmail)
-watch(isLoading, () => {
-  setSpinnerState(isLoading.value)
-})
+useGlobalSpinner().bindTo(isLoading)
 </script>

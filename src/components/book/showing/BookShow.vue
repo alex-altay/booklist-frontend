@@ -27,10 +27,10 @@ import { useApi } from '@/composables/useApi'
 import { useGlobalSpinner } from '@/composables/useGlobalSpinner'
 import { useRoute } from 'vue-router'
 import { useFocus } from '@vueuse/core'
-import { ref, watch, useTemplateRef } from 'vue'
+import { ref, useTemplateRef } from 'vue'
 
 const { getBook, deleteBook } = useBookStore()
-const { request, isLoading } = useApi()
+const { request, isLoading, error } = useApi()
 const isDeleteGuardOpen = ref(false)
 
 const { id } = useRoute().params
@@ -49,13 +49,15 @@ function edit() {
 
 async function removeBook() {
   await request(() => deleteBook(book!.id))
-  toast.success(`«${book!.title}» was successfully deleted`)
-  await router.push({ name: 'books' })
+  if (error.value) {
+    toast.error(error.value)
+  } else {
+    toast.success(`«${book!.title}» was successfully deleted`)
+    await router.push({ name: 'books' })
+  }
 }
 
 const focused = useTemplateRef('focused')
 useFocus(focused, { initialValue: true })
-
-const { setSpinnerState } = useGlobalSpinner()
-watch(isLoading, () => setSpinnerState(isLoading.value))
+useGlobalSpinner().bindTo(isLoading)
 </script>

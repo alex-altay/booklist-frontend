@@ -100,11 +100,9 @@ watch(
   { deep: true },
 )
 
-const { setSpinnerState } = useGlobalSpinner()
-watch(isLoading, () => setSpinnerState(isLoading.value))
-
 const focused = useTemplateRef('focused')
 useFocus(focused, { initialValue: true })
+useGlobalSpinner().bindTo(isLoading)
 
 const guardReject = ref<GuardReject>(() => {})
 const guardResolve = ref<GuardResolve>(() => {})

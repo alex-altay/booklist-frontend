@@ -46,15 +46,12 @@ import { useApi } from '@/composables/useApi'
 import { useGlobalSpinner } from '@/composables/useGlobalSpinner'
 import { useRoute, useRouter } from 'vue-router'
 import { useUserStore } from '@/stores/user'
-import { watch } from 'vue'
 
 const { signIn } = useUserStore()
 const { isAuthorized } = storeToRefs(useUserStore())
 const { isLoading, error, request } = useApi()
-const { setSpinnerState } = useGlobalSpinner()
 const router = useRouter()
-
-watch(isLoading, () => setSpinnerState(isLoading.value))
+useGlobalSpinner().bindTo(isLoading)
 
 if (isAuthorized.value) {
   router.push({ name: 'books' })
