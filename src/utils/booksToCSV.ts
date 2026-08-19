@@ -13,7 +13,7 @@ const COLUMNS: Column[] = [
   { header: 'Author', value: (b) => b.author },
   { header: 'Language', value: (b) => (b.language ? languageMap[b.language] : null) },
   { header: 'Category', value: (b) => (b.category ? capitalizeProperty(b.category) : null) },
-  { header: 'Rating', value: (b) => (b.rating ? ratingMap[b.rating][0] : null) },
+  { header: 'Rating', value: (b) => (b.rating ? ratingMap[b.rating].score : null) },
   { header: 'Start date', value: (b) => b.startDate },
   { header: 'End date', value: (b) => b.endDate },
   { header: 'Finished', value: (b) => (b.hasFinished == null ? null : b.hasFinished ? 'Yes' : 'No') },

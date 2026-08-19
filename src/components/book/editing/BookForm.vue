@@ -60,8 +60,8 @@
             </SelectTrigger>
             <SelectContent>
               <SelectItem :value="null">Not chosen</SelectItem>
-              <SelectItem v-for="(rating, index) of ratings" :key="rating" :value="rating">
-                {{ index + 1 }} — {{ capitalizeProperty(rating) }}
+              <SelectItem v-for="{ rating, score, label } of ratingOptions" :key="rating" :value="rating">
+                {{ score }} — {{ label }}
               </SelectItem>
             </SelectContent>
           </Select>
@@ -120,8 +120,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Separator } from '@/components/ui/separator'
 import { Textarea } from '@/components/ui/textarea'
 import { capitalizeProperty } from '@/utils/capitalize'
-import { languageMap } from '@/utils/maps'
-import { newBook, categories, languages, ratings, type NewBook } from '@/schemas/book'
+import { languageMap, ratingOptions } from '@/utils/maps'
+import { newBook, categories, languages, type NewBook } from '@/schemas/book'
 import { computed, watch } from 'vue'
 
 const draft = defineModel<NewBook>('draft', { required: true })

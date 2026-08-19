@@ -1,4 +1,4 @@
-import { type Language, type Rating } from '@/schemas/book'
+import { type Language, type Rating, ratings } from '@/schemas/book'
 
 const languageMap: Record<Language, string> = {
   RU: 'Russian',
@@ -6,17 +6,18 @@ const languageMap: Record<Language, string> = {
   DE: 'German',
 }
 
-const ratingMap: Record<Rating, [number, string]> = {
-  WORST: [1, 'Worst'],
-  VERY_BAD: [2, 'Very Bad'],
-  BAD: [3, 'Bad'],
-  BELOW_AVERAGE: [4, 'Below Average'],
-  AVERAGE: [5, 'Average'],
-  ABOVE_AVERAGE: [6, 'Above Average'],
-  WORTH_READING: [7, 'Worth Reading'],
-  GOOD: [8, 'Good'],
-  EXCELLENT: [9, 'Excellent'],
-  BEST: [10, 'Best'],
+const ratingMap: Record<Rating, { score: number; label: string }> = {
+  WORST: { score: 1, label: 'Worst' },
+  VERY_BAD: { score: 2, label: 'Very Bad' },
+  BAD: { score: 3, label: 'Bad' },
+  BELOW_AVERAGE: { score: 4, label: 'Below Average' },
+  AVERAGE: { score: 5, label: 'Average' },
+  ABOVE_AVERAGE: { score: 6, label: 'Above Average' },
+  WORTH_READING: { score: 7, label: 'Worth Reading' },
+  GOOD: { score: 8, label: 'Good' },
+  EXCELLENT: { score: 9, label: 'Excellent' },
+  BEST: { score: 10, label: 'Best' },
 }
+const ratingOptions = ratings.map((r) => ({ rating: r, ...ratingMap[r] }))
 
-export { languageMap, ratingMap }
+export { languageMap, ratingMap, ratingOptions }

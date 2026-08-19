@@ -48,8 +48,8 @@
                   if (typeof d != 'number') {
                     return ''
                   }
-                  const ratingName = ratings[d - 1]
-                  return ratingMap[ratingName][1] || ''
+                  const rating = ratings[d - 1]
+                  return ratingMap[rating].label || ''
                 },
               })
             "
@@ -89,14 +89,14 @@ for (let i = 1; i <= 10; i++) {
 }
 for (const book of books) {
   if (book.rating!) {
-    const index = ratingMap[book.rating][0]
+    const index = ratingMap[book.rating].score
     chartData[index - 1]['books']++
   }
 }
 
 const [totalRating, totalBooks] = books.reduce(
   (acc: [number, number], el: Book): [number, number] =>
-    el.rating ? [acc[0] + ratingMap[el.rating][0], acc[1] + 1] : acc,
+    el.rating ? [acc[0] + ratingMap[el.rating].score, acc[1] + 1] : acc,
   [0, 0],
 )
 const averageRating = Math.round((totalRating / totalBooks) * 10) / 10

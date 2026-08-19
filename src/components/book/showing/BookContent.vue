@@ -11,11 +11,11 @@
       <div v-if="book.rating" class="col-span-2">
         <p class="text-xs text-muted-foreground text-left uppercase tracking-wider mb-1">Rating</p>
         <div class="flex items-baseline gap-1">
-          <span class="text-4xl font-bold text-primary">{{ ratingMap[book.rating][0] }}</span>
+          <span class="text-4xl font-bold text-primary">{{ ratingMap[book.rating].score }}</span>
           <span class="text-sm text-muted-foreground">/</span>
           <span class="text-muted-foreground text-sm">10</span>
           <span class="text-sm text-muted-foreground">—</span>
-          <span class="text-sm text-muted-foreground italic">{{ ratingMap[book.rating][1] }}</span>
+          <span class="text-sm text-muted-foreground italic">{{ ratingMap[book.rating].label }}</span>
         </div>
       </div>
 

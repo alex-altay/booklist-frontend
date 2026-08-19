@@ -38,8 +38,8 @@
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="all"> All ratings </SelectItem>
-                <SelectItem v-for="(rating, index) of ratings" :key="rating" :value="rating">
-                  {{ index + 1 }} — {{ capitalizeProperty(rating) }}
+                <SelectItem v-for="{ rating, score, label } of ratingOptions" :key="rating" :value="rating">
+                  {{ score }} — {{ label }}
                 </SelectItem>
               </SelectContent>
             </Select>
@@ -115,9 +115,9 @@ import { Label } from '@/components/ui/label'
 import { Input } from '@/components/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { X, Search } from '@lucide/vue'
-import { categories, languages, ratings } from '@/schemas/book'
+import { categories, languages } from '@/schemas/book'
 import { capitalizeProperty } from '@/utils/capitalize'
-import { languageMap } from '@/utils/maps'
+import { languageMap, ratingOptions } from '@/utils/maps'
 import { computed } from 'vue'
 
 defineEmits(['resetFilter'])
