@@ -33,12 +33,11 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from 'vue'
-import { useWindowSize } from '@vueuse/core'
-import { usePreferredReducedMotion } from '@vueuse/core'
+import { ref } from 'vue'
+import { usePreferredReducedMotion, useEventListener, useWindowSize } from '@vueuse/core'
 
 const { height } = useWindowSize()
-const isPreferReducedMotion = usePreferredReducedMotion().value == 'reduce'
+const reducedMotion = usePreferredReducedMotion()
 
 const firstLineFontStretch = ref(100)
 const firstLineLetterSpacing = ref(0)
@@ -66,15 +65,13 @@ function transformOnScroll() {
   thirdLineLetterSpacing.value = progress * thirdLineConfig.maxLetterSpacing
 }
 
-onMounted(() => {
-  if (!isPreferReducedMotion) {
-    window.addEventListener('scroll', transformOnScroll)
-  }
-})
-
-onUnmounted(() => {
-  if (!isPreferReducedMotion) {
-    window.removeEventListener('scroll', transformOnScroll)
-  }
-})
+useEventListener(
+  'scroll',
+  () => {
+    if (reducedMotion.value !== 'reduce') {
+      transformOnScroll()
+    }
+  },
+  { passive: true },
+)
 </script>
