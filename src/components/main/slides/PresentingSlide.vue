@@ -3,6 +3,7 @@
     <img
       class="relative h-[min(100vw,100vh)] object-contain"
       src="@/assets/main-page/illustrations/presenting/mobile.png"
+      alt=""
     />
   </div>
   <PresentingParallax v-else />

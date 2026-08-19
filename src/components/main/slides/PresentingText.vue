@@ -8,6 +8,6 @@
         You can see if you’ve started reading more, how much of it you enjoyed, and how it compares to the last year
       </p>
     </div>
-    <img class="h-screen" src="@/assets/main-page/forms/slide-three.svg" />
+    <img class="relative -left-px h-screen" src="@/assets/main-page/forms/slide-three.svg" alt="" />
   </div>
 </template>

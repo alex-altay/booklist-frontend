@@ -8,9 +8,10 @@
       v-if="isSmallerThanLg || isPreferReducedMotion"
       class="relative lg:top-[2vw] w-[min(100vw,100vh)] h-[min(100vw,100vh)]"
       src="@/assets/main-page/illustrations/reading/mobile.png"
+      alt=""
     />
     <ReadingParallax v-else />
-    <img class="relative left-px h-screen" src="@/assets/main-page/forms/slide-one.svg" />
+    <img class="relative left-px h-screen" src="@/assets/main-page/forms/slide-one.svg" alt="" />
   </div>
 </template>
 

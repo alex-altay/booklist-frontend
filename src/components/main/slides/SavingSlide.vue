@@ -3,14 +3,15 @@
     id="saving"
     class="relative shrink-0 flex flex-row h-screen items-center overflow-hidden no-scrollbar bg-main-additional"
   >
-    <img class="relative -left-px h-screen" src="@/assets/main-page/forms/slide-two.svg" />
+    <img class="relative -left-px h-screen" src="@/assets/main-page/forms/slide-two.svg" alt="" />
     <img
       v-if="isSmallerThanLg || isPreferReducedMotion"
       class="w-[min(100vw,100vh)] h-[min(100vw,100vh)]"
       src="@/assets/main-page/illustrations/saving/mobile.png"
+      alt=""
     />
     <SavingParallax v-else />
-    <img class="relative left-px h-screen" src="@/assets/main-page/forms/slide-one.svg" />
+    <img class="relative left-px h-screen" src="@/assets/main-page/forms/slide-one.svg" alt="" />
   </div>
 </template>
 

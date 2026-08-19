@@ -13,8 +13,8 @@
             <div class="grid gap-6">
               <form class="h-full" @submit.prevent="register">
                 <Field>
-                  <FieldLabel for="email" class="mb-0"> Email </FieldLabel>
-                  <Input id="email" v-model="email" type="email" placeholder="example@mail.com" />
+                  <FieldLabel :for="id.email" class="mb-0"> Email </FieldLabel>
+                  <Input :id="id.email" v-model="email" type="email" placeholder="example@mail.com" />
                   <div class="min-h-5 mb-4">
                     <FieldError>{{ error }}</FieldError>
                   </div>
@@ -55,10 +55,12 @@ import { useApi } from '@/composables/useApi'
 import { useGlobalSpinner } from '@/composables/useGlobalSpinner'
 import { useRouter } from 'vue-router'
 import { useUserStore } from '@/stores/user'
+import { useIds } from '@/composables/useIds'
 
 const router = useRouter()
 const { signUp } = useUserStore()
 const { isAuthorized } = storeToRefs(useUserStore())
+const id = useIds('email')
 
 if (isAuthorized.value) {
   router.push({ name: 'books' })

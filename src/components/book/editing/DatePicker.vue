@@ -2,6 +2,7 @@
   <Popover v-slot="{ close }">
     <PopoverTrigger as-child>
       <Button
+        :id
         variant="outline"
         :class="
           cn(
@@ -37,7 +38,7 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 import { formatDate } from '@/utils'
 import { ref, watch, computed, type Ref } from 'vue'
 
-defineProps<{ hasDateError?: boolean }>()
+defineProps<{ hasDateError?: boolean; id: string }>()
 const modelDate = defineModel<string | null | undefined>('date')
 const initial = modelDate.value ? fromDate(new Date(modelDate.value), getLocalTimeZone()) : null
 const date = ref(initial) as unknown as Ref<DateValue>

@@ -6,30 +6,31 @@
     <div
       :style="{ transform: `rotateX(${parallax.roll * 10}deg) rotateY(${parallax.tilt * 10}deg)` }"
       class="relative w-[85vh] h-[85vh] duration-300 ease-out transition-all"
+      aria-hidden="true"
     >
       <img
         :style="{ transform: `translateX(${parallax.tilt * 120}px) translateY(${parallax.roll * 120}px)` }"
         class="layer"
         src="@/assets/main-page/illustrations/saving/bottom.png"
-        alt="bottom"
+        alt=""
       />
       <img
         :style="{ transform: `translateX(${parallax.tilt * -50}px) translateY(${parallax.roll * 60}px)` }"
         class="layer"
         src="@/assets/main-page/illustrations/saving/top.png"
-        alt="top"
+        alt=""
       />
       <img
         :style="{ transform: `translateX(${parallax.tilt * 80}px) translateY(${parallax.roll * -80}px)` }"
         class="layer"
         src="@/assets/main-page/illustrations/saving/cat.png"
-        alt="cat"
+        alt=""
       />
       <img
         :style="{ transform: `translateX(${parallax.tilt * -140}px) translateY(${parallax.roll * 140}px)` }"
         class="layer"
         src="@/assets/main-page/illustrations/saving/dog.png"
-        alt="dog"
+        alt=""
       />
     </div>
   </div>

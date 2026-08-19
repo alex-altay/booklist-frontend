@@ -17,11 +17,11 @@
 
         <div class="space-y-4">
           <div class="space-y-2">
-            <Label for="search">Search</Label>
+            <Label :for="id.search">Search</Label>
             <div class="relative">
               <Search class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
               <Input
-                id="search"
+                :id="id.search"
                 v-model:model-value="model.search"
                 placeholder="Title or author..."
                 class="pl-10"
@@ -31,9 +31,9 @@
           </div>
 
           <div class="space-y-2 w-full flex flex-col">
-            <Label>Rating</Label>
+            <Label :for="id.rating">Rating</Label>
             <Select v-model:model-value="model.rating" :value="model.rating">
-              <SelectTrigger class="w-full">
+              <SelectTrigger :id="id.rating" class="w-full">
                 <SelectValue placeholder="All ratings" />
               </SelectTrigger>
               <SelectContent>
@@ -46,9 +46,9 @@
           </div>
 
           <div class="space-y-2 w-full flex flex-col">
-            <Label>Category</Label>
+            <Label :for="id.category">Category</Label>
             <Select v-model:model-value="model.category" :value="model.category">
-              <SelectTrigger class="w-full">
+              <SelectTrigger :id="id.category" class="w-full">
                 <SelectValue placeholder="Any category" />
               </SelectTrigger>
               <SelectContent>
@@ -61,9 +61,9 @@
           </div>
 
           <div class="space-y-2 w-full flex flex-col">
-            <Label>Finished in</Label>
+            <Label :for="id.finished">Finished in</Label>
             <Select v-model:model-value="model.endYear" :value="model.endYear">
-              <SelectTrigger class="w-full">
+              <SelectTrigger :id="id.finished" class="w-full">
                 <SelectValue placeholder="All years" />
               </SelectTrigger>
               <SelectContent>
@@ -76,9 +76,9 @@
           </div>
 
           <div class="space-y-2 w-full flex flex-col">
-            <Label>Language</Label>
+            <Label :for="id.language">Language</Label>
             <Select v-model:model-value="model.language">
-              <SelectTrigger class="w-full">
+              <SelectTrigger :id="id.language" class="w-full">
                 <SelectValue placeholder="All languages" />
               </SelectTrigger>
               <SelectContent>
@@ -91,9 +91,9 @@
           </div>
 
           <div class="space-y-2 w-full flex flex-col">
-            <Label class="text-left">Status</Label>
+            <Label :for="id.status" class="text-left">Status</Label>
             <Select v-model:model-value="hasFinishedStringified">
-              <SelectTrigger class="w-full">
+              <SelectTrigger :id="id.status" class="w-full">
                 <SelectValue placeholder="All" />
               </SelectTrigger>
               <SelectContent>
@@ -118,11 +118,13 @@ import { X, Search } from '@lucide/vue'
 import { categories, languages } from '@/schemas/book'
 import { capitalizeProperty } from '@/utils/capitalize'
 import { languageMap, ratingOptions } from '@/utils/maps'
+import { useIds } from '@/composables/useIds'
 import { computed } from 'vue'
 
 defineEmits(['resetFilter'])
 defineProps<{ years: number[] }>()
 const model = defineModel<Filter>({ required: true })
+const id = useIds('search', 'rating', 'category', 'finished', 'language', 'status')
 
 const hasFinishedStringified = computed({
   get: () => {

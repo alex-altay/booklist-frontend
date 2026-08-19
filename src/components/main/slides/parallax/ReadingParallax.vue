@@ -6,42 +6,43 @@
     <div
       :style="{ transform: `rotateX(${parallax.roll * 10}deg) rotateY(${parallax.tilt * 10}deg)` }"
       class="relative w-[85vh] h-[85vh] duration-300 ease-out transition-all"
+      aria-hidden="true"
     >
       <img
         :style="{ transform: `translateX(${parallax.tilt * -5}px) translateY(${parallax.roll * -30}px)` }"
         class="layer"
         src="@/assets/main-page/illustrations/reading/sun.png"
-        alt="sun"
+        alt=""
       />
       <img
         :style="{ transform: `translateX(${parallax.tilt * 15}px) translateY(${parallax.roll * 90}px)` }"
         class="layer"
         src="@/assets/main-page/illustrations/reading/clouds.png"
-        alt="clouds"
+        alt=""
       />
       <img
         :style="{ transform: `translateX(${parallax.tilt * 120}px) translateY(${parallax.roll * 120}px)` }"
         class="layer"
         src="@/assets/main-page/illustrations/reading/background.png"
-        alt="background"
+        alt=""
       />
       <img
         :style="{ transform: `translateX(${parallax.tilt * -20}px) translateY(${parallax.roll * -20}px)` }"
         class="layer"
         src="@/assets/main-page/illustrations/reading/dog.png"
-        alt="dog"
+        alt=""
       />
       <img
         :style="{ transform: `translateX(${parallax.tilt * 80}px) translateY(${parallax.roll * -40}px)` }"
         class="layer"
         src="@/assets/main-page/illustrations/reading/cat.png"
-        alt="cat"
+        alt=""
       />
       <img
         :style="{ transform: `translateX(${parallax.tilt * -50}px) translateY(${parallax.roll * 90}px)` }"
         class="layer"
         src="@/assets/main-page/illustrations/reading/castle.png"
-        alt="castle"
+        alt=""
       />
     </div>
   </div>

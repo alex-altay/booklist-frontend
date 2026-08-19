@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div aria-hidden="true">
     <svg xmlns="http://www.w3.org/2000/svg" width="350" height="350" viewBox="0 0 500 500">
       <path
         id="book"

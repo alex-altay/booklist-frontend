@@ -1,11 +1,12 @@
 <template>
   <div ref="wrapper" class="relative h-screen w-screen flex items-center justify-center select-none bg-main-bg">
-    <img ref="pencil" class="absolute top-0 h-[10vh] left-[16vw]" src="@/assets/main-page/pencil.png" />
-    <img ref="pen" class="absolute top-0 h-[14vh] right-[18vw]" src="@/assets/main-page/pen.png" />
+    <img ref="pencil" class="absolute top-0 h-[10vh] left-[16vw]" src="@/assets/main-page/pencil.png" alt="" />
+    <img ref="pen" class="absolute top-0 h-[14vh] right-[18vw]" src="@/assets/main-page/pen.png" alt="" />
     <img
       ref="laptop"
       class="absolute bottom-0 h-[12vh] translate-x-1 hidden lg:block"
       src="@/assets/main-page/laptop.png"
+      alt=""
     />
 
     <div class="flex flex-col justify-center items-center">

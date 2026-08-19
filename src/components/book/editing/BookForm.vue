@@ -2,20 +2,20 @@
   <form @submit.prevent>
     <div class="space-y-6 2xl:space-y-12">
       <div class="space-y-2">
-        <Label for="title">Title<span class="text-destructive">*</span></Label>
-        <Input id="title" v-model="draft.title" class="text-sm" placeholder="Enter the title" autofocus required />
+        <Label :for="id.title">Title<span class="text-destructive">*</span></Label>
+        <Input :id="id.title" v-model="draft.title" class="text-sm" placeholder="Enter the title" autofocus required />
       </div>
 
       <div class="space-y-2">
-        <Label for="author">Author<span class="text-destructive">*</span></Label>
-        <Input id="author" v-model="draft.author" class="text-sm" placeholder="Enter the author" />
+        <Label :for="id.author">Author<span class="text-destructive">*</span></Label>
+        <Input :id="id.author" v-model="draft.author" class="text-sm" placeholder="Enter the author" />
       </div>
 
       <Separator />
 
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
         <div class="space-y-2">
-          <Label>Category</Label>
+          <Label :for="id.category">Category</Label>
           <!-- The reason why vue-ignore directives are here, it that Reka UI doesn't support 
           any types (but not values) for nullableValue other than 'string', but native elements inside 
           Reka UI components work with 'null' perfectly. Same staff goes with 'boolean' on Reka UI Select. 
@@ -23,7 +23,7 @@
           -->
           <!-- @vue-ignore -->
           <Select v-model="draft.category" :value="draft.category" :nullable-value="null">
-            <SelectTrigger class="w-full">
+            <SelectTrigger :id="id.category" class="w-full">
               <SelectValue :placeholder="draft.category ? capitalizeProperty(draft.category) : 'Not chosen'" />
             </SelectTrigger>
             <SelectContent>
@@ -36,10 +36,10 @@
         </div>
 
         <div class="space-y-2">
-          <Label>Language</Label>
+          <Label :for="id.language">Language</Label>
           <!-- @vue-ignore -->
           <Select v-model="draft.language" :value="draft.language" :nullable-value="null">
-            <SelectTrigger class="w-full">
+            <SelectTrigger :id="id.language" class="w-full">
               <SelectValue :placeholder="draft.language ? languageMap[draft.language] : 'Not chosen'" />
             </SelectTrigger>
             <SelectContent>
@@ -52,10 +52,10 @@
         </div>
 
         <div class="space-y-2">
-          <Label>Rating</Label>
+          <Label :for="id.rating">Rating</Label>
           <!-- @vue-ignore -->
           <Select v-model="draft.rating" :value="draft.rating" :nullable-value="null">
-            <SelectTrigger class="w-full">
+            <SelectTrigger :id="id.rating" class="w-full">
               <SelectValue placeholder="Not chosen" />
             </SelectTrigger>
             <SelectContent>
@@ -68,10 +68,10 @@
         </div>
 
         <div class="space-y-2 w-full flex flex-col">
-          <Label class="text-left">Status</Label>
+          <Label :for="id.status" class="text-left">Status</Label>
           <!-- @vue-ignore -->
           <Select v-model="draft.hasFinished" :nullable-value="null">
-            <SelectTrigger class="w-full">
+            <SelectTrigger :id="id.status" class="w-full">
               <SelectValue :placeholder="hasFinishedPlaceholder" />
             </SelectTrigger>
             <SelectContent>
@@ -85,23 +85,23 @@
         </div>
 
         <div class="space-y-2">
-          <Label for="startDate">Start date</Label>
-          <DatePicker v-model:date="draft.startDate" class="w-full" />
+          <Label :for="id.startDate">Start date</Label>
+          <DatePicker :id="id.startDate" v-model:date="draft.startDate" class="w-full" />
         </div>
 
         <div class="space-y-2">
-          <Label for="startDate">End date</Label>
-          <DatePicker v-model:date="draft.endDate" :has-date-error />
+          <Label :for="id.endDate">End date</Label>
+          <DatePicker :id="id.endDate" v-model:date="draft.endDate" :has-date-error />
         </div>
       </div>
 
       <p v-if="hasDateError" class="text-left text-sm text-destructive">The end date cannot be before the start date</p>
 
       <div class="space-y-2">
-        <Label for="description">Description</Label>
+        <Label :for="id.description">Description</Label>
         <!-- @vue-ignore -->
         <Textarea
-          id="description"
+          :id="id.description"
           v-model="draft.description"
           class="text-sm"
           placeholder="Impressions, quotes, thoughts..."
@@ -122,6 +122,7 @@ import { Textarea } from '@/components/ui/textarea'
 import { capitalizeProperty } from '@/utils/capitalize'
 import { languageMap, ratingOptions } from '@/utils/maps'
 import { newBook, categories, languages, type NewBook } from '@/schemas/book'
+import { useIds } from '@/composables/useIds'
 import { computed, watch } from 'vue'
 
 const draft = defineModel<NewBook>('draft', { required: true })
@@ -132,6 +133,7 @@ const hasDateError = computed(() =>
   ),
 )
 
+const id = useIds('title', 'author', 'category', 'language', 'rating', 'status', 'startDate', 'endDate', 'description')
 const hasFinishedPlaceholder = computed(() => {
   switch (draft.value.hasFinished) {
     case true:
