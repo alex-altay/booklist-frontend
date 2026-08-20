@@ -1,4 +1,4 @@
-import { ERRORS } from '@/utils/errors/pure'
+import { ERRORS } from '@/errors/pure'
 import axios, { AxiosError, AxiosResponse, type AxiosRequestConfig } from 'axios'
 
 const baseURL = import.meta.env.VITE_HOST

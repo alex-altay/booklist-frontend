@@ -31,7 +31,7 @@
 <script setup lang="ts">
 import { Card } from '@/components/ui/card'
 import { Infinity } from '@lucide/vue'
-import { getDaysDuration } from '@/utils/date'
+import { getDaysDuration } from '@/utils'
 import { LONGEST_BOOKS_LIST_LENGTH } from '@/data/constants'
 import type { Book } from '@/schemas/book'
 

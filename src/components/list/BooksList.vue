@@ -10,10 +10,10 @@ import ListFilter from '@/components/list/ListFilter.vue'
 import PaginatedList from '@/components/list/PaginatedList.vue'
 import { useBookStore } from '@/stores/book'
 import { useApi } from '@/composables/useApi'
-import { getYears } from '@/utils/date'
+import { getYears } from '@/utils'
 import { storeToRefs } from 'pinia'
 import { computed, ref } from 'vue'
-import type { Book } from '@/schemas/book/book'
+import type { Book } from '@/schemas/book'
 
 const { request } = useApi()
 const bookStore = useBookStore()

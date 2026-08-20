@@ -1,4 +1,4 @@
-import { ERRORS, isBadRequestError, isNotFoundError, isUnauthorizedError } from '@/utils/errors/pure'
+import { ERRORS, isBadRequestError, isNotFoundError, isUnauthorizedError } from '@/errors/pure'
 import { ref } from 'vue'
 
 export function useApi() {

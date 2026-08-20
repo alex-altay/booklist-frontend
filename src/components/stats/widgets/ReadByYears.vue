@@ -70,7 +70,7 @@ import {
   componentToString,
 } from '@/components/ui/chart'
 import { RollingDigit } from '@/components/ui/rolling-digit'
-import { getYears } from '@/utils/date'
+import { getYears } from '@/utils'
 import { YEARS_BAR_NUMBER } from '@/data/constants'
 import type { ChartConfig } from '@/components/ui/chart'
 import type { Book } from '@/schemas/book'

@@ -19,7 +19,7 @@
 import { Card } from '@/components/ui/card'
 import { RollingDigit } from '@/components/ui/rolling-digit'
 import { Watch } from '@lucide/vue'
-import { getDaysDuration } from '@/utils/date'
+import { getDaysDuration } from '@/utils'
 import type { Book } from '@/schemas/book'
 
 const { books } = defineProps<{ books: Book[] }>()

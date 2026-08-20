@@ -12,7 +12,7 @@
 <script setup lang="ts">
 import { Download } from '@lucide/vue'
 import { useBookStore } from '@/stores/book'
-import { booksToCSV } from '@/utils/booksToCSV'
+import { booksToCSV } from '@/utils'
 import { toast } from 'vue-sonner'
 import { useApi } from '@/composables/useApi'
 

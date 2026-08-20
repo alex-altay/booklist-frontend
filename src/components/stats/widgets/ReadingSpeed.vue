@@ -36,8 +36,7 @@
 import { Card } from '@/components/ui/card'
 import { RollingDigit } from '@/components/ui/rolling-digit'
 import { Timer } from '@lucide/vue'
-import { languageMap } from '@/utils'
-import { MS_PER_DAY } from '@/utils/date'
+import { languageMap, MS_PER_DAY } from '@/utils'
 import type { Book, Language } from '@/schemas/book'
 
 const { books } = defineProps<{ books: Book[] }>()

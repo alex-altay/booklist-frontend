@@ -1,4 +1,4 @@
-import { ERRORS } from '@/utils/errors/pure'
+import { ERRORS } from '@/errors/pure'
 import { router } from '@/router/router'
 import { useUserStore } from '@/stores/user'
 import { toast } from 'vue-sonner'

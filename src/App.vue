@@ -16,7 +16,7 @@
 import 'vue-sonner/style.css'
 import GlobalSpinner from '@/components/GlobalSpinner.vue'
 import { Toaster } from '@/components/ui/sonner'
-import { globalErrorHandler } from '@/utils/errors/effects'
+import { globalErrorHandler } from '@/errors/effects'
 import { useGlobalSpinner } from '@/composables/useGlobalSpinner'
 import { onErrorCaptured } from 'vue'
 

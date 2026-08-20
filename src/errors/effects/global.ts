@@ -1,10 +1,5 @@
-import { isUnauthorizedError, isBadRequestError, isNotFoundError } from '@/utils/errors/pure'
-import {
-  handleAuthError,
-  handleBadRequest,
-  handleIsNotFound,
-  handleUnexpectedError,
-} from '@/utils/errors/effects/handlers'
+import { isUnauthorizedError, isBadRequestError, isNotFoundError } from '@/errors/pure'
+import { handleAuthError, handleBadRequest, handleIsNotFound, handleUnexpectedError } from '@/errors/effects/handlers'
 
 export function globalErrorHandler(error: unknown) {
   if (isUnauthorizedError(error)) {
