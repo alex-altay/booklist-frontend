@@ -31,7 +31,7 @@
       </RouterLink>
     </template>
     <template v-else>
-      <p class="text-sm text-left leading-relaxed text-foreground line-clamp-3 italic">
+      <p class="text-sm text-left leading-relaxed text-muted-foreground line-clamp-3 italic">
         Add notes to your books to see them here at random
       </p>
     </template>
@@ -41,16 +41,19 @@
 <script setup lang="ts">
 import { Card } from '@/components/ui/card'
 import { Quote, RefreshCw } from '@lucide/vue'
+import { type Book } from '@/schemas/book'
+import { useTimeoutFn } from '@vueuse/core'
 import { ref } from 'vue'
-import type { Book } from '@/schemas/book'
 
 const { books } = defineProps<{ books: Book[] }>()
-const withDescription = books.filter((b: Book) => b.description !== null)
 
-const quote = ref<string>('Add some description to your books to see your random notes here')
+const isAnimated = ref(false)
+const removeAnimation = useTimeoutFn(() => (isAnimated.value = false), 500)
+const id = ref<Book['id']>(-1)
 const author = ref<Book['author']>('')
 const title = ref<Book['title']>('')
-const id = ref<Book['id']>(-1)
+const quote = ref<string>('')
+const withDescription = books.filter((b: Book) => b.description !== null)
 
 function getNewRandomIndex(): number {
   if (withDescription.length === 1) {
@@ -62,14 +65,13 @@ function getNewRandomIndex(): number {
   }
   return randomIndex
 }
-const isAnimated = ref(false)
 
 function updateQuote() {
   if (!withDescription.length) {
     return
   }
   isAnimated.value = true
-  setTimeout(() => (isAnimated.value = false), 500)
+  removeAnimation.start()
   const randomIndex = getNewRandomIndex()
   const randomBook = withDescription[randomIndex]
   quote.value = randomBook.description || ''
