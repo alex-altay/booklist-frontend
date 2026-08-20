@@ -1,5 +1,5 @@
 import { ERRORS } from '@/errors/pure'
-import axios, { AxiosError, AxiosResponse, type AxiosRequestConfig } from 'axios'
+import axios, { type AxiosRequestConfig, type AxiosError, type AxiosResponse } from 'axios'
 
 const baseURL = import.meta.env.VITE_HOST
 if (!baseURL) {

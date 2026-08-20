@@ -63,7 +63,7 @@
 import { VisAxis, VisStackedBar, VisXYContainer } from '@unovis/vue'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import {
-  ChartConfig,
+  type ChartConfig,
   ChartContainer,
   ChartCrosshair,
   ChartTooltip,

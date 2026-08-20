@@ -28,12 +28,12 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog'
-import { GuardReject, GuardResolve } from '@/types/guards'
+import type { DialogReject, DialogResolve } from '@/types/dialog'
 
 defineEmits(['return-confirmed'])
 const open = defineModel<boolean>('open', { required: true })
 defineProps<{
-  reject: GuardReject
-  resolve: GuardResolve
+  reject: DialogReject
+  resolve: DialogResolve
 }>()
 </script>

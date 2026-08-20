@@ -1,4 +1,4 @@
-import { AuthResponse } from '@/schemas/auth'
+import type { AuthResponse } from '@/schemas/auth'
 import { axiosInstance } from '@api/axios-config'
 import type {
   AuthenticationResponseJSON,
@@ -16,11 +16,7 @@ export const webauthnApi = {
     }>(`webauthn/register/option/${email}`)
   },
 
-  verifyRegistration(body: {
-    response: RegistrationResponseJSON
-    requestId: string
-    email: string
-  }) {
+  verifyRegistration(body: { response: RegistrationResponseJSON; requestId: string; email: string }) {
     return axiosInstance.post<typeof body, { verified: boolean }>('webauthn/register', body)
   },
 

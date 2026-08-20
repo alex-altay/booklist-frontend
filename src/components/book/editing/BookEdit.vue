@@ -37,14 +37,14 @@ import BookEditControls from '@/components/book/editing/BookEditControls.vue'
 import BookForm from '@/components/book/editing/BookForm.vue'
 import ReturnGuardDialog from '@/components/book/editing/ReturnGuardDialog.vue'
 import { useBookStore } from '@/stores/book'
-import { isNewBook, GuardReject, GuardResolve } from '@/types/guards'
+import type { DialogReject, DialogResolve } from '@/types/dialog'
 import { onBeforeRouteLeave, useRoute } from 'vue-router'
 import { router } from '@/router/router'
 import { toast } from 'vue-sonner'
 import { useApi } from '@/composables/useApi'
 import { useGlobalSpinner } from '@/composables/useGlobalSpinner'
 import { useWindowScroll, useFocus } from '@vueuse/core'
-import { type Book, type NewBook } from '@/schemas/book'
+import { isNewBook, type Book, type NewBook } from '@/schemas/book'
 import { computed, ref, watch, useTemplateRef } from 'vue'
 
 const { getBook, createBook, updateBook } = useBookStore()
@@ -103,8 +103,8 @@ const focused = useTemplateRef('focused')
 useFocus(focused, { initialValue: true })
 useGlobalSpinner().bindTo(isLoading)
 
-const guardReject = ref<GuardReject>(() => {})
-const guardResolve = ref<GuardResolve>(() => {})
+const guardReject = ref<DialogReject>(() => {})
+const guardResolve = ref<DialogResolve>(() => {})
 async function leaveGuard() {
   if (!hasChanges.value) {
     return true

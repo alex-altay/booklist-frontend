@@ -29,6 +29,7 @@ export default defineConfig([
       '@/eqeqeq': 'error',
       '@/prefer-const': 'error',
       '@/no-duplicate-imports': 'error',
+      '@typescript-eslint/consistent-type-imports': 'error',
       '@typescript-eslint/no-unsafe-assignment': 'error',
       '@typescript-eslint/no-unsafe-call': 'error',
       '@typescript-eslint/no-unsafe-member-access': 'error',
