@@ -21,7 +21,9 @@
               </div>
               <div class="text-center text-sm">
                 Don't have an account?
-                <RouterLink class="underline underline-offset-4 cursor-pointer" to="signup"> Sign up </RouterLink>
+                <RouterLink class="underline underline-offset-4 cursor-pointer" :to="{ name: 'signup' }">
+                  Sign up
+                </RouterLink>
               </div>
             </div>
           </CardContent>
@@ -29,8 +31,8 @@
         <div
           class="text-balance text-center text-xs text-muted-foreground [&_a]:underline [&_a]:underline-offset-4 [&_a]:hover:text-primary"
         >
-          By clicking sign in, you agree to our <RouterLink to="terms">Terms of Service</RouterLink> and
-          <RouterLink to="privacy">Privacy Policy</RouterLink>.
+          By clicking sign in, you agree to our <RouterLink :to="{ name: 'terms' }">Terms of Service</RouterLink> and
+          <RouterLink :to="{ name: 'privacy' }">Privacy Policy</RouterLink>.
         </div>
       </div>
     </div>

@@ -27,7 +27,9 @@
               </form>
               <div class="text-center text-sm select-none">
                 Already have an account?
-                <RouterLink class="underline underline-offset-4 cursor-pointer" to="signin"> Sign in </RouterLink>
+                <RouterLink class="underline underline-offset-4 cursor-pointer" :to="{ name: 'signin' }">
+                  Sign in
+                </RouterLink>
               </div>
             </div>
           </CardContent>
@@ -35,8 +37,9 @@
         <div
           class="select-none text-balance text-center text-xs text-muted-foreground [&_a]:underline [&_a]:underline-offset-4 [&_a]:hover:text-primary"
         >
-          By clicking create account, you agree to our <RouterLink to="terms">Terms of Service</RouterLink> and
-          <RouterLink class="cursor-pointer" to="privacy">Privacy Policy</RouterLink>.
+          By clicking create account, you agree to our
+          <RouterLink :to="{ name: 'terms' }">Terms of Service</RouterLink> and
+          <RouterLink class="cursor-pointer" :to="{ name: 'privacy' }">Privacy Policy</RouterLink>.
         </div>
       </div>
     </div>

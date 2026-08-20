@@ -15,7 +15,7 @@
       <nav class="flex items-center gap-6">
         <RouterLink
           class="min-w-12 text-right text-muted-foreground hover:text-foreground select-none text-sm font-medium cursor-pointer"
-          to="books"
+          :to="{ name: 'books' }"
           >Books</RouterLink
         >
         <div class="bg-primary p-2 rounded-lg text-primary-foreground">
@@ -23,7 +23,7 @@
         </div>
         <RouterLink
           class="min-w-12 text-left text-muted-foreground hover:text-foreground select-none text-sm font-medium cursor-pointer"
-          to="stats"
+          :to="{ name: 'stats' }"
           >Stats</RouterLink
         >
       </nav>

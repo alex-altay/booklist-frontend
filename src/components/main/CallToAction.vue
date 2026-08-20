@@ -20,11 +20,13 @@
       ref="links"
       class="absolute bottom-3 md:bottom-15 px-3 lg:px-14 flex flex-row w-full justify-between uppercase sm:text-lg 2xl:text-2xl"
     >
-      <RouterLink to="/terms" class="max-w-30 lg:max-w-none text-xs lg:text-lg text-gray-800 text-left cursor-pointer"
+      <RouterLink
+        :to="{ name: 'terms' }"
+        class="max-w-30 lg:max-w-none text-xs lg:text-lg text-gray-800 text-left cursor-pointer"
         >BORING TERMS OF AGREEMENT</RouterLink
       >
       <RouterLink
-        to="/privacy"
+        :to="{ name: 'privacy' }"
         class="max-w-30 lg:max-w-none text-xs lg:text-lg text-gray-800 text-right cursor-pointer"
         >EVEN MORE BORING PRIVACY POLICY</RouterLink
       >
