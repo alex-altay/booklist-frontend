@@ -1,6 +1,6 @@
 <template>
   <Card
-    class="relative overflow-hidden h-32 w-full min-w-56 py-0 flex flex-col transition-all hover:shadow-md cursor-pointer select-none"
+    class="relative overflow-hidden h-32 w-full min-w-56 py-0 flex flex-col transition-shadow hover:shadow-md cursor-pointer select-none"
   >
     <div class="h-full p-5 flex flex-row items-start justify-between gap-4">
       <div class="min-w-0 flex-1 space-y-1 text-left">
