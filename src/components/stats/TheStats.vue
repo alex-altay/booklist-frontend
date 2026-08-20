@@ -16,6 +16,17 @@
 </template>
 
 <script setup lang="ts">
+/**
+ * Widgets read books once during setup and do not track later changes.
+ * That is deliberate: nothing on this page mutates books, so we don't need reactivity here.
+ * The numbers are always actual because the component unmounts when you navigate
+ * away and re-reads the store when you come back
+ *
+ * Two changes would break that silently: wrapping <RouterView /> in
+ * <KeepAlive>, which keeps this component mounted across navigations with the same data
+ * or adding mutatios on this page. In both cases wrap the books
+ * inside each widget in computed()
+ */
 import EmptyStats from '@/components/stats/EmptyStats.vue'
 import LongestBooks from '@/components/stats/widgets/LongestBooks.vue'
 import RandomQuote from '@/components/stats/widgets/RandomQuote.vue'
