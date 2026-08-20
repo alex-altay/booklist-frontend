@@ -4,8 +4,8 @@
       <div
         class="landscape:max-lg:text-[clamp(1rem,15vw,90px)] text-[clamp(3rem,22vw,200px)] 2xl:pr-[6.8ch] ml-[-0.05ch] lg:self-start lg:pr-0 max-lg:pr-0"
         :style="{
-          fontStretch: `${firstLineFontStretch}%`,
-          letterSpacing: `${firstLineLetterSpacing}em`,
+          fontStretch: `${config.first.fontStretch}%`,
+          letterSpacing: `${config.first.letterSpacing}em`,
         }"
       >
         KEEP
@@ -13,8 +13,8 @@
       <div
         class="landscape:max-lg:text-[clamp(1rem,15vw,90px)] text-[clamp(3rem,22vw,200px)] mt-[-0.1em] ml-[-0.15em]"
         :style="{
-          fontStretch: `${secondLineFontStretch}%`,
-          letterSpacing: `${secondLineLetterSpacing}em`,
+          fontStretch: `${config.second.fontStretch}%`,
+          letterSpacing: `${config.second.letterSpacing}em`,
         }"
       >
         TRACK
@@ -22,8 +22,8 @@
       <div
         class="text-[clamp(0.8rem,3vw,50px)] lg:self-end whitespace-nowrap"
         :style="{
-          fontStretch: `${thirdLineFontStretch}%`,
-          letterSpacing: `${thirdLineLetterSpacing}em`,
+          fontStretch: `${config.third.fontStretch}%`,
+          letterSpacing: `${config.third.letterSpacing}em`,
         }"
       >
         OF BOOKS YOU'VE READ
@@ -33,36 +33,24 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
 import { usePreferredReducedMotion, useEventListener, useWindowSize } from '@vueuse/core'
+import { reactive } from 'vue'
 
 const { height } = useWindowSize()
 const reducedMotion = usePreferredReducedMotion()
 
-const firstLineFontStretch = ref(100)
-const firstLineLetterSpacing = ref(0)
-
-const secondLineFontStretch = ref(100)
-const secondLineLetterSpacing = ref(0)
-
-const thirdLineFontStretch = ref(100)
-const thirdLineLetterSpacing = ref(0)
-
-const firstLineConfig = { minFontStretch: 5, maxLetterSpacing: 0.3 }
-const secondLineConfig = { minFontStretch: 5, maxLetterSpacing: 0.4 }
-const thirdLineConfig = { minFontStretch: 1, maxLetterSpacing: 0.4 }
+const config = reactive({
+  first: { fontStretch: 100, letterSpacing: 0, minFontStretch: 5, maxLetterSpacing: 0.3 },
+  second: { fontStretch: 100, letterSpacing: 0, minFontStretch: 5, maxLetterSpacing: 0.4 },
+  third: { fontStretch: 100, letterSpacing: 0, minFontStretch: 1, maxLetterSpacing: 0.4 },
+})
 
 function transformOnScroll() {
   const progress = Math.min(window.scrollY / height.value, 1)
-
-  firstLineFontStretch.value = 100 - progress * (100 - firstLineConfig.minFontStretch)
-  firstLineLetterSpacing.value = progress * firstLineConfig.maxLetterSpacing
-
-  secondLineFontStretch.value = 100 - progress * (100 - secondLineConfig.minFontStretch)
-  secondLineLetterSpacing.value = progress * secondLineConfig.maxLetterSpacing
-
-  thirdLineFontStretch.value = 100 - progress * (100 - thirdLineConfig.minFontStretch)
-  thirdLineLetterSpacing.value = progress * thirdLineConfig.maxLetterSpacing
+  for (const line of Object.keys(config) as (keyof typeof config)[]) {
+    config[line].fontStretch = 100 - progress * (100 - config[line].minFontStretch)
+    config[line].letterSpacing = progress * config[line].maxLetterSpacing
+  }
 }
 
 useEventListener(
