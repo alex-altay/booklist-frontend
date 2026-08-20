@@ -16,12 +16,12 @@ const COLUMNS: Column[] = [
   { header: 'Rating', value: (b) => (b.rating ? ratingMap[b.rating].score : null) },
   { header: 'Start date', value: (b) => b.startDate },
   { header: 'End date', value: (b) => b.endDate },
-  { header: 'Finished', value: (b) => (b.hasFinished == null ? null : b.hasFinished ? 'Yes' : 'No') },
+  { header: 'Finished', value: (b) => (b.hasFinished === null ? null : b.hasFinished ? 'Yes' : 'No') },
   { header: 'Description', value: (b) => b.description },
 ]
 
 function escapeCell(value: Cell): string {
-  if (value == null) {
+  if (value === null) {
     return ''
   }
   const text = String(value)

@@ -25,7 +25,7 @@
       <RouterLink
         class="text-xs text-left text-muted-foreground line-clamp-1 truncate whitespace-normal cursor-pointer"
         :class="{ shimmer: isAnimated }"
-        :to="{ name: 'book', params: { id: id } }"
+        :to="{ name: 'book', params: { id } }"
       >
         {{ title }}, {{ author }}
       </RouterLink>
@@ -45,7 +45,7 @@ import { ref } from 'vue'
 import type { Book } from '@/schemas/book'
 
 const { books } = defineProps<{ books: Book[] }>()
-const withDescription = books.filter((b: Book) => b.description != null)
+const withDescription = books.filter((b: Book) => b.description !== null)
 
 const quote = ref<string>('Add some description to your books to see your random notes here')
 const author = ref<Book['author']>('')
@@ -53,11 +53,11 @@ const title = ref<Book['title']>('')
 const id = ref<Book['id']>(-1)
 
 function getNewRandomIndex(): number {
-  if (withDescription.length == 1) {
+  if (withDescription.length === 1) {
     return 0
   }
   let randomIndex = Math.floor(Math.random() * withDescription.length)
-  while (withDescription[randomIndex].id == id.value) {
+  while (withDescription[randomIndex].id === id.value) {
     randomIndex = Math.floor(Math.random() * withDescription.length)
   }
   return randomIndex

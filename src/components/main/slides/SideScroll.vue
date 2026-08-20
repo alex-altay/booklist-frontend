@@ -17,7 +17,7 @@ const stickyRef = useTemplateRef<HTMLElement>('stickyRef')
 const { height: wrapperHeight, y: wrapperY } = useElementBounding(wrapperRef)
 const { height: stickyHeight, y: stickyY } = useElementBounding(stickyRef)
 const progress = computed(() => {
-  if (stickyY.value == 0) {
+  if (stickyY.value === 0) {
     return -wrapperY.value / (wrapperHeight.value - stickyHeight.value)
   }
   return stickyY.value > 0 ? 0 : 1

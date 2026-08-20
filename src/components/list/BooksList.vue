@@ -20,7 +20,7 @@ const bookStore = useBookStore()
 await request(() => bookStore.fetchBooks())
 const { books } = storeToRefs(bookStore)
 const years = computed(() => getYears(books.value))
-const isNewUser = computed(() => books.value.length == 0)
+const isNewUser = computed(() => books.value.length === 0)
 
 const ALL = 'all' as const
 const defaultFilter: Filter = {
@@ -35,17 +35,17 @@ const filter = ref<Filter>({ ...defaultFilter })
 const filteredBooks = computed<Book[]>(() => {
   let filtered = books.value
   for (const [k, v] of Object.entries(filter.value)) {
-    if (v == ALL) {
+    if (v === ALL) {
       continue
-    } else if (k == 'search') {
-      if (v && typeof v == 'string' && v.length > 0) {
+    } else if (k === 'search') {
+      if (v && typeof v === 'string' && v.length > 0) {
         filtered = filtered.filter((book) => book.author.includes(v) || book.title.includes(v))
       }
-    } else if (k == 'endYear') {
-      filtered = filtered.filter((book) => (book.endDate ? new Date(book.endDate).getFullYear() == Number(v) : false))
+    } else if (k === 'endYear') {
+      filtered = filtered.filter((book) => (book.endDate ? new Date(book.endDate).getFullYear() === Number(v) : false))
     } else if (v !== undefined) {
       // Rating, Category, hasFinished, Language
-      filtered = filtered.filter((el: Book) => el[k as keyof Book] == v)
+      filtered = filtered.filter((el: Book) => el[k as keyof Book] === v)
     }
   }
   return filtered

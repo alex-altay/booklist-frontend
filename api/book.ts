@@ -1,6 +1,11 @@
 import { axiosInstance } from '@api/axios-config'
-import { book as bookSchema } from '@/schemas/book'
-import type { Book, NewBook, CreateBookResponse, UpdatedBookResponse } from '@/schemas/book'
+import {
+  book as bookSchema,
+  type Book,
+  type NewBook,
+  type CreateBookResponse,
+  type UpdatedBookResponse,
+} from '@/schemas/book'
 
 function parseBook(book: Book): Book {
   return bookSchema.parse(book)
@@ -12,7 +17,7 @@ function parseList(books: Book[]): Book[] {
       const { success, data } = bookSchema.safeParse(book)
       return success ? data : null
     })
-    .filter((book) => book != null)
+    .filter((book) => book !== null)
 }
 
 export const bookApi = {

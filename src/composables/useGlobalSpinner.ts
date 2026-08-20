@@ -1,6 +1,6 @@
 import { computed, ref, watch, type Ref } from 'vue'
 
-let _counter = ref(0)
+const _counter = ref(0)
 const isSpinning = computed(() => _counter.value > 0)
 
 export function useGlobalSpinner() {

@@ -41,7 +41,7 @@ import type { Book } from '@/schemas/book'
 
 const { books } = defineProps<{ books: Book[] }>()
 const totalRead = books.filter((b: Book) => b.hasFinished)
-const inProgress = books.filter((b: Book) => b.hasFinished == undefined || b.hasFinished == null)
+const inProgress = books.filter((b: Book) => b.hasFinished === undefined || b.hasFinished === null)
 const dropped = books.filter((b: Book) => b.hasFinished === false)
 const [de, en, ru] = totalRead.reduce(
   (acc: [number, number, number], el: Book): [number, number, number] => {

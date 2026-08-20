@@ -45,7 +45,7 @@
                 hideIndicator: true,
                 labelKey: 'books',
                 labelFormatter(d) {
-                  if (typeof d != 'number') {
+                  if (typeof d !== 'number') {
                     return ''
                   }
                   const rating = ratings[d - 1]
@@ -65,6 +65,7 @@
 import { VisAxis, VisArea, VisXYContainer } from '@unovis/vue'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import {
+  ChartConfig,
   ChartContainer,
   ChartCrosshair,
   ChartTooltip,
@@ -73,9 +74,7 @@ import {
 } from '@/components/ui/chart'
 import { RollingDigit } from '@/components/ui/rolling-digit'
 import { ratingMap } from '@/utils'
-import { ratings } from '@/schemas/book'
-import type { ChartConfig } from '@/components/ui/chart'
-import type { Book } from '@/schemas/book'
+import { ratings, type Book } from '@/schemas/book'
 
 const { books } = defineProps<{ books: Book[] }>()
 

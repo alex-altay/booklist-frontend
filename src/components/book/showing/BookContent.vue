@@ -45,7 +45,7 @@
           class="text-sm font-medium"
           :class="{ 'text-foreground': book.hasFinished, 'text-muted-foreground': !book.hasFinished }"
         >
-          {{ typeof book.hasFinished == 'boolean' ? (book.hasFinished ? 'Finished' : 'Not Finished') : 'In Process' }}
+          {{ typeof book.hasFinished === 'boolean' ? (book.hasFinished ? 'Finished' : 'Not Finished') : 'In Process' }}
         </p>
       </div>
     </div>

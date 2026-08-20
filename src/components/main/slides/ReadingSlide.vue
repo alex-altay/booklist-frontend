@@ -21,5 +21,5 @@ import { useBreakpoints, breakpointsTailwind, usePreferredReducedMotion } from '
 
 const breakpoints = useBreakpoints(breakpointsTailwind)
 const isSmallerThanLg = breakpoints.smaller('lg').value
-const isPreferReducedMotion = usePreferredReducedMotion().value == 'reduce'
+const isPreferReducedMotion = usePreferredReducedMotion().value === 'reduce'
 </script>

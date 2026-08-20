@@ -63,6 +63,7 @@
 import { VisAxis, VisStackedBar, VisXYContainer } from '@unovis/vue'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import {
+  ChartConfig,
   ChartContainer,
   ChartCrosshair,
   ChartTooltip,
@@ -72,7 +73,6 @@ import {
 import { RollingDigit } from '@/components/ui/rolling-digit'
 import { getYears } from '@/utils'
 import { YEARS_BAR_NUMBER } from '@/data/constants'
-import type { ChartConfig } from '@/components/ui/chart'
 import type { Book } from '@/schemas/book'
 
 const { books } = defineProps<{ books: Book[] }>()
@@ -101,7 +101,7 @@ for (const book of withDateAndLanguage) {
 for (const [k, v] of Object.entries(yearDictionary)) {
   chartData.push({ year: +k, ...v })
 }
-if (chartData.length != 0 && chartData.length < YEARS_BAR_NUMBER) {
+if (chartData.length !== 0 && chartData.length < YEARS_BAR_NUMBER) {
   const padNumber = YEARS_BAR_NUMBER - chartData.length
   const minYear = years.sort((a, b) => a - b)[0]
   for (let i = minYear - 1; i >= minYear - padNumber; i--) {
@@ -111,7 +111,7 @@ if (chartData.length != 0 && chartData.length < YEARS_BAR_NUMBER) {
 
 const currentYear = new Date().getFullYear()
 const totalReadInCurrent = withDateAndLanguage.reduce(
-  (acc, b) => (acc + new Date(b.endDate!).getFullYear() == currentYear ? 1 : 0),
+  (acc, b) => (acc + new Date(b.endDate!).getFullYear() === currentYear ? 1 : 0),
   0,
 )
 

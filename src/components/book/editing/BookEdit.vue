@@ -38,12 +38,11 @@ import BookForm from '@/components/book/editing/BookForm.vue'
 import ReturnGuardDialog from '@/components/book/editing/ReturnGuardDialog.vue'
 import { useBookStore } from '@/stores/book'
 import { isNewBook, GuardReject, GuardResolve } from '@/types/guards'
-import { onBeforeRouteLeave } from 'vue-router'
+import { onBeforeRouteLeave, useRoute } from 'vue-router'
 import { router } from '@/router/router'
 import { toast } from 'vue-sonner'
 import { useApi } from '@/composables/useApi'
 import { useGlobalSpinner } from '@/composables/useGlobalSpinner'
-import { useRoute } from 'vue-router'
 import { useWindowScroll, useFocus } from '@vueuse/core'
 import { type Book, type NewBook } from '@/schemas/book'
 import { computed, ref, watch, useTemplateRef } from 'vue'
@@ -85,7 +84,7 @@ async function saveBook(bookToSave: Book | NewBook) {
 }
 
 function goBack(target: 'list' | 'show') {
-  if (target == 'show' && 'id' in book.value) {
+  if (target === 'show' && 'id' in book.value) {
     router.push({ name: 'book', params: { id: book.value.id } })
   } else {
     router.push({ name: 'books' })
@@ -95,7 +94,7 @@ function goBack(target: 'list' | 'show') {
 watch(
   draft,
   () => {
-    hasChanges.value = JSON.stringify(draft.value) != JSON.stringify(book.value)
+    hasChanges.value = JSON.stringify(draft.value) !== JSON.stringify(book.value)
   },
   { deep: true },
 )

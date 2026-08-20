@@ -14,7 +14,7 @@ export const useBookStore = defineStore('book', () => {
   }
 
   async function getBook(id: number): Promise<Book> {
-    return _books.value.find((b) => b.id == id) || (await bookApi.getBook(id))
+    return _books.value.find((b) => b.id === id) || (await bookApi.getBook(id))
   }
 
   async function fetchBooks(): Promise<void> {
