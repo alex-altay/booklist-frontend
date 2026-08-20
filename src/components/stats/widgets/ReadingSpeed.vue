@@ -15,16 +15,16 @@
       </p>
     </div>
     <div class="flex flex-row w-full justify-between flex-wrap gap-4 text-xs">
-      <div v-for="(speed, lang) in speedByLanguage" :key="lang" class="grow">
+      <div v-for="(speed, lang) in daysPerBookByLanguage" :key="lang" class="grow">
         <div class="mb-0.5 flex flex-row justify-between">
           <span>{{ languageMap[lang] }}</span
           >&nbsp;
           <span>{{ speed }}</span>
         </div>
-        <div class="relative h-2 bg-gray-300 rounded-xs overflow-hidden">
+        <div class="relative h-2 bg-muted rounded-xs overflow-hidden">
           <div
-            class="grow-right absolute top-0 left-0 h-full bg-gray-900 rounded-xs"
-            :style="{ width: `${Math.round((speed / minSpeed) * 100)}%` }"
+            class="grow-right absolute top-0 left-0 h-full bg-foreground rounded-xs"
+            :style="{ width: `${Math.round((speed / (slowestSpeed || 1)) * 100)}%` }"
           />
         </div>
       </div>
@@ -41,32 +41,34 @@ import { MS_PER_DAY } from '@/utils/date'
 import type { Book, Language } from '@/schemas/book'
 
 const { books } = defineProps<{ books: Book[] }>()
-const spendByLanguage: Record<Language, [number, number]> = {
-  DE: [0, 0],
-  EN: [0, 0],
-  RU: [0, 0],
+
+let totalMs = 0
+let totalBooks = 0
+const msByLanguage: Record<Language, { msCount: number; bookCount: number }> = {
+  DE: { msCount: 0, bookCount: 0 },
+  EN: { msCount: 0, bookCount: 0 },
+  RU: { msCount: 0, bookCount: 0 },
 }
+
 for (const book of books) {
   if (!book.language || !book.startDate || !book.endDate) {
     continue
   }
-  spendByLanguage[book.language][0] += new Date(book.endDate).getTime() - new Date(book.startDate).getTime()
-  spendByLanguage[book.language][1]++
+  const duration = new Date(book.endDate).getTime() - new Date(book.startDate).getTime()
+  totalMs += duration
+  msByLanguage[book.language].msCount += duration
+  totalBooks++
+  msByLanguage[book.language].bookCount++
 }
 
-const [totalSpend, totalCount] = Object.values(spendByLanguage).reduce(
-  (acc: [number, number], el: [number, number]) => [acc[0] + el[0], acc[1] + el[1]],
-  [0, 0],
-)
-const totalSpeed = totalCount && totalSpend ? Math.round((totalSpend / totalCount / MS_PER_DAY) * 10) / 10 : 0
-
-let minSpeed = 0
-const speedByLanguage: Record<Language, number> = { DE: 0, EN: 0, RU: 0 }
-for (const lang of Object.keys(spendByLanguage) as Language[]) {
-  const [spend, count] = spendByLanguage[lang]
-  const langSpeed = Math.round(spend / count / MS_PER_DAY) || 0
-  speedByLanguage[lang] = langSpeed
-  minSpeed = Math.max(langSpeed, minSpeed)
+let slowestSpeed = 0
+const totalSpeed = totalBooks && totalMs ? Math.round((totalMs / totalBooks / MS_PER_DAY) * 10) / 10 : 0
+const daysPerBookByLanguage: Record<Language, number> = { DE: 0, EN: 0, RU: 0 }
+for (const lang of Object.keys(msByLanguage) as Language[]) {
+  const { msCount, bookCount } = msByLanguage[lang]
+  const langSpeed = Math.round(msCount / bookCount / MS_PER_DAY) || 0
+  daysPerBookByLanguage[lang] = langSpeed
+  slowestSpeed = Math.max(langSpeed, slowestSpeed)
 }
 </script>
 
