@@ -50,29 +50,16 @@ import { Field, FieldLabel, FieldError } from '@/components/ui/field'
 import { Input } from '@/components/ui/input'
 import { authRequest } from '@/schemas/auth'
 import { ref, watch } from 'vue'
-import { storeToRefs } from 'pinia'
 import { useApi } from '@/composables/useApi'
 import { useGlobalSpinner } from '@/composables/useGlobalSpinner'
 import { useRouter } from 'vue-router'
 import { useUserStore } from '@/stores/user'
 import { useIds } from '@/composables/useIds'
 
+const id = useIds('email')
+const email = ref<string>('')
 const router = useRouter()
 const { signUp } = useUserStore()
-const { isAuthorized } = storeToRefs(useUserStore())
-const id = useIds('email')
-
-if (isAuthorized.value) {
-  router.push({ name: 'books' })
-}
-
-watch(isAuthorized, () => {
-  if (isAuthorized.value) {
-    router.push({ name: 'books' })
-  }
-})
-
-const email = ref<string>('')
 const { isLoading, error, request } = useApi()
 
 async function register() {

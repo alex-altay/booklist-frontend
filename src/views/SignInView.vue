@@ -53,10 +53,6 @@ const { isLoading, error, request } = useApi()
 const router = useRouter()
 useGlobalSpinner().bindTo(isLoading)
 
-if (isAuthorized.value) {
-  router.push({ name: 'books' })
-}
-
 async function login() {
   await request(signIn)
   if (isAuthorized.value) {

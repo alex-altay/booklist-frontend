@@ -8,9 +8,12 @@ const router = createRouter({
   scrollBehavior: () => ({ top: 0 }),
 })
 
-router.beforeEach(async (to) => {
-  if (!useUserStore().isAuthorized && to.meta.requiresAuth) {
+router.beforeEach((to) => {
+  if (to.meta.requiresAuth && !useUserStore().isAuthorized) {
     return { name: 'signin' }
+  }
+  if (to.meta.guestOnly && useUserStore().isAuthorized) {
+    return { name: 'books' }
   }
 })
 
