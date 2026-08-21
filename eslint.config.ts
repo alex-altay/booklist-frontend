@@ -38,6 +38,7 @@ export default defineConfig([
       'vue/no-console': 'error',
       'vue/object-shorthand': 'error',
       'vue/prefer-template': 'error',
+      'vue/no-undef-properties': 'error',
       'vue/no-loss-of-precision': 'error',
       'vue/no-useless-concat': 'error',
       'vue/multi-word-component-names': 'warn',
