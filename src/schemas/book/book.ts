@@ -37,26 +37,14 @@ function isNewBook(book: Book | NewBook): book is NewBook {
   return (book as Book).id === undefined && (book as Book).userId === undefined
 }
 
-const createBookResponse = z.object({
-  allBooks: z.array(book),
-  newBook: book,
-})
-type CreateBookResponse = z.infer<typeof createBookResponse>
-
-const updatedBookResponse = z.object({
-  allBooks: z.array(book),
-  updatedBook: book,
-})
-type UpdatedBookResponse = z.infer<typeof updatedBookResponse>
-
-export {
-  book,
-  newBook,
-  isNewBook,
-  createBookResponse,
-  updatedBookResponse,
-  type Book,
-  type NewBook,
-  type CreateBookResponse,
-  type UpdatedBookResponse,
+type CreateBookResponse = {
+  allBooks: Book[]
+  newBook: Book
 }
+
+type UpdatedBookResponse = {
+  allBooks: Book[]
+  updatedBook: Book
+}
+
+export { book, newBook, isNewBook, type Book, type NewBook, type CreateBookResponse, type UpdatedBookResponse }
