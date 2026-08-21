@@ -1,4 +1,5 @@
-import { type Language, type Rating, ratings } from '@/schemas/book'
+import { type Language, type Rating, ratings, categories, languages, statuses } from '@/schemas/book'
+import { capitalizeProperty } from './capitalize'
 
 const languageMap: Record<Language, string> = {
   RU: 'Russian',
@@ -18,6 +19,15 @@ const ratingMap: Record<Rating, { score: number; label: string }> = {
   EXCELLENT: { score: 9, label: 'Excellent' },
   BEST: { score: 10, label: 'Best' },
 }
-const ratingOptions = ratings.map((r) => ({ rating: r, ...ratingMap[r] }))
+const ratingDetails = ratings.map((r) => ({ rating: r, ...ratingMap[r] }))
 
-export { languageMap, ratingMap, ratingOptions }
+function getSelectOptions() {
+  return {
+    categoryOptions: categories.map((c) => ({ option: c, label: capitalizeProperty(c) })),
+    languageOptions: languages.map((l) => ({ label: languageMap[l], option: l })),
+    ratingOptions: ratingDetails.map((r) => ({ option: r.rating, label: `${r.score} - ${r.label}` })),
+    statusOptions: statuses.map((s) => ({ option: s, label: capitalizeProperty(s) })),
+  }
+}
+
+export { languageMap, ratingMap, ratingDetails, getSelectOptions }

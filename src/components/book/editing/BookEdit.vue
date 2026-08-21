@@ -50,7 +50,17 @@ import { computed, ref, watch, useTemplateRef } from 'vue'
 const { getBook, createBook, updateBook } = useBookStore()
 const { request, isLoading, error } = useApi()
 
-const defaultValues = { title: '', author: '' } as NewBook
+const defaultValues: NewBook = {
+  title: '',
+  author: '',
+  language: null,
+  category: null,
+  startDate: null,
+  endDate: null,
+  rating: null,
+  status: null,
+  description: null,
+}
 const book = ref<Book | NewBook>({ ...defaultValues })
 const draft = ref<Book | NewBook>({ ...defaultValues })
 const route = useRoute()

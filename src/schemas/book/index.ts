@@ -1,6 +1,7 @@
 import { rating, ratings, type Rating } from './ratings'
 import { category, categories } from './categories'
 import { language, languages, type Language } from './languages'
+import { status, statuses, type Status } from './status'
 import {
   book,
   newBook,
@@ -11,5 +12,5 @@ import {
   type CreateBookResponse,
 } from './book'
 
-export { book, newBook, isNewBook, category, categories, language, languages, rating, ratings }
-export type { Book, NewBook, Language, Rating, CreateBookResponse, UpdatedBookResponse }
+export { book, newBook, isNewBook, category, categories, language, languages, rating, ratings, status, statuses }
+export type { Book, NewBook, Language, Rating, Status, CreateBookResponse, UpdatedBookResponse }

@@ -43,9 +43,9 @@
         <p class="text-xs text-muted-foreground text-left uppercase tracking-wider mb-1">Status</p>
         <p
           class="text-sm font-medium"
-          :class="{ 'text-foreground': book.hasFinished, 'text-muted-foreground': !book.hasFinished }"
+          :class="{ 'text-foreground': book.status, 'text-muted-foreground': !book.status }"
         >
-          {{ typeof book.hasFinished === 'boolean' ? (book.hasFinished ? 'Finished' : 'Not Finished') : 'In Process' }}
+          {{ book.status ? capitalizeProperty(book.status) : 'In process' }}
         </p>
       </div>
     </div>

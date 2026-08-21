@@ -16,72 +16,22 @@
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
         <div class="space-y-2">
           <Label :for="id.category">Category</Label>
-          <!-- The reason why vue-ignore directives are here, it that Reka UI doesn't support 
-          any types (but not values) for nullableValue other than 'string', but native elements inside 
-          Reka UI components work with 'null' perfectly. Same staff goes with 'boolean' on Reka UI Select. 
-          They turned it it off because of VueJS boolean casting. Considering that limitation you can use it
-          -->
-          <!-- @vue-ignore -->
-          <Select v-model="draft.category" :value="draft.category" :nullable-value="null">
-            <SelectTrigger :id="id.category" class="w-full">
-              <SelectValue :placeholder="draft.category ? capitalizeProperty(draft.category) : 'Not chosen'" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem :value="null">Not chosen</SelectItem>
-              <SelectItem v-for="category of categories" :key="category" :value="category">
-                {{ capitalizeProperty(category) }}
-              </SelectItem>
-            </SelectContent>
-          </Select>
+          <FormSelect :id="id.category" v-model="draft.category" :options="categoryOptions" />
         </div>
 
         <div class="space-y-2">
-          <Label :for="id.language">Language</Label>
-          <!-- @vue-ignore -->
-          <Select v-model="draft.language" :value="draft.language" :nullable-value="null">
-            <SelectTrigger :id="id.language" class="w-full">
-              <SelectValue :placeholder="draft.language ? languageMap[draft.language] : 'Not chosen'" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem :value="null">Not chosen</SelectItem>
-              <SelectItem v-for="l in languages" :key="l" :value="l">
-                {{ languageMap[l] }}
-              </SelectItem>
-            </SelectContent>
-          </Select>
+          <Label class="space-y-2" :for="id.language">Language</Label>
+          <FormSelect :id="id.language" v-model="draft.language" :options="languageOptions" />
         </div>
 
         <div class="space-y-2">
           <Label :for="id.rating">Rating</Label>
-          <!-- @vue-ignore -->
-          <Select v-model="draft.rating" :value="draft.rating" :nullable-value="null">
-            <SelectTrigger :id="id.rating" class="w-full">
-              <SelectValue placeholder="Not chosen" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem :value="null">Not chosen</SelectItem>
-              <SelectItem v-for="{ rating, score, label } of ratingOptions" :key="rating" :value="rating">
-                {{ score }} — {{ label }}
-              </SelectItem>
-            </SelectContent>
-          </Select>
+          <FormSelect :id="id.rating" v-model="draft.rating" :options="ratingOptions" />
         </div>
 
         <div class="space-y-2 w-full flex flex-col">
           <Label :for="id.status" class="text-left">Status</Label>
-          <!-- @vue-ignore -->
-          <Select v-model="draft.hasFinished" :nullable-value="null">
-            <SelectTrigger :id="id.status" class="w-full">
-              <SelectValue :placeholder="hasFinishedPlaceholder" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem :value="null">Not chosen</SelectItem>
-              <!-- @vue-ignore -->
-              <SelectItem :value="true">Finished</SelectItem>
-              <!-- @vue-ignore -->
-              <SelectItem :value="false">Not finished</SelectItem>
-            </SelectContent>
-          </Select>
+          <FormSelect :id="id.status" v-model="draft.status" :options="statusOptions" />
         </div>
 
         <div class="space-y-2">
@@ -99,13 +49,12 @@
 
       <div class="space-y-2">
         <Label :for="id.description">Description</Label>
-        <!-- @vue-ignore -->
-        <Textarea
+        <textarea
           :id="id.description"
           v-model="draft.description"
-          class="text-sm"
           placeholder="Impressions, quotes, thoughts..."
           rows="6"
+          class="border-input placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:bg-input/30 flex field-sizing-content min-h-16 w-full rounded-md border bg-transparent px-3 py-2 shadow-xs transition-[color,box-shadow] outline-none focus-visible:ring-3 disabled:cursor-not-allowed disabled:opacity-50 text-sm"
         />
       </div>
     </div>
@@ -116,11 +65,10 @@
 import DatePicker from '@/components/book/editing/DatePicker.vue'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import { FormSelect } from '@/components/ui/form-select'
 import { Separator } from '@/components/ui/separator'
-import { Textarea } from '@/components/ui/textarea'
-import { capitalizeProperty, languageMap, ratingOptions } from '@/utils'
-import { newBook, categories, languages, type NewBook } from '@/schemas/book'
+import { getSelectOptions } from '@/utils'
+import { newBook, type NewBook } from '@/schemas/book'
 import { useIds } from '@/composables/useIds'
 import { computed, watch } from 'vue'
 
@@ -133,16 +81,7 @@ const hasDateError = computed(() =>
 )
 
 const id = useIds('title', 'author', 'category', 'language', 'rating', 'status', 'startDate', 'endDate', 'description')
-const hasFinishedPlaceholder = computed(() => {
-  switch (draft.value.hasFinished) {
-    case true:
-      return 'Finished'
-    case false:
-      return 'Not finished'
-    default:
-      return 'Not chosen'
-  }
-})
+const { ratingOptions, categoryOptions, languageOptions, statusOptions } = getSelectOptions()
 
 watch(
   draft,

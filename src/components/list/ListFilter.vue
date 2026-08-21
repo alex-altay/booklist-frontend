@@ -20,88 +20,43 @@
             <Label :for="id.search">Search</Label>
             <div class="relative">
               <Search class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-              <Input
-                :id="id.search"
-                v-model:model-value="model.search"
-                placeholder="Title or author..."
-                class="pl-10"
-                :value="model.search"
-              />
+              <Input :id="id.search" v-model="model.search" placeholder="Title or author..." class="pl-10" />
             </div>
           </div>
 
           <div class="space-y-2 w-full flex flex-col">
             <Label :for="id.rating">Rating</Label>
-            <Select v-model:model-value="model.rating" :value="model.rating">
-              <SelectTrigger :id="id.rating" class="w-full">
-                <SelectValue placeholder="All ratings" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all"> All ratings </SelectItem>
-                <SelectItem v-for="{ rating, score, label } of ratingOptions" :key="rating" :value="rating">
-                  {{ score }} — {{ label }}
-                </SelectItem>
-              </SelectContent>
-            </Select>
+            <FormSelect :id="id.rating" v-model="model.rating" empty-label="All ratings" :options="ratingOptions" />
           </div>
 
           <div class="space-y-2 w-full flex flex-col">
             <Label :for="id.category">Category</Label>
-            <Select v-model:model-value="model.category" :value="model.category">
-              <SelectTrigger :id="id.category" class="w-full">
-                <SelectValue placeholder="Any category" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all"> Any category </SelectItem>
-                <SelectItem v-for="category of categories" :key="category" :value="category">
-                  {{ capitalizeProperty(category) }}
-                </SelectItem>
-              </SelectContent>
-            </Select>
+            <FormSelect
+              :id="id.category"
+              v-model="model.category"
+              empty-label="All categories"
+              :options="categoryOptions"
+            />
           </div>
 
           <div class="space-y-2 w-full flex flex-col">
-            <Label :for="id.finished">Finished in</Label>
-            <Select v-model:model-value="model.endYear" :value="model.endYear">
-              <SelectTrigger :id="id.finished" class="w-full">
-                <SelectValue placeholder="All years" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all"> All years </SelectItem>
-                <SelectItem v-for="y in years" :key="y" :value="y.toString()">
-                  {{ y }}
-                </SelectItem>
-              </SelectContent>
-            </Select>
+            <Label :for="id.endYear">Finished in</Label>
+            <FormSelect :id="id.endYear" v-model="model.endYear" empty-label="All years" :options="yearOptions" />
           </div>
 
           <div class="space-y-2 w-full flex flex-col">
             <Label :for="id.language">Language</Label>
-            <Select v-model:model-value="model.language">
-              <SelectTrigger :id="id.language" class="w-full">
-                <SelectValue placeholder="All languages" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all"> All languages </SelectItem>
-                <SelectItem v-for="l in languages" :key="l" :value="l">
-                  {{ languageMap[l] }}
-                </SelectItem>
-              </SelectContent>
-            </Select>
+            <FormSelect
+              :id="id.language"
+              v-model="model.language"
+              empty-label="All languages"
+              :options="languageOptions"
+            />
           </div>
 
           <div class="space-y-2 w-full flex flex-col">
             <Label :for="id.status" class="text-left">Status</Label>
-            <Select v-model:model-value="hasFinishedStringified">
-              <SelectTrigger :id="id.status" class="w-full">
-                <SelectValue placeholder="All" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="undefined"> All </SelectItem>
-                <SelectItem value="true"> Finished </SelectItem>
-                <SelectItem value="false"> Not finished </SelectItem>
-              </SelectContent>
-            </Select>
+            <FormSelect :id="id.status" v-model="model.status" empty-label="All" :options="statusOptions" />
           </div>
         </div>
       </div>
@@ -113,31 +68,17 @@
 import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
 import { Input } from '@/components/ui/input'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import { FormSelect } from '@/components/ui/form-select'
 import { X, Search } from '@lucide/vue'
-import { categories, languages } from '@/schemas/book'
-import { languageMap, ratingOptions, capitalizeProperty } from '@/utils'
 import { useIds } from '@/composables/useIds'
+import { getSelectOptions } from '@/utils'
+import { type Filter } from '@/types/filter'
 import { computed } from 'vue'
 
 defineEmits(['resetFilter'])
-defineProps<{ years: number[] }>()
+const { years } = defineProps<{ years: number[] }>()
 const model = defineModel<Filter>({ required: true })
-const id = useIds('search', 'rating', 'category', 'finished', 'language', 'status')
-
-const hasFinishedStringified = computed({
-  get: () => {
-    if (model.value.hasFinished === undefined) {
-      return 'undefined'
-    }
-    return String(model.value.hasFinished)
-  },
-  set: (value: string) => {
-    if (value === 'undefined') {
-      model.value.hasFinished = undefined
-    } else {
-      model.value.hasFinished = value === 'true'
-    }
-  },
-})
+const id = useIds('search', 'rating', 'category', 'endYear', 'language', 'status')
+const { ratingOptions, categoryOptions, languageOptions, statusOptions } = getSelectOptions()
+const yearOptions = computed(() => years.map((y) => ({ option: y, label: String(y) })))
 </script>

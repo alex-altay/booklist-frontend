@@ -12,8 +12,9 @@ import { useBookStore } from '@/stores/book'
 import { useApi } from '@/composables/useApi'
 import { getYears } from '@/utils'
 import { storeToRefs } from 'pinia'
+import { type Book } from '@/schemas/book'
+import { type Filter } from '@/types/filter'
 import { computed, ref } from 'vue'
-import type { Book } from '@/schemas/book'
 
 const { request } = useApi()
 const bookStore = useBookStore()
@@ -22,29 +23,28 @@ const { books } = storeToRefs(bookStore)
 const years = computed(() => getYears(books.value))
 const isNewUser = computed(() => books.value.length === 0)
 
-const ALL = 'all' as const
 const defaultFilter: Filter = {
   search: '',
-  rating: ALL,
-  endYear: ALL,
-  category: ALL,
-  language: ALL,
-  hasFinished: undefined,
+  rating: null,
+  endYear: null,
+  category: null,
+  language: null,
+  status: null,
 }
 const filter = ref<Filter>({ ...defaultFilter })
 const filteredBooks = computed<Book[]>(() => {
   let filtered = books.value
   for (const [k, v] of Object.entries(filter.value)) {
-    if (v === ALL) {
+    if (v === null) {
       continue
     } else if (k === 'search') {
       if (v && typeof v === 'string' && v.length > 0) {
         filtered = filtered.filter((book) => book.author.includes(v) || book.title.includes(v))
       }
     } else if (k === 'endYear') {
-      filtered = filtered.filter((book) => (book.endDate ? new Date(book.endDate).getFullYear() === Number(v) : false))
-    } else if (v !== undefined) {
-      // Rating, Category, hasFinished, Language
+      filtered = filtered.filter((book) => (book.endDate ? new Date(book.endDate).getFullYear() === v : false))
+    } else {
+      // Rating, Category, Status, Language
       filtered = filtered.filter((el: Book) => el[k as keyof Book] === v)
     }
   }

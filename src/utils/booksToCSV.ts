@@ -16,7 +16,7 @@ const COLUMNS: Column[] = [
   { header: 'Rating', value: (b) => (b.rating ? ratingMap[b.rating].score : null) },
   { header: 'Start date', value: (b) => b.startDate },
   { header: 'End date', value: (b) => b.endDate },
-  { header: 'Finished', value: (b) => (b.hasFinished === null ? null : b.hasFinished ? 'Yes' : 'No') },
+  { header: 'Status', value: (b) => (b.status !== null ? capitalizeProperty(b.status) : 'In Process') },
   { header: 'Description', value: (b) => b.description },
 ]
 

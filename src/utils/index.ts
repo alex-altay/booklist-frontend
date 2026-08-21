@@ -1,5 +1,5 @@
 import { formatDate, getYears, getDaysDuration, MS_PER_DAY } from './date'
-import { languageMap, ratingMap, ratingOptions } from './maps'
+import { languageMap, ratingMap, ratingDetails, getSelectOptions } from './maps'
 import { capitalizeProperty } from './capitalize'
 import { isLocalStorageAvailable } from './storage'
 import { booksToCSV } from './booksToCSV'
@@ -9,10 +9,11 @@ export {
   capitalizeProperty,
   formatDate,
   getDaysDuration,
+  getSelectOptions,
   getYears,
   isLocalStorageAvailable,
   languageMap,
   ratingMap,
-  ratingOptions,
+  ratingDetails,
   MS_PER_DAY,
 }
