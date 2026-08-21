@@ -1,13 +1,14 @@
 import { ERRORS, isBadRequestError, isNotFoundError, isUnauthorizedError } from '@/errors/pure'
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 
 export function useApi() {
-  const isLoading = ref<boolean>(false)
+  const _requestCounter = ref(0)
+  const isLoading = computed(() => _requestCounter.value > 0)
   const error = ref<string>()
 
   async function request<T>(fn: () => Promise<T>): Promise<T | void> {
     try {
-      isLoading.value = true
+      _requestCounter.value++
       error.value = undefined
       return await fn()
     } catch (apiError) {
@@ -21,7 +22,7 @@ export function useApi() {
         error.value = ERRORS.UNEXPECTED_ERROR
       }
     } finally {
-      isLoading.value = false
+      _requestCounter.value--
     }
   }
 
