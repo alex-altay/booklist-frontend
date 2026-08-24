@@ -68,27 +68,11 @@ import { Label } from '@/components/ui/label'
 import { FormSelect } from '@/components/ui/form-select'
 import { Separator } from '@/components/ui/separator'
 import { getSelectOptions } from '@/utils'
-import { newBook, type NewBook } from '@/schemas/book'
 import { useIds } from '@/composables/useIds'
-import { computed, watch } from 'vue'
+import { type NewBook } from '@/schemas/book'
 
+defineProps<{ hasDateError: boolean }>()
 const draft = defineModel<NewBook>('draft', { required: true })
-const hasErrors = defineModel<boolean>('hasErrors', { required: true })
-const hasDateError = computed(() =>
-  Boolean(
-    draft.value.startDate && draft.value.endDate && new Date(draft.value.endDate) < new Date(draft.value.startDate),
-  ),
-)
-
 const id = useIds('title', 'author', 'category', 'language', 'rating', 'status', 'startDate', 'endDate', 'description')
 const { ratingOptions, categoryOptions, languageOptions, statusOptions } = getSelectOptions()
-
-watch(
-  draft,
-  () => {
-    const { success } = newBook.safeParse(draft.value)
-    hasErrors.value = !(success && !hasDateError.value)
-  },
-  { deep: true },
-)
 </script>

@@ -18,7 +18,7 @@
       @save="saveBook(draft)"
     />
 
-    <BookForm v-model:draft="draft" v-model:has-errors="hasErrors" />
+    <BookForm v-model:draft="draft" :has-date-error />
     <ReturnGuardDialog v-model:open="isReturnGuardOpen" :reject="guardReject" :resolve="guardResolve" />
 
     <BookEditControls
@@ -44,8 +44,8 @@ import { toast } from 'vue-sonner'
 import { useApi } from '@/composables/useApi'
 import { useGlobalSpinner } from '@/composables/useGlobalSpinner'
 import { useWindowScroll, useFocus } from '@vueuse/core'
-import { isNewBook, type Book, type NewBook } from '@/schemas/book'
-import { computed, ref, watch, useTemplateRef } from 'vue'
+import { isNewBook, newBook, type Book, type NewBook } from '@/schemas/book'
+import { computed, ref, useTemplateRef } from 'vue'
 
 const { getBook, createBook, updateBook } = useBookStore()
 const { request, isLoading, error } = useApi()
@@ -70,25 +70,32 @@ if (id) {
   draft.value = { ...book.value }
 }
 
-const hasErrors = ref(false)
-const hasChanges = ref(false)
-const canBeSaved = computed(() => hasChanges.value && !hasErrors.value)
 const isReturnGuardOpen = ref(false)
+const hasChanges = computed(() => JSON.stringify(draft.value) !== JSON.stringify(book.value))
+const hasDateError = computed(() =>
+  Boolean(
+    draft.value.startDate && draft.value.endDate && new Date(draft.value.endDate) < new Date(draft.value.startDate),
+  ),
+)
+const hasErrors = computed(() => !newBook.safeParse(draft.value).success || hasDateError.value)
+const canBeSaved = computed(() => hasChanges.value && !hasErrors.value)
 
 async function saveBook(bookToSave: Book | NewBook) {
   if (!canBeSaved.value) {
     return
   }
-  if (isNewBook(bookToSave)) {
-    await request(() => createBook(bookToSave))
-  } else {
-    await request(() => updateBook(bookToSave as Book))
+  const savedBook = isNewBook(bookToSave)
+    ? await request(() => createBook(bookToSave))
+    : await request(() => updateBook(bookToSave as Book))
+
+  if (savedBook) {
+    book.value = savedBook
   }
+
   if (error.value) {
     toast.error(error.value)
   } else {
     toast.success(`«${bookToSave.title}» has been saved`)
-    hasChanges.value = false
     router.push({ name: 'books' })
   }
 }
@@ -100,14 +107,6 @@ function goBack(target: 'list' | 'show') {
     router.push({ name: 'books' })
   }
 }
-
-watch(
-  draft,
-  () => {
-    hasChanges.value = JSON.stringify(draft.value) !== JSON.stringify(book.value)
-  },
-  { deep: true },
-)
 
 const focused = useTemplateRef('focused')
 useFocus(focused, { initialValue: true })
