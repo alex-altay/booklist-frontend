@@ -4,7 +4,6 @@
       <div
         class="landscape:max-lg:text-[clamp(1rem,15vw,90px)] text-[clamp(3rem,22vw,200px)] 2xl:pr-[6.8ch] ml-[-0.05ch] lg:self-start lg:pr-0 max-lg:pr-0"
         :style="{
-          fontStretch: `${config.first.fontStretch}%`,
           letterSpacing: `${config.first.letterSpacing}em`,
         }"
       >
@@ -13,7 +12,6 @@
       <div
         class="landscape:max-lg:text-[clamp(1rem,15vw,90px)] text-[clamp(3rem,22vw,200px)] mt-[-0.1em] ml-[-0.15em]"
         :style="{
-          fontStretch: `${config.second.fontStretch}%`,
           letterSpacing: `${config.second.letterSpacing}em`,
         }"
       >
@@ -22,7 +20,6 @@
       <div
         class="text-[clamp(0.8rem,3vw,50px)] lg:self-end whitespace-nowrap"
         :style="{
-          fontStretch: `${config.third.fontStretch}%`,
           letterSpacing: `${config.third.letterSpacing}em`,
         }"
       >
@@ -40,15 +37,14 @@ const { height } = useWindowSize()
 const reducedMotion = usePreferredReducedMotion()
 
 const config = reactive({
-  first: { fontStretch: 100, letterSpacing: 0, minFontStretch: 5, maxLetterSpacing: 0.3 },
-  second: { fontStretch: 100, letterSpacing: 0, minFontStretch: 5, maxLetterSpacing: 0.4 },
-  third: { fontStretch: 100, letterSpacing: 0, minFontStretch: 1, maxLetterSpacing: 0.4 },
+  first: { letterSpacing: 0, maxLetterSpacing: 0.3 },
+  second: { letterSpacing: 0, maxLetterSpacing: 0.4 },
+  third: { letterSpacing: 0, maxLetterSpacing: 0.4 },
 })
 
 function transformOnScroll() {
   const progress = Math.min(window.scrollY / height.value, 1)
   for (const line of Object.keys(config) as (keyof typeof config)[]) {
-    config[line].fontStretch = 100 - progress * (100 - config[line].minFontStretch)
     config[line].letterSpacing = progress * config[line].maxLetterSpacing
   }
 }
