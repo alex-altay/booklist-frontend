@@ -26,19 +26,26 @@
 		X-Content-Type-Options nosniff
 		Referrer-Policy strict-origin-when-cross-origin
 
-		# CSP in REPORT-ONLY mode: violations appear in the browser console but nothing is blocked.
-		# The point of it is connect-src — even if a compromised dependency runs in our origin,
-		# it cannot ship the access token anywhere except our own API.
+		# The point of this policy is connect-src: even if a compromised dependency runs inside our
+		# origin, it cannot ship the access token anywhere except our own API. That is the same
+		# protection an httpOnly cookie would buy, without a backend change.
 		#
 		# API_ORIGIN must be set per environment (scheme + host, no trailing slash), e.g.
 		# https://api.example.com — it has no default on purpose, so the two environments cannot
-		# silently inherit each other's backend. If it is unset the directive collapses to 'self',
-		# which is harmless while this is Report-Only but blocks every API call once enforced.
+		# silently inherit each other's backend. If it is unset the directive collapses to 'self'
+		# and every API call is blocked.
 		#
-		# Verify in devtools (open the app, sign in, filter, export CSV, trigger a 404), and once
-		# the console is quiet rename the field below to Content-Security-Policy to enforce it.
+		# Two things this policy deliberately does NOT allow, both verified in Report-Only first:
+		#   'unsafe-eval'  — zod JIT-compiles validators via new Function. Disabled instead through
+		#                    z.config({ jitless: true }) in src/schemas/zod.ts, which must be
+		#                    evaluated before any schema is created.
+		#   external fonts — Inter is self-hosted via @fontsource-variable/inter, so no third-party
+		#                    host appears here at all.
 		# style-src needs 'unsafe-inline' because Tailwind and Vue :style bindings emit inline styles.
-		Content-Security-Policy-Report-Only "default-src 'self'; connect-src 'self' {$API_ORIGIN}; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'"
+		#
+		# If this ever needs debugging, rename the field back to Content-Security-Policy-Report-Only:
+		# violations are then reported to the console without anything being blocked.
+		Content-Security-Policy "default-src 'self'; connect-src 'self' {$API_ORIGIN}; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'"
 
 		# don't advertise the server
 		-Server
