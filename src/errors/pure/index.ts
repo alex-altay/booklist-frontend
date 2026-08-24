@@ -1,4 +1,11 @@
 import { ERRORS } from '@/errors/pure/texts'
-import { isBadRequestError, isNotAllowedError, isNotFoundError, isUnauthorizedError } from '@/errors/pure/detectors'
+import {
+  isApiError,
+  isBadRequestError,
+  isNotAllowedError,
+  isNotFoundError,
+  isUnauthorizedError,
+} from '@/errors/pure/detectors'
+import { type ApiError } from './api-error'
 
-export { ERRORS, isBadRequestError, isNotAllowedError, isNotFoundError, isUnauthorizedError }
+export { ERRORS, isApiError, isBadRequestError, isNotAllowedError, isNotFoundError, isUnauthorizedError, type ApiError }

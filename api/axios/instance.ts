@@ -1,17 +1,5 @@
-import { ERRORS } from '@/errors/pure'
-import axios, { type AxiosError, type AxiosResponse } from 'axios'
-
-const baseURL = import.meta.env.VITE_HOST
-if (!baseURL) {
-  throw new Error(ERRORS.NO_HOST)
-}
-
-const _axios = axios.create({ baseURL })
-
-_axios.interceptors.response.use(
-  (response) => response,
-  (error) => Promise.reject((error as AxiosError).response?.data),
-)
+import { _axios } from './config'
+import { type AxiosResponse } from 'axios'
 
 const axiosInstance = {
   async get<GetRequest = unknown>(url: string) {

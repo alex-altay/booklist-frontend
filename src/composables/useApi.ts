@@ -1,4 +1,4 @@
-import { ERRORS, isBadRequestError, isNotFoundError, isUnauthorizedError } from '@/errors/pure'
+import { ERRORS, isApiError, isBadRequestError, isNotFoundError, isUnauthorizedError } from '@/errors/pure'
 import { ref, computed } from 'vue'
 
 export function useApi() {
@@ -16,7 +16,7 @@ export function useApi() {
         throw apiError
       } else if (typeof apiError === 'string') {
         error.value = apiError
-      } else if (apiError instanceof Error) {
+      } else if (isApiError(apiError) || apiError instanceof Error) {
         error.value = apiError.message
       } else {
         error.value = ERRORS.UNEXPECTED_ERROR

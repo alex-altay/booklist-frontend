@@ -1,5 +1,5 @@
 import type { AuthResponse } from '@/schemas/auth'
-import { axiosInstance } from '@api/axios-config'
+import { axiosInstance } from './axios'
 import type {
   AuthenticationResponseJSON,
   PublicKeyCredentialCreationOptionsJSON,

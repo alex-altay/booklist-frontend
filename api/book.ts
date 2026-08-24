@@ -1,4 +1,4 @@
-import { axiosInstance } from '@api/axios-config'
+import { axiosInstance } from './axios'
 import {
   book as bookSchema,
   type Book,

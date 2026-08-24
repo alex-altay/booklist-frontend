@@ -1,3 +1,5 @@
+import { type ApiError } from './api-error'
+
 function isNotAllowedError(error: unknown): boolean {
   const ERROR_NAME = 'NotAllowedError'
   return (
@@ -6,8 +8,23 @@ function isNotAllowedError(error: unknown): boolean {
   )
 }
 
+function isApiError(error: unknown): error is ApiError {
+  return (
+    typeof error === 'object' &&
+    error !== null &&
+    'statusCode' in error &&
+    typeof error.statusCode === 'number' &&
+    'message' in error &&
+    typeof error.message === 'string'
+  )
+}
+
 function _hasStatus(error: unknown, code: number): error is { statusCode: number } {
   return typeof error === 'object' && error !== null && 'statusCode' in error && error.statusCode === code
+}
+
+function isNetworkError(error: unknown) {
+  return _hasStatus(error, 0)
 }
 
 function isBadRequestError(error: unknown) {
@@ -22,4 +39,4 @@ function isNotFoundError(error: unknown) {
   return _hasStatus(error, 404)
 }
 
-export { isBadRequestError, isNotAllowedError, isNotFoundError, isUnauthorizedError }
+export { isApiError, isBadRequestError, isNetworkError, isNotAllowedError, isNotFoundError, isUnauthorizedError }
