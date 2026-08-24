@@ -44,7 +44,8 @@ import { toast } from 'vue-sonner'
 import { useApi } from '@/composables/useApi'
 import { useGlobalSpinner } from '@/composables/useGlobalSpinner'
 import { useWindowScroll, useFocus } from '@vueuse/core'
-import { isNewBook, newBook, type Book, type NewBook } from '@/schemas/book'
+import { newBook, type Book, type NewBook } from '@/schemas/book'
+import { areBooksEqual } from '@/utils'
 import { computed, ref, useTemplateRef } from 'vue'
 
 const { getBook, createBook, updateBook } = useBookStore()
@@ -71,7 +72,7 @@ if (id) {
 }
 
 const isReturnGuardOpen = ref(false)
-const hasChanges = computed(() => JSON.stringify(draft.value) !== JSON.stringify(book.value))
+const hasChanges = computed(() => !areBooksEqual(draft.value, book.value))
 const hasDateError = computed(() =>
   Boolean(
     draft.value.startDate && draft.value.endDate && new Date(draft.value.endDate) < new Date(draft.value.startDate),
@@ -84,9 +85,8 @@ async function saveBook(bookToSave: Book | NewBook) {
   if (!canBeSaved.value) {
     return
   }
-  const savedBook = isNewBook(bookToSave)
-    ? await request(() => createBook(bookToSave))
-    : await request(() => updateBook(bookToSave as Book))
+  const savedBook =
+    'id' in bookToSave ? await request(() => updateBook(bookToSave)) : await request(() => createBook(bookToSave))
 
   if (savedBook) {
     book.value = savedBook

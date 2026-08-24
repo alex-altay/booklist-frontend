@@ -33,10 +33,6 @@ const newBook = book.omit({ id: true, userId: true })
 type Book = z.infer<typeof book>
 type NewBook = z.infer<typeof newBook>
 
-function isNewBook(book: Book | NewBook): book is NewBook {
-  return (book as Book).id === undefined && (book as Book).userId === undefined
-}
-
 type CreateBookResponse = {
   allBooks: Book[]
   newBook: Book
@@ -47,4 +43,4 @@ type UpdatedBookResponse = {
   updatedBook: Book
 }
 
-export { book, newBook, isNewBook, type Book, type NewBook, type CreateBookResponse, type UpdatedBookResponse }
+export { book, newBook, type Book, type NewBook, type CreateBookResponse, type UpdatedBookResponse }

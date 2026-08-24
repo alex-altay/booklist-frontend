@@ -3,8 +3,10 @@ import { languageMap, ratingMap, ratingDetails, getSelectOptions } from './maps'
 import { capitalizeProperty } from './capitalize'
 import { isLocalStorageAvailable } from './storage'
 import { booksToCSV } from './booksToCSV'
+import { areBooksEqual } from './compare'
 
 export {
+  areBooksEqual,
   booksToCSV,
   capitalizeProperty,
   formatDate,
