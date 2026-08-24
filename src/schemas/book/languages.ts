@@ -1,4 +1,4 @@
-import * as z from 'zod'
+import { z } from '../zod'
 
 const languages = ['DE', 'EN', 'RU'] as const
 const language = z.enum(languages)

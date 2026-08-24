@@ -1,4 +1,4 @@
-import * as z from 'zod'
+import { z } from '../zod'
 import { category } from './categories'
 import { rating } from './ratings'
 import { language } from './languages'
