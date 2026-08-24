@@ -6,7 +6,7 @@ function formatDate(iso?: string | null | undefined): string {
   if (!iso) {
     return '-'
   }
-  return new Date(iso).toLocaleDateString('en-EN', { day: 'numeric', month: 'long', year: 'numeric' })
+  return new Date(iso).toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' })
 }
 
 function getYears(books: Book[]): number[] {
