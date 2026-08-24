@@ -16,11 +16,11 @@
                   <FieldLabel :for="id.email" class="mb-0"> Email </FieldLabel>
                   <Input :id="id.email" v-model="email" type="email" placeholder="example@mail.com" />
                   <div class="min-h-5 mb-4">
-                    <FieldError>{{ error }}</FieldError>
+                    <FieldError>{{ emailError || error }}</FieldError>
                   </div>
                 </Field>
                 <div class="flex flex-col gap-4">
-                  <Button type="submit" class="w-full cursor-pointer" :disabled="error?.length">
+                  <Button type="submit" class="w-full cursor-pointer" :disabled="hasEmailError">
                     Create a passkey and an account
                   </Button>
                 </div>
@@ -61,6 +61,8 @@ import { useIds } from '@/composables/useIds'
 
 const id = useIds('email')
 const email = ref<string>('')
+const hasEmailError = ref(false)
+const emailError = ref<string>('')
 const router = useRouter()
 const { signUp } = useUserStore()
 const { isLoading, error, request } = useApi()
@@ -78,13 +80,18 @@ async function register() {
 function isValidEmail(): boolean {
   const result = authRequest.safeParse({ email: email.value })
   if (result.success) {
-    error.value = ''
+    hasEmailError.value = false
+    emailError.value = ''
     return true
   }
-  error.value = 'Invalid email address'
+  hasEmailError.value = true
+  emailError.value = 'Invalid email address'
   return false
 }
 
-watch(email, isValidEmail)
+watch(email, () => {
+  error.value = ''
+  isValidEmail()
+})
 useGlobalSpinner().bindTo(isLoading)
 </script>
