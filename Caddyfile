@@ -20,6 +20,30 @@
 		format json # set access log format to json mode
 	}
 
+	# security headers
+	header {
+		# Always safe: no sniffing, no framing, no referrer leakage to other origins
+		X-Content-Type-Options nosniff
+		Referrer-Policy strict-origin-when-cross-origin
+
+		# CSP in REPORT-ONLY mode: violations appear in the browser console but nothing is blocked.
+		# The point of it is connect-src — even if a compromised dependency runs in our origin,
+		# it cannot ship the access token anywhere except our own API.
+		#
+		# API_ORIGIN must be set per environment (scheme + host, no trailing slash), e.g.
+		# https://api.example.com — it has no default on purpose, so the two environments cannot
+		# silently inherit each other's backend. If it is unset the directive collapses to 'self',
+		# which is harmless while this is Report-Only but blocks every API call once enforced.
+		#
+		# Verify in devtools (open the app, sign in, filter, export CSV, trigger a 404), and once
+		# the console is quiet rename the field below to Content-Security-Policy to enforce it.
+		# style-src needs 'unsafe-inline' because Tailwind and Vue :style bindings emit inline styles.
+		Content-Security-Policy-Report-Only "default-src 'self'; connect-src 'self' {$API_ORIGIN}; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'"
+
+		# don't advertise the server
+		-Server
+	}
+
 	# health check for railway
 	respond /health 200
 
