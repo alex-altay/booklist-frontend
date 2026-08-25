@@ -53,7 +53,7 @@ const id = ref<Book['id']>(-1)
 const author = ref<Book['author']>('')
 const title = ref<Book['title']>('')
 const quote = ref<string>('')
-const withDescription = books.filter((b: Book) => b.description !== null)
+const withDescription = books.filter((b: Book) => b.description !== null && b.description !== '')
 
 function getNewRandomIndex(): number {
   if (withDescription.length === 1) {
