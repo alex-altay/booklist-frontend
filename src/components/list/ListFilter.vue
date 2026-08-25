@@ -20,7 +20,12 @@
             <Label :for="id.search">Search</Label>
             <div class="relative">
               <Search class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-              <Input :id="id.search" v-model="model.search" placeholder="Title or author..." class="pl-10" />
+              <Input
+                :id="id.search"
+                v-model="model.search"
+                placeholder="Title or author..."
+                class="pl-10 placeholder:text-sm text-sm"
+              />
             </div>
           </div>
 
