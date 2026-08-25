@@ -43,22 +43,24 @@
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { FieldError } from '@/components/ui/field'
-import { storeToRefs } from 'pinia'
 import { useApi } from '@/composables/useApi'
 import { useGlobalSpinner } from '@/composables/useGlobalSpinner'
 import { useRoute, useRouter } from 'vue-router'
 import { useUserStore } from '@/stores/user'
+import { ref } from 'vue'
 
+const error = ref('')
 const { signIn } = useUserStore()
-const { isAuthorized } = storeToRefs(useUserStore())
-const { isLoading, error, request } = useApi()
+const { isLoading, request } = useApi()
 const router = useRouter()
 useGlobalSpinner().bindTo(isLoading)
 
 async function login() {
-  await request(signIn)
-  if (isAuthorized.value) {
-    router.push({ name: 'books' })
+  const result = await request(signIn)
+  if (result.ok) {
+    await router.push({ name: 'books' })
+  } else {
+    error.value = result.message
   }
 }
 

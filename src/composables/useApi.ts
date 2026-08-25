@@ -1,39 +1,30 @@
 import { handleServerErrors } from '@/errors/effects'
-import { ERRORS, isApiError, isNotAllowedError, isServerError } from '@/errors/pure'
+import { isServerError, toMessage } from '@/errors/pure'
 import { ref, computed } from 'vue'
+
+type Success<T> = { ok: true; data: T }
+type Failure = { ok: false; message: string }
+type Result<T> = Success<T> | Failure
 
 export function useApi() {
   const _requestCounter = ref(0)
   const isLoading = computed(() => _requestCounter.value > 0)
-  const error = ref<string>('')
 
-  function passErrorToComponent(apiError: unknown) {
-    if (isNotAllowedError(apiError)) {
-      error.value = ERRORS.CANCELED_BY_USER
-    } else if (isApiError(apiError) || apiError instanceof Error) {
-      error.value = apiError.message
-    } else if (typeof apiError === 'string') {
-      error.value = apiError
-    } else {
-      error.value = ERRORS.UNEXPECTED_ERROR
-    }
-  }
-
-  async function request<T>(fn: () => Promise<T>): Promise<T | void> {
+  async function request<T>(fn: () => Promise<T>): Promise<Result<T>> {
     try {
       _requestCounter.value++
-      error.value = ''
-      return await fn()
+      return { ok: true, data: await fn() }
     } catch (apiError) {
       if (isServerError(apiError)) {
         handleServerErrors(apiError)
+        return { ok: false, message: '' }
       } else {
-        passErrorToComponent(apiError)
+        return { ok: false, message: toMessage(apiError) }
       }
     } finally {
       _requestCounter.value--
     }
   }
 
-  return { isLoading, error, request }
+  return { isLoading, request }
 }

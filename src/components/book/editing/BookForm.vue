@@ -3,7 +3,15 @@
     <div class="space-y-6 2xl:space-y-12">
       <div class="space-y-2">
         <Label :for="id.title">Title<span class="text-destructive">*</span></Label>
-        <Input :id="id.title" v-model="draft.title" class="text-sm" placeholder="Enter the title" autofocus required />
+        <Input
+          :id="id.title"
+          ref="focused"
+          v-model="draft.title"
+          class="text-sm"
+          placeholder="Enter the title"
+          autofocus
+          required
+        />
       </div>
 
       <div class="space-y-2">
@@ -70,9 +78,13 @@ import { Separator } from '@/components/ui/separator'
 import { getSelectOptions } from '@/utils'
 import { useIds } from '@/composables/useIds'
 import { type NewBook } from '@/schemas/book'
+import { useTemplateRef } from 'vue'
+import { useFocus } from '@vueuse/core'
 
 defineProps<{ hasDateError: boolean }>()
 const draft = defineModel<NewBook>('draft', { required: true })
 const id = useIds('title', 'author', 'category', 'language', 'rating', 'status', 'startDate', 'endDate', 'description')
 const { ratingOptions, categoryOptions, languageOptions, statusOptions } = getSelectOptions()
+const focused = useTemplateRef<HTMLInputElement>('focused')
+useFocus(focused, { initialValue: true })
 </script>

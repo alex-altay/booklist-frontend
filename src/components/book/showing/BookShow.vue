@@ -27,15 +27,22 @@ import { useApi } from '@/composables/useApi'
 import { useGlobalSpinner } from '@/composables/useGlobalSpinner'
 import { useRoute } from 'vue-router'
 import { useFocus } from '@vueuse/core'
+import { type Book } from '@/schemas/book'
 import { ref, useTemplateRef } from 'vue'
 
 const { getBook, deleteBook } = useBookStore()
-const { request, isLoading, error } = useApi()
+const { request, isLoading } = useApi()
 const isDeleteGuardOpen = ref(false)
 
 const { id } = useRoute().params
-const book = Number.isInteger(+id) ? await request(() => getBook(+id)) : null
-if (!book) {
+if (!Number.isInteger(+id)) {
+  await router.replace({ name: '404', params: { pathMatch: '' } })
+}
+let book: Book
+const result = await request(() => getBook(+id))
+if (result.ok) {
+  book = result.data
+} else {
   await router.replace({ name: '404', params: { pathMatch: '' } })
 }
 
@@ -44,16 +51,16 @@ function confirmDelete() {
 }
 
 function edit() {
-  router.push({ name: 'edit', params: { id: book?.id } })
+  router.push({ name: 'edit', params: { id: book.id } })
 }
 
 async function removeBook() {
-  await request(() => deleteBook(book!.id))
-  if (error.value) {
-    toast.error(error.value)
-  } else {
+  const result = await request(() => deleteBook(book.id))
+  if (result.ok) {
     toast.success(`«${book!.title}» was successfully deleted`)
     await router.push({ name: 'books' })
+  } else {
+    toast.error(result.message)
   }
 }
 

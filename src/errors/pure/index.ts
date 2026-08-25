@@ -1,4 +1,4 @@
-import { ERRORS } from '@/errors/pure/texts'
+import { ERRORS, toMessage } from '@/errors/pure/texts'
 import {
   isApiError,
   isServerError,
@@ -17,5 +17,6 @@ export {
   isNotFoundError,
   isServerError,
   isUnauthorizedError,
+  toMessage,
   type ApiError,
 }

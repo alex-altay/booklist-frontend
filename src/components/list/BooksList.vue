@@ -15,14 +15,18 @@ import { storeToRefs } from 'pinia'
 import { type Book } from '@/schemas/book'
 import { type Filter } from '@/types/filter'
 import { computed, ref } from 'vue'
+import { toast } from 'vue-sonner'
 
 const { request } = useApi()
 const bookStore = useBookStore()
-await request(() => bookStore.fetchBooks())
+const result = await request(() => bookStore.fetchBooks())
+if (!result.ok && result.message) {
+  toast.error(result.message)
+}
+
 const { books } = storeToRefs(bookStore)
 const years = computed(() => getYears(books.value))
 const isNewUser = computed(() => books.value.length === 0)
-
 const defaultFilter: Filter = {
   search: '',
   rating: null,

@@ -38,9 +38,13 @@ import TotalRead from '@/components/stats/widgets/TotalRead.vue'
 import { useBookStore } from '@/stores/book'
 import { useApi } from '@/composables/useApi'
 import { storeToRefs } from 'pinia'
+import { toast } from 'vue-sonner'
 
 const { request } = useApi()
 const bookStore = useBookStore()
-await request(() => bookStore.fetchBooks())
+const result = await request(() => bookStore.fetchBooks())
+if (!result.ok && result.message) {
+  toast.error(result.message)
+}
 const { books } = storeToRefs(bookStore)
 </script>

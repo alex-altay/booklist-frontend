@@ -16,7 +16,7 @@
                   <FieldLabel :for="id.email" class="mb-0"> Email </FieldLabel>
                   <Input :id="id.email" v-model="email" type="email" placeholder="example@mail.com" />
                   <div class="min-h-5 mb-4">
-                    <FieldError>{{ emailError || error }}</FieldError>
+                    <FieldError>{{ emailError || signUpError }}</FieldError>
                   </div>
                 </Field>
                 <div class="flex flex-col gap-4">
@@ -52,28 +52,35 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Field, FieldLabel, FieldError } from '@/components/ui/field'
 import { Input } from '@/components/ui/input'
 import { authRequest } from '@/schemas/auth'
-import { ref, watch } from 'vue'
 import { useApi } from '@/composables/useApi'
 import { useGlobalSpinner } from '@/composables/useGlobalSpinner'
 import { useRouter } from 'vue-router'
 import { useUserStore } from '@/stores/user'
 import { useIds } from '@/composables/useIds'
+import { ERRORS } from '@/errors/pure'
+import { ref, watch } from 'vue'
 
 const id = useIds('email')
 const email = ref<string>('')
 const hasEmailError = ref(false)
 const emailError = ref<string>('')
+const signUpError = ref<string>('')
 const router = useRouter()
 const { signUp } = useUserStore()
-const { isLoading, error, request } = useApi()
+const { isLoading, request } = useApi()
 
 async function register() {
   if (!isValidEmail()) {
     return
   }
+  signUpError.value = ''
   const result = await request(() => signUp(email.value))
-  if (result && result.verified) {
+  if (result.ok && result.data.verified) {
     router.push({ name: 'signin', query: { isAfterRegistration: 1 } })
+  } else if (!result.ok) {
+    signUpError.value = result.message
+  } else {
+    signUpError.value = ERRORS.UNEXPECTED_ERROR
   }
 }
 
@@ -90,7 +97,7 @@ function isValidEmail(): boolean {
 }
 
 watch(email, () => {
-  error.value = ''
+  signUpError.value = ''
   isValidEmail()
 })
 useGlobalSpinner().bindTo(isLoading)

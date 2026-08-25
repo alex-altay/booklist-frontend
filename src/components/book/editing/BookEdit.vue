@@ -43,13 +43,14 @@ import { router } from '@/router/router'
 import { toast } from 'vue-sonner'
 import { useApi } from '@/composables/useApi'
 import { useGlobalSpinner } from '@/composables/useGlobalSpinner'
-import { useWindowScroll, useFocus } from '@vueuse/core'
+import { useWindowScroll } from '@vueuse/core'
 import { newBook, type Book, type NewBook } from '@/schemas/book'
 import { areBooksEqual } from '@/utils'
-import { computed, ref, useTemplateRef } from 'vue'
+import { computed, ref } from 'vue'
 
 const { getBook, createBook, updateBook } = useBookStore()
-const { request, isLoading, error } = useApi()
+const { request, isLoading } = useApi()
+useGlobalSpinner().bindTo(isLoading)
 
 const defaultValues: NewBook = {
   title: '',
@@ -64,20 +65,6 @@ const defaultValues: NewBook = {
 }
 const book = ref<Book | NewBook>({ ...defaultValues })
 const draft = ref<Book | NewBook>({ ...defaultValues })
-
-const route = useRoute()
-const { id } = route.params
-if (Number.isInteger(+id)) {
-  const existedBook = await request(() => getBook(+id))
-  if (existedBook) {
-    book.value = existedBook
-    draft.value = { ...book.value }
-  } else {
-    await router.replace({ name: '404', params: { pathMatch: '' } })
-  }
-}
-
-const isReturnGuardOpen = ref(false)
 const hasChanges = computed(() => !areBooksEqual(draft.value, book.value))
 const hasDateError = computed(() =>
   Boolean(
@@ -87,37 +74,7 @@ const hasDateError = computed(() =>
 const hasErrors = computed(() => !newBook.safeParse(draft.value).success || hasDateError.value)
 const canBeSaved = computed(() => hasChanges.value && !hasErrors.value)
 
-async function saveBook(bookToSave: Book | NewBook) {
-  if (!canBeSaved.value) {
-    return
-  }
-  const savedBook =
-    'id' in bookToSave ? await request(() => updateBook(bookToSave)) : await request(() => createBook(bookToSave))
-
-  if (savedBook) {
-    book.value = savedBook
-  }
-
-  if (error.value) {
-    toast.error(error.value)
-  } else {
-    toast.success(`«${bookToSave.title}» has been saved`)
-    router.push({ name: 'books' })
-  }
-}
-
-function goBack(target: 'list' | 'show') {
-  if (target === 'show' && 'id' in book.value) {
-    router.push({ name: 'book', params: { id: book.value.id } })
-  } else {
-    router.push({ name: 'books' })
-  }
-}
-
-const focused = useTemplateRef('focused')
-useFocus(focused, { initialValue: true })
-useGlobalSpinner().bindTo(isLoading)
-
+const isReturnGuardOpen = ref(false)
 const guardReject = ref<DialogReject>(() => {})
 const guardResolve = ref<DialogResolve>(() => {})
 async function leaveGuard() {
@@ -133,6 +90,40 @@ async function leaveGuard() {
     .catch(() => false)
 }
 onBeforeRouteLeave(leaveGuard)
+
+const route = useRoute()
+const { id } = route.params
+const result = await request(() => getBook(+id))
+if (result.ok) {
+  book.value = result.data
+  draft.value = { ...book.value }
+} else {
+  await router.replace({ name: '404', params: { pathMatch: '' } })
+}
+
+async function saveBook(bookToSave: Book | NewBook) {
+  if (!canBeSaved.value) {
+    return
+  }
+  const result =
+    'id' in bookToSave ? await request(() => updateBook(bookToSave)) : await request(() => createBook(bookToSave))
+
+  if (result.ok) {
+    book.value = result.data
+    toast.success(`«${bookToSave.title}» has been saved`)
+    router.push({ name: 'books' })
+  } else {
+    toast.error(result.message)
+  }
+}
+
+function goBack(target: 'list' | 'show') {
+  if (target === 'show' && 'id' in book.value) {
+    router.push({ name: 'book', params: { id: book.value.id } })
+  } else {
+    router.push({ name: 'books' })
+  }
+}
 
 const { y } = useWindowScroll()
 const TOP_CONTROLS_BUTTON_POSITION = 64
