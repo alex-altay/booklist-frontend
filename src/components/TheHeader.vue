@@ -1,5 +1,5 @@
 <template>
-  <header class="border-b fixed w-full top-0 z-20 bg-background">
+  <header class="sticky top-0 w-full z-20 border-b bg-background">
     <div class="container mx-auto px-4 h-16 flex items-center justify-between">
       <div class="flex items-center">
         <Button

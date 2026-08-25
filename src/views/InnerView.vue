@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-col min-h-dvh">
     <TheHeader />
-    <main class="container mx-auto flex flex-1 flex-col px-4 pt-24 pb-4">
+    <main class="container mx-auto flex flex-1 flex-col px-4 pt-8 pb-4">
       <RouterView :key="$route.fullPath" />
     </main>
     <TheFooter />
