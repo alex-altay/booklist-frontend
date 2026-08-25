@@ -1,5 +1,5 @@
 import { handleServerErrors } from '@/errors/effects'
-import { ERRORS, isApiError, isServerError } from '@/errors/pure'
+import { ERRORS, isApiError, isNotAllowedError, isServerError } from '@/errors/pure'
 import { ref, computed } from 'vue'
 
 export function useApi() {
@@ -8,7 +8,9 @@ export function useApi() {
   const error = ref<string>('')
 
   function passErrorToComponent(apiError: unknown) {
-    if (isApiError(apiError) || apiError instanceof Error) {
+    if (isNotAllowedError(apiError)) {
+      error.value = ERRORS.CANCELED_BY_USER
+    } else if (isApiError(apiError) || apiError instanceof Error) {
       error.value = apiError.message
     } else if (typeof apiError === 'string') {
       error.value = apiError

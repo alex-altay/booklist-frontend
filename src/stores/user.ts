@@ -1,7 +1,6 @@
 import { authResponse } from '@/schemas/auth'
 import { defineStore } from 'pinia'
 import { isLocalStorageAvailable } from '@/utils'
-import { isNotAllowedError, isBadRequestError, ERRORS } from '@/errors/pure'
 import { startAuthentication, startRegistration } from '@simplewebauthn/browser'
 import { webauthnApi } from '@api/webauthn'
 import { useBookStore } from '@/stores/book'
@@ -14,33 +13,17 @@ export const useUserStore = defineStore('user', () => {
   const isAuthorized = computed(() => _accessToken.value !== null)
 
   async function signUp(userEmail: string) {
-    try {
-      const { requestId, options, email } = await webauthnApi.getRegistrationOptions(userEmail)
-      const response = await startRegistration({ optionsJSON: options })
-      return await webauthnApi.verifyRegistration({ response, requestId, email })
-    } catch (error) {
-      if (isNotAllowedError(error)) {
-        throw new Error(ERRORS.CANCELED_BY_USER)
-      } else if (isBadRequestError(error)) {
-        throw new Error(ERRORS.EMAIL_HAS_BEEN_USED)
-      }
-      throw new Error(ERRORS.UNEXPECTED_ERROR)
-    }
+    const { requestId, options, email } = await webauthnApi.getRegistrationOptions(userEmail)
+    const response = await startRegistration({ optionsJSON: options })
+    return await webauthnApi.verifyRegistration({ response, requestId, email })
   }
 
   async function signIn() {
-    try {
-      const { requestId, options } = await webauthnApi.generateAuthenticationOptions()
-      const response = await startAuthentication({ optionsJSON: options })
-      const data = await webauthnApi.verifyAuthentication({ response, requestId })
-      const { access_token } = authResponse.parse(data)
-      setAccessToken(access_token)
-    } catch (error) {
-      if (isNotAllowedError(error)) {
-        throw new Error(ERRORS.CANCELED_BY_USER)
-      }
-      throw new Error(ERRORS.UNEXPECTED_ERROR)
-    }
+    const { requestId, options } = await webauthnApi.generateAuthenticationOptions()
+    const response = await startAuthentication({ optionsJSON: options })
+    const data = await webauthnApi.verifyAuthentication({ response, requestId })
+    const { access_token } = authResponse.parse(data)
+    setAccessToken(access_token)
   }
 
   function getTokenFromLocalStorage(): string | null {

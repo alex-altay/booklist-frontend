@@ -1,7 +1,6 @@
 import { ERRORS } from '@/errors/pure/texts'
 import {
   isApiError,
-  isBadRequestError,
   isServerError,
   isNetworkError,
   isNotAllowedError,
@@ -13,7 +12,6 @@ import { type ApiError } from './api-error'
 export {
   ERRORS,
   isApiError,
-  isBadRequestError,
   isNotAllowedError,
   isNetworkError,
   isNotFoundError,
