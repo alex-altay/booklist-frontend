@@ -64,11 +64,17 @@ const defaultValues: NewBook = {
 }
 const book = ref<Book | NewBook>({ ...defaultValues })
 const draft = ref<Book | NewBook>({ ...defaultValues })
+
 const route = useRoute()
 const { id } = route.params
-if (id) {
-  book.value = await getBook(+id)
-  draft.value = { ...book.value }
+if (Number.isInteger(+id)) {
+  const existedBook = await request(() => getBook(+id))
+  if (existedBook) {
+    book.value = existedBook
+    draft.value = { ...book.value }
+  } else {
+    await router.replace({ name: '404', params: { pathMatch: '' } })
+  }
 }
 
 const isReturnGuardOpen = ref(false)
