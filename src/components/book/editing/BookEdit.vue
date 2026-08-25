@@ -93,12 +93,14 @@ onBeforeRouteLeave(leaveGuard)
 
 const route = useRoute()
 const { id } = route.params
-const result = await request(() => getBook(+id))
-if (result.ok) {
-  book.value = result.data
-  draft.value = { ...book.value }
-} else {
-  await router.replace({ name: '404', params: { pathMatch: '' } })
+if (id && Number.isInteger(+id)) {
+  const result = await request(() => getBook(+id))
+  if (result.ok) {
+    book.value = result.data
+    draft.value = { ...book.value }
+  } else {
+    await router.replace({ name: '404', params: { pathMatch: '' } })
+  }
 }
 
 async function saveBook(bookToSave: Book | NewBook) {
