@@ -12,12 +12,7 @@ function parseBook(book: Book): Book {
 }
 
 function parseList(books: Book[]): Book[] {
-  return books
-    .map((book) => {
-      const { success, data } = bookSchema.safeParse(book)
-      return success ? data : null
-    })
-    .filter((book) => book !== null)
+  return books.map((book) => bookSchema.parse(book))
 }
 
 export const bookApi = {
