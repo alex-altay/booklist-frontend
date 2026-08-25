@@ -45,6 +45,10 @@ export default defineConfig([
     },
   },
   {
+    files: ['src/errors/effects/report.ts'],
+    rules: { '@/no-console': 'off' },
+  },
+  {
     files: ['**/*.{js,ts,vue}'],
     extends: [eslintConfigPrettier],
   },

@@ -1,4 +1,4 @@
-import { handleServerErrors } from '@/errors/effects'
+import { handleServerErrors, reportError } from '@/errors/effects'
 import { isServerError, toMessage } from '@/errors/pure'
 import { ref, computed } from 'vue'
 
@@ -15,6 +15,7 @@ export function useApi() {
       _requestCounter.value++
       return { ok: true, data: await fn() }
     } catch (apiError) {
+      reportError(apiError, 'api')
       if (isServerError(apiError)) {
         handleServerErrors(apiError)
         return { ok: false, message: '' }
