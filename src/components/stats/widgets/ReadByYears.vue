@@ -4,11 +4,7 @@
       <div class="flex flex-1 flex-col justify-center gap-1 px-6 py-5 sm:py-6 text-left">
         <CardTitle class="text-xs text-muted-foreground uppercase tracking-wider">Read By Years</CardTitle>
         <CardDescription class="text-xs">
-          {{
-            hasData
-              ? 'See how many books you read every year'
-              : 'Add an end date and language to your books to see the distribution'
-          }}
+          {{ hasData ? 'See how many books you read every year' : 'Add more data to see the distribution' }}
         </CardDescription>
       </div>
       <div class="flex">
@@ -23,7 +19,7 @@
       </div>
     </CardHeader>
     <CardContent class="pb-4 flex flex-col justify-center items-center h-full">
-      <ChartContainer :config="chartConfig">
+      <ChartContainer v-if="hasData" :config="chartConfig">
         <VisXYContainer :data="chartData" :margin="{ left: -24 }" :y-domain="[0, undefined]">
           <VisStackedBar
             :x="(d: ChartData) => d.year"
@@ -109,7 +105,6 @@ if (chartData.length !== 0 && chartData.length < YEARS_BAR_NUMBER) {
   }
 }
 
-// TODO Breaks on mouse hover when user has no data
 const currentYear = new Date().getFullYear()
 const totalReadInCurrent = withDateAndLanguage.reduce(
   (acc, b) => (acc + new Date(b.endDate!).getFullYear() === currentYear ? 1 : 0),
