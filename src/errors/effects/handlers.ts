@@ -1,4 +1,4 @@
-import { ERRORS } from '@/errors/pure'
+import { ERRORS, isBadRequestError, isNetworkError, isNotFoundError, isUnauthorizedError } from '@/errors/pure'
 import { router } from '@/router/router'
 import { useUserStore } from '@/stores/user'
 import { toast } from 'vue-sonner'
@@ -21,4 +21,27 @@ function handleUnexpectedError() {
   toast.error(ERRORS.UNEXPECTED_ERROR)
 }
 
-export { handleAuthError, handleBadRequest, handleIsNotFound, handleUnexpectedError }
+function handleNetworkError() {
+  toast.error(ERRORS.NETWORK_ERROR)
+}
+
+function handleServerErrors(apiError: unknown) {
+  if (isUnauthorizedError(apiError)) {
+    handleAuthError()
+  } else if (isBadRequestError(apiError)) {
+    handleBadRequest()
+  } else if (isNotFoundError(apiError)) {
+    handleIsNotFound()
+  } else if (isNetworkError(apiError)) {
+    handleNetworkError()
+  }
+}
+
+export {
+  handleAuthError,
+  handleBadRequest,
+  handleIsNotFound,
+  handleNetworkError,
+  handleUnexpectedError,
+  handleServerErrors,
+}

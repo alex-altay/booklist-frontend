@@ -19,6 +19,10 @@ function isApiError(error: unknown): error is ApiError {
   )
 }
 
+function isServerError(error: unknown): boolean {
+  return isNetworkError(error) || isBadRequestError(error) || isUnauthorizedError(error) || isNotFoundError(error)
+}
+
 function _hasStatus(error: unknown, code: number): error is { statusCode: number } {
   return typeof error === 'object' && error !== null && 'statusCode' in error && error.statusCode === code
 }
@@ -39,4 +43,12 @@ function isNotFoundError(error: unknown) {
   return _hasStatus(error, 404)
 }
 
-export { isApiError, isBadRequestError, isNetworkError, isNotAllowedError, isNotFoundError, isUnauthorizedError }
+export {
+  isApiError,
+  isBadRequestError,
+  isNetworkError,
+  isNotAllowedError,
+  isNotFoundError,
+  isServerError,
+  isUnauthorizedError,
+}
