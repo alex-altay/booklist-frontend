@@ -1,7 +1,7 @@
 <template>
   <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
-    <ListFilter v-model="filter" :years="years" @reset-filter="resetFilter" />
-    <PaginatedList :books="filteredBooks" :is-new-user @reset-filter="resetFilter" />
+    <ListFilter :years="years" />
+    <PaginatedList :books="filteredBooks" :is-new-user />
   </div>
 </template>
 
@@ -9,16 +9,18 @@
 import ListFilter from '@/components/list/ListFilter.vue'
 import PaginatedList from '@/components/list/PaginatedList.vue'
 import { useBookStore } from '@/stores/book'
+import { useFilterStore } from '@/stores/filter'
 import { useApi } from '@/composables/useApi'
 import { getYears } from '@/utils'
 import { storeToRefs } from 'pinia'
-import { type Book } from '@/schemas/book'
-import { type Filter } from '@/types/filter'
-import { computed, ref } from 'vue'
 import { toast } from 'vue-sonner'
+import { type Book } from '@/schemas/book'
+import { computed } from 'vue'
 
-const { request } = useApi()
 const bookStore = useBookStore()
+const { apply } = useFilterStore()
+const { request } = useApi()
+
 const result = await request(() => bookStore.fetchBooks())
 if (!result.ok && result.message) {
   toast.error(result.message)
@@ -27,35 +29,5 @@ if (!result.ok && result.message) {
 const { books } = storeToRefs(bookStore)
 const years = computed(() => getYears(books.value))
 const isNewUser = computed(() => books.value.length === 0)
-const defaultFilter: Filter = {
-  search: '',
-  rating: null,
-  endYear: null,
-  category: null,
-  language: null,
-  status: null,
-}
-const filter = ref<Filter>({ ...defaultFilter })
-const filteredBooks = computed<Book[]>(() => {
-  let filtered = books.value
-  for (const [k, v] of Object.entries(filter.value)) {
-    if (v === null) {
-      continue
-    } else if (k === 'search') {
-      if (v && typeof v === 'string' && v.length > 0) {
-        filtered = filtered.filter((book) => book.author.includes(v) || book.title.includes(v))
-      }
-    } else if (k === 'endYear') {
-      filtered = filtered.filter((book) => (book.endDate ? new Date(book.endDate).getFullYear() === v : false))
-    } else {
-      // Rating, Category, Status, Language
-      filtered = filtered.filter((el: Book) => el[k as keyof Book] === v)
-    }
-  }
-  return filtered
-})
-
-function resetFilter() {
-  filter.value = { ...defaultFilter }
-}
+const filteredBooks = computed<Book[]>(() => apply(books.value))
 </script>

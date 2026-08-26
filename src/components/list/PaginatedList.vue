@@ -46,7 +46,7 @@
       </Pagination>
     </div>
   </div>
-  <EmptyList v-else :is-new-user class="lg:col-span-3 flex flex-col" @reset-filter="$emit('resetFilter')" />
+  <EmptyList v-else :is-new-user class="lg:col-span-3 flex flex-col" />
 </template>
 
 <script setup lang="ts">
@@ -69,7 +69,6 @@ import { computed, ref, watch } from 'vue'
 import { useBreakpoints, breakpointsTailwind } from '@vueuse/core'
 import type { Book } from '@/schemas/book'
 
-defineEmits(['resetFilter'])
 const props = defineProps<{ books: Book[]; isNewUser: boolean }>()
 const page = ref<number>(1)
 const breakpoints = useBreakpoints(breakpointsTailwind)

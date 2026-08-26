@@ -14,11 +14,7 @@
     <p class="text-muted-foreground text-sm max-w-55 mx-auto mb-2 leading-relaxed">
       No books match the selected filters
     </p>
-    <Button
-      size="sm"
-      class="mt-6 gap-2 hover:opacity-90 transition-opacity cursor-pointer"
-      @click="$emit('resetFilter')"
-    >
+    <Button size="sm" class="mt-6 gap-2 hover:opacity-90 transition-opacity cursor-pointer" @click="reset">
       <X class="w-4 h-4 mr-2" />
       Reset filter
     </Button>
@@ -28,6 +24,7 @@
 <script setup lang="ts">
 import { Search, X } from '@lucide/vue'
 import { Button } from '@/components/ui/button'
+import { useFilterStore } from '@/stores/filter'
 
-defineEmits(['resetFilter'])
+const { reset } = useFilterStore()
 </script>

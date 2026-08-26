@@ -8,7 +8,7 @@
             class="text-muted-foreground hover:text-foreground cursor-pointer"
             variant="ghost"
             size="sm"
-            @click="$emit('resetFilter')"
+            @click="() => filterStore.reset()"
           >
             <X class="w-4 h-4 mr-2" />
             Reset
@@ -22,7 +22,7 @@
               <Search class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
               <Input
                 :id="id.search"
-                v-model="model.search"
+                v-model="filter.search"
                 placeholder="Title or author..."
                 class="pl-10 placeholder:text-sm text-sm"
               />
@@ -31,14 +31,14 @@
 
           <div class="space-y-2 w-full flex flex-col">
             <Label :for="id.rating">Rating</Label>
-            <FormSelect :id="id.rating" v-model="model.rating" empty-label="All ratings" :options="ratingOptions" />
+            <FormSelect :id="id.rating" v-model="filter.rating" empty-label="All ratings" :options="ratingOptions" />
           </div>
 
           <div class="space-y-2 w-full flex flex-col">
             <Label :for="id.category">Category</Label>
             <FormSelect
               :id="id.category"
-              v-model="model.category"
+              v-model="filter.category"
               empty-label="All categories"
               :options="categoryOptions"
             />
@@ -46,14 +46,14 @@
 
           <div class="space-y-2 w-full flex flex-col">
             <Label :for="id.endYear">Finished in</Label>
-            <FormSelect :id="id.endYear" v-model="model.endYear" empty-label="All years" :options="yearOptions" />
+            <FormSelect :id="id.endYear" v-model="filter.endYear" empty-label="All years" :options="yearOptions" />
           </div>
 
           <div class="space-y-2 w-full flex flex-col">
             <Label :for="id.language">Language</Label>
             <FormSelect
               :id="id.language"
-              v-model="model.language"
+              v-model="filter.language"
               empty-label="All languages"
               :options="languageOptions"
             />
@@ -61,7 +61,7 @@
 
           <div class="space-y-2 w-full flex flex-col">
             <Label :for="id.status" class="text-left">Status</Label>
-            <FormSelect :id="id.status" v-model="model.status" empty-label="All" :options="statusOptions" />
+            <FormSelect :id="id.status" v-model="filter.status" empty-label="All" :options="statusOptions" />
           </div>
         </div>
       </div>
@@ -77,12 +77,13 @@ import { FormSelect } from '@/components/ui/form-select'
 import { X, Search } from '@lucide/vue'
 import { useIds } from '@/composables/useIds'
 import { getSelectOptions } from '@/utils'
-import { type Filter } from '@/types/filter'
+import { useFilterStore } from '@/stores/filter'
 import { computed } from 'vue'
+import { storeToRefs } from 'pinia'
 
-defineEmits(['resetFilter'])
 const { years } = defineProps<{ years: number[] }>()
-const model = defineModel<Filter>({ required: true })
+const filterStore = useFilterStore()
+const { filter } = storeToRefs(filterStore)
 const id = useIds('search', 'rating', 'category', 'endYear', 'language', 'status')
 const { ratingOptions, categoryOptions, languageOptions, statusOptions } = getSelectOptions()
 const yearOptions = computed(() => years.map((y) => ({ option: y, label: String(y) })))
