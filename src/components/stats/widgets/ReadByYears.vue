@@ -107,7 +107,7 @@ if (chartData.length !== 0 && chartData.length < YEARS_BAR_NUMBER) {
 
 const currentYear = new Date().getFullYear()
 const totalReadInCurrent = withDateAndLanguage.reduce(
-  (acc, b) => (acc + new Date(b.endDate!).getFullYear() === currentYear ? 1 : 0),
+  (acc, b) => acc + (new Date(b.endDate!).getFullYear() === currentYear ? 1 : 0),
   0,
 )
 
