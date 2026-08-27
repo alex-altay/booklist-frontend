@@ -40,6 +40,6 @@ function getImageUrl(name: string) {
 @reference "tailwindcss";
 
 .layer {
-  @apply absolute h-full w-full duration-300 ease-out transition-transform will-change-transform;
+  @apply absolute h-full w-full object-contain duration-300 ease-out transition-transform will-change-transform;
 }
 </style>
