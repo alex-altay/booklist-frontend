@@ -1,0 +1,7 @@
+User-agent: *
+Disallow: /books
+Disallow: /stats
+Disallow: /signin
+Disallow: /signup
+
+Sitemap: https://mybooklist.info/sitemap.xml

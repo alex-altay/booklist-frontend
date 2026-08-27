@@ -1,0 +1,23 @@
+# BookList
+
+> A free, ad-free reading diary. You record the books you have read, along with dates, a rating, and your impressions, and the site turns that record into statistics about your reading over time.
+
+BookList is a personal tool, not a social network or a catalogue: there are no public profiles, no shared shelves, and no book database to browse. Each account holds only the entries its owner typed in, and none of it is visible to anyone else.
+
+An entry can carry a title, an author, a start and end date, a rating, a category, a language, a status (finished or dropped), and free-form notes. Everything except the title and author is optional.
+
+From those entries the site derives statistics: how many books were read in total and per year, how ratings are distributed, which books took longest, how much time was spent reading, and reading speed. Because the statistics are computed from dates and ratings, entries left without them simply do not appear in the corresponding charts.
+
+Accounts are created and accessed with a passkey (WebAuthn) rather than a password. Signing up collects an email address; there is no password to choose, store, or reset.
+
+## Public pages
+
+- [Home](https://mybooklist.info/): what the site does, and the entry point for signing in or creating an account.
+- [Privacy Policy](https://mybooklist.info/privacy): what is collected, why, how long it is kept, and how to review or delete it.
+- [Terms of Use](https://mybooklist.info/terms): the agreement governing use of the service, including the minimum age.
+
+## Notes for crawlers
+
+The application itself lives behind authentication, at `/books`, `/books/<id>`, `/books/<id>/edit`, `/books/add`, and `/stats`. Those paths are disallowed in `/robots.txt`. They are not worth fetching in any case: this is a single-page application, so any unknown path returns the same empty HTML shell with a 200 status, and the redirect to the sign-in screen happens later in the browser. No book data is ever present in the served HTML — it is fetched from the API only with a valid token.
+
+The sign-in and sign-up screens are likewise disallowed. They contain no content beyond the passkey prompt.
