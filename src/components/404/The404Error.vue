@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen px-4 flex flex-col items-center justify-center text-center">
+  <main class="min-h-screen px-4 flex flex-col items-center justify-center text-center">
     <p class="mb-12 text-sm tracking-wider font-semibold uppercase text-muted-foreground">404 Error</p>
     <MorphAnimation class="mb-8" />
     <h1 class="mb-6 text-xl font-bold">Page Not Found</h1>
@@ -15,7 +15,7 @@
       <Home class="w-4 h-4" />
       To the main page
     </Button>
-  </div>
+  </main>
 </template>
 
 <script setup lang="ts">

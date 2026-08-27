@@ -1,9 +1,9 @@
 <template>
-  <div class="h-full">
+  <main class="h-full">
     <TheHero />
     <TheProcess />
     <CallToAction />
-  </div>
+  </main>
 </template>
 
 <script setup lang="ts">

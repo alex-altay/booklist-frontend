@@ -1,5 +1,5 @@
 <template>
-  <div class="text-left max-w-none p-6">
+  <main class="text-left max-w-none p-6">
     <a class="inline-block mb-9 underline cursor-pointer" @click.prevent="$router.back">Back</a>
 
     <h1 class="text-3xl font-bold mb-4">PRIVACY POLICY</h1>
@@ -129,5 +129,5 @@
       Based on the laws of your country, you may have the right to request access to, correction of, or deletion of your
       personal information. To request changes, submit a data subject access request using the contact details above.
     </p>
-  </div>
+  </main>
 </template>

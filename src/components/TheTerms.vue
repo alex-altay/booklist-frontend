@@ -1,5 +1,5 @@
 <template>
-  <div class="text-left max-w-none p-6">
+  <main class="text-left max-w-none p-6">
     <a class="inline-block mb-9 underline cursor-pointer" @click.prevent="$router.back">Back</a>
 
     <h1 class="text-3xl font-bold mb-4">TERMS OF USE</h1>
@@ -172,5 +172,5 @@
     <p class="mb-4 text-gray-700">
       By using the Service, you acknowledge that you have read and agree to these Terms of Use.
     </p>
-  </div>
+  </main>
 </template>
