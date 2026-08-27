@@ -6,7 +6,7 @@
         variant="outline"
         :class="
           cn(
-            'w-full min-w-60 justify-start text-left font-normal',
+            'w-full min-w-60 justify-start text-left font-normal text-base lg:text-sm',
             !date && 'text-muted-foreground',
             hasDateError && 'border-destructive focus-visible:ring-destructive text-muted-foreground',
           )

@@ -24,7 +24,7 @@
                 :id="id.search"
                 v-model="filter.search"
                 placeholder="Title or author..."
-                class="pl-10 placeholder:text-sm text-sm"
+                class="pl-10 lg:placeholder:text-sm lg:text-sm"
               />
             </div>
           </div>

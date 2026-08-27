@@ -1,11 +1,11 @@
 <template>
   <Select v-model="model">
     <SelectTrigger :id class="w-full">
-      <SelectValue />
+      <SelectValue class="text-base lg:text-sm" />
     </SelectTrigger>
     <SelectContent>
-      <SelectItem :value="null">{{ emptyLabel }}</SelectItem>
-      <SelectItem v-for="{ label, option } in options" :key="label" :value="option" >
+      <SelectItem class="text-base lg:text-sm" :value="null">{{ emptyLabel }}</SelectItem>
+      <SelectItem  class="text-base lg:text-sm" v-for="{ label, option } in options" :key="label" :value="option" >
         {{ label }}
       </SelectItem>
     </SelectContent>
