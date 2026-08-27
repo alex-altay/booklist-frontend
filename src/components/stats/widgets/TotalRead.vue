@@ -6,7 +6,7 @@
       </div>
       <p class="inline-block text-left text-xs text-muted-foreground uppercase tracking-wider">Total Read</p>
     </div>
-    <div class="flex items-baseline-last space-x-3">
+    <div class="flex flex-wrap-reverse items-baseline-last space-x-3">
       <p class="text-3xl font-bold text-left tracking-wider leading-none">
         <RollingDigit :digit="totalRead.length" />
       </p>
