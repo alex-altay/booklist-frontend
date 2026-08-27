@@ -64,7 +64,7 @@
           v-model="draft.description"
           placeholder="Impressions, quotes, thoughts..."
           rows="6"
-          class="border-input placeholder:text-muted-foreground placeholder:text-base lg:placeholder:text-sm focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:bg-input/30 flex field-sizing-content min-h-16 w-full rounded-md border bg-transparent px-3 py-2 shadow-xs transition-[color,box-shadow] outline-none focus-visible:ring-3 disabled:cursor-not-allowed disabled:opacity-50 text-base lg:text-sm"
+          class="border-input placeholder:text-muted-foreground placeholder:text-base lg:placeholder:text-sm focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:bg-input/30 flex min-h-16 w-full rounded-md border bg-transparent px-3 py-2 shadow-xs transition-[color,box-shadow] outline-none focus-visible:ring-3 disabled:cursor-not-allowed disabled:opacity-50 text-base lg:text-sm"
         />
       </div>
     </div>
