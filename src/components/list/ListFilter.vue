@@ -8,7 +8,7 @@
             class="text-muted-foreground hover:text-foreground cursor-pointer"
             variant="ghost"
             size="sm"
-            @click="() => filterStore.reset()"
+            @click="() => filtrationStore.reset()"
           >
             <X class="w-4 h-4 mr-2" />
             Reset
@@ -77,13 +77,13 @@ import { FormSelect } from '@/components/ui/form-select'
 import { X, Search } from '@lucide/vue'
 import { useIds } from '@/composables/useIds'
 import { getSelectOptions } from '@/utils'
-import { useFilterStore } from '@/stores/filter'
+import { useFiltrationStore } from '@/stores/filtration'
 import { computed } from 'vue'
 import { storeToRefs } from 'pinia'
 
 const { years } = defineProps<{ years: number[] }>()
-const filterStore = useFilterStore()
-const { filter } = storeToRefs(filterStore)
+const filtrationStore = useFiltrationStore()
+const { filter } = storeToRefs(filtrationStore)
 const id = useIds('search', 'rating', 'category', 'endYear', 'language', 'status')
 const { ratingOptions, categoryOptions, languageOptions, statusOptions } = getSelectOptions()
 const yearOptions = computed(() => years.map((y) => ({ option: y, label: String(y) })))

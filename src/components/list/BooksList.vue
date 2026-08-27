@@ -9,7 +9,7 @@
 import ListFilter from '@/components/list/ListFilter.vue'
 import PaginatedList from '@/components/list/PaginatedList.vue'
 import { useBookStore } from '@/stores/book'
-import { useFilterStore } from '@/stores/filter'
+import { useFiltrationStore } from '@/stores/filtration'
 import { useApi } from '@/composables/useApi'
 import { getYears } from '@/utils'
 import { storeToRefs } from 'pinia'
@@ -18,7 +18,7 @@ import { type Book } from '@/schemas/book'
 import { computed } from 'vue'
 
 const bookStore = useBookStore()
-const { apply } = useFilterStore()
+const { applyFilter } = useFiltrationStore()
 const { request } = useApi()
 
 const result = await request(() => bookStore.fetchBooks())
@@ -29,5 +29,5 @@ if (!result.ok && result.message) {
 const { books } = storeToRefs(bookStore)
 const years = computed(() => getYears(books.value))
 const isNewUser = computed(() => books.value.length === 0)
-const filteredBooks = computed<Book[]>(() => apply(books.value))
+const filteredBooks = computed<Book[]>(() => applyFilter(books.value))
 </script>

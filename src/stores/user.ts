@@ -4,7 +4,7 @@ import { isLocalStorageAvailable } from '@/utils'
 import { startAuthentication, startRegistration } from '@simplewebauthn/browser'
 import { webauthnApi } from '@api/webauthn'
 import { useBookStore } from '@/stores/book'
-import { useFilterStore } from '@/stores/filter'
+import { useFiltrationStore } from '@/stores/filtration'
 import { computed, ref } from 'vue'
 
 const TOKEN_STORAGE_KEY = 'AccessToken'
@@ -66,7 +66,7 @@ export const useUserStore = defineStore('user', () => {
   }
 
   function signOut() {
-    useFilterStore().reset()
+    useFiltrationStore().reset()
     useBookStore().reset()
     removeAccessToken()
   }

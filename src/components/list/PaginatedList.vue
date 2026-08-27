@@ -20,9 +20,9 @@
           <PaginationFirst class="cursor-pointer">
             <ChevronsLeft class="h-4 w-auto" />
           </PaginationFirst>
-          <PaginationPrevious :class="{ 'px-1!': isSmallerThanLg }" class="cursor-pointer">
-            <ChevronLeft v-if="isSmallerThanLg" class="h-4 w-auto" />
-            <Button v-else variant="ghost" class="px-0 cursor-pointer"> Previous </Button>
+          <PaginationPrevious class="px-1! lg:px-2.5 cursor-pointer">
+            <ChevronLeft class="inline-block lg:hidden h-4 w-auto" />
+            <Button variant="ghost" class="hidden lg:inline-block px-0 cursor-pointer"> Previous </Button>
           </PaginationPrevious>
           <template v-for="(item, index) in items" :key="index">
             <PaginationItem
@@ -35,9 +35,9 @@
             </PaginationItem>
             <PaginationEllipsis v-else-if="item.type === 'ellipsis'" :key="`ellipsis-${index}`" />
           </template>
-          <PaginationNext :class="{ 'px-1!': isSmallerThanLg }" class="cursor-pointer">
-            <ChevronRight v-if="isSmallerThanLg" class="h-4 w-auto" />
-            <Button v-else variant="ghost" class="px-0 cursor-pointer">Next</Button>
+          <PaginationNext class="px-1! lg:px-2.5 cursor-pointer">
+            <ChevronRight class="inline-block lg:hidden h-4 w-auto" />
+            <Button variant="ghost" class="hidden lg:inline-block px-0 cursor-pointer">Next</Button>
           </PaginationNext>
           <PaginationLast class="cursor-pointer">
             <ChevronsRight class="h-4 w-auto" />
@@ -64,36 +64,23 @@ import BookCard from '@/components/list/BookCard.vue'
 import EmptyList from '@/components/list/EmptyList.vue'
 import { Button } from '@/components/ui/button'
 import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from '@lucide/vue'
-import { PAGINATION_SIZE_BASE, PAGINATION_SIZE_XL } from '@/data/constants'
-import { computed, ref, watch } from 'vue'
-import { useBreakpoints, breakpointsTailwind } from '@vueuse/core'
-import type { Book } from '@/schemas/book'
+import { useFiltrationStore } from '@/stores/filtration'
+import { storeToRefs } from 'pinia'
+import { type Book } from '@/schemas/book'
+import { computed, watch } from 'vue'
 
 const props = defineProps<{ books: Book[]; isNewUser: boolean }>()
-const page = ref<number>(1)
-const breakpoints = useBreakpoints(breakpointsTailwind)
-const isSmallerThanLg = breakpoints.smaller('lg')
-const paginationSize = computed(() => (breakpoints.smaller('2xl').value ? PAGINATION_SIZE_BASE : PAGINATION_SIZE_XL))
-
-const paginatedBooks = computed(() => {
-  const start = (page.value - 1) * paginationSize.value
-  const end = start + paginationSize.value
-  return props.books.slice(start, end)
-})
-
-watch(
-  () => props.books,
-  () => {
-    page.value = 1
-  },
-)
+const filtrationStore = useFiltrationStore()
+const { page, paginationSize } = storeToRefs(filtrationStore)
+const paginatedBooks = computed(() => filtrationStore.applyPagination(props.books))
 
 watch(page, () => {
   window.scrollTo({ top: 0 })
 })
 
-watch(paginationSize, (newSize, oldSize) => {
-  const firstBookIndex = (page.value - 1) * oldSize
-  page.value = Math.floor(firstBookIndex / newSize) + 1
-})
+watch(
+  () => props.books.length,
+  (length) => filtrationStore.clampPage(length),
+  { immediate: true },
+)
 </script>

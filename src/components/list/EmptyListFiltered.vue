@@ -24,7 +24,7 @@
 <script setup lang="ts">
 import { Search, X } from '@lucide/vue'
 import { Button } from '@/components/ui/button'
-import { useFilterStore } from '@/stores/filter'
+import { useFiltrationStore } from '@/stores/filtration'
 
-const { reset } = useFilterStore()
+const { reset } = useFiltrationStore()
 </script>
