@@ -10,11 +10,11 @@ Built the first version in 2017 and have been writing in it ever since. This is 
 
 #### Scroll on main page
 
-<video src="https://github.com/user-attachments/assets/1c71fe13-c335-4ab3-b49e-af909ac12d8c"></video>
+<video src="https://github.com/user-attachments/assets/5caabf41-bf9f-41d8-9f64-a14f2450d10a"></video>
 
-#### Parallax on one of the slides
+#### Parallax on slides
 
-<video src="https://github.com/user-attachments/assets/661af7e3-d39e-42b6-846e-c7fc521b67d1"></video>
+<video src="https://github.com/user-attachments/assets/aec439e5-0530-43a9-8bc7-cb887dfa244c"></video>
 
 #### Screenshot of stats page
 
