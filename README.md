@@ -82,6 +82,8 @@ npm run build
 
 Built by Vite into `dist/` and served by Caddy on Railway. Caddy handles SPA routing (`try_files`), gzip, the health check, and the security headers including the CSP above.
 
+Commits are gated by a husky pre-commit hook running vue-tsc, lint-staged and prettier. Pushes to main deploy automatically to staging or production on Railway.
+
 `API_ORIGIN` must be set per environment — scheme and host, no trailing slash. It has no default on purpose, so staging and production cannot silently inherit each other's backend.
 
 See [`Caddyfile`](./Caddyfile) — it is commented.
