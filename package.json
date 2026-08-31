@@ -10,6 +10,8 @@
     "lint": "eslint . --fix",
     "format": "prettier --write src/",
     "preview": "vite preview",
+    "test": "vitest run",
+    "test:watch": "vitest",
     "prepare": "husky",
     "typecheck": "vue-tsc --noEmit"
   },
@@ -55,6 +57,7 @@
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.57.1",
     "vite": "^5.2.13",
+    "vitest": "^3.2.7",
     "vue-eslint-parser": "^9.4.3",
     "vue-tsc": "^3.2.6"
   },

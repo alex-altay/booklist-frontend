@@ -9,10 +9,12 @@
     "api",
     "env.d.ts",
     "vite.config.ts",
+    "vitest.config.ts",
     "vite-env.d.ts",
     "eslint.config.ts",
     "src/**/*.ts",
     "src/**/*.vue",
-    "src/**/*.d.ts"
+    "src/**/*.d.ts",
+    "tests",
   ]
 }

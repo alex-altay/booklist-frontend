@@ -26,6 +26,6 @@
       "@api/*": ["./api/*"]
     }
   },
-  "include": ["src/**/*.ts", "**/*.d.ts", "src/**/*.vue", "api/**/*.ts"],
+  "include": ["src/**/*.ts", "**/*.d.ts", "src/**/*.vue", "api/**/*.ts", "tests/**/*.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
