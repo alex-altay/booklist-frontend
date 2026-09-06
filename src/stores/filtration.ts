@@ -19,6 +19,7 @@ export const useFiltrationStore = defineStore('filtration', () => {
   const filter = ref<Filter>({ ...DEFAULT_FILTER })
   const breakpoints = useBreakpoints(breakpointsTailwind)
   const paginationSize = computed(() => (breakpoints.smaller('2xl').value ? PAGINATION_SIZE_BASE : PAGINATION_SIZE_XL))
+  const shouldUseAccordion = breakpoints.smaller('md')
   const page = ref<number>(DEFAULT_PAGE)
 
   function reset() {
@@ -73,6 +74,7 @@ export const useFiltrationStore = defineStore('filtration', () => {
     filter,
     page,
     paginationSize,
+    shouldUseAccordion,
     applyFilter,
     applyPagination,
     clampPage,

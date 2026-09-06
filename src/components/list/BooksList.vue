@@ -1,12 +1,21 @@
 <template>
   <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
-    <ListFilter :years="years" />
+    <AccordionWrapper>
+      <template #header>
+        <FilterHeader />
+      </template>
+      <template #body>
+        <FilterBody :years />
+      </template>
+    </AccordionWrapper>
     <PaginatedList :books="filteredBooks" :is-new-user />
   </div>
 </template>
 
 <script setup lang="ts">
-import ListFilter from '@/components/list/ListFilter.vue'
+import AccordionWrapper from '@/components/list/filter/AccordionWrapper.vue'
+import FilterHeader from '@/components/list/filter/FilterHeader.vue'
+import FilterBody from '@/components/list/filter/FilterBody.vue'
 import PaginatedList from '@/components/list/PaginatedList.vue'
 import { useBookStore } from '@/stores/book'
 import { useFiltrationStore } from '@/stores/filtration'
