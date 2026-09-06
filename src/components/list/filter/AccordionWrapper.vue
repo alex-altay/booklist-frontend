@@ -8,7 +8,7 @@
     :collapsible="shouldUseAccordion"
   >
     <AccordionItem :value="id">
-      <div class="space-y-6 bg-card px-6 pb-0 rounded-xl border">
+      <div class="space-y-6 bg-card [&>h3]:mb-4 px-6 pb-0 rounded-xl border">
         <AccordionTrigger class="pb-0 no-underline!">
           <slot name="header" />
           <template #icon>
