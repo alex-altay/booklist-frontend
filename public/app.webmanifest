@@ -1,0 +1,102 @@
+{
+  "name": "BookList - Reading Diary",
+  "short_name": "MyBookList",
+  "start_url": "/",
+  "id": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#000000",
+  "lang": "en",
+  "description": "A simple reading diary for keeping track of the books you've read. Want to see how many books you've read in a month, a year, or any other period? Add them to your diary. What did you like, and what didn't you? Simple. Interesting. No ads.",
+  "icons": [
+    {
+      "src": "/pwa-icons/icon-72x72.png",
+      "sizes": "72x72",
+      "type": "image/png"
+    },
+    {
+      "src": "/pwa-icons/icon-96x96.png",
+      "sizes": "96x96",
+      "type": "image/png"
+    },
+    {
+      "src": "/pwa-icons/icon-128x128.png",
+      "sizes": "128x128",
+      "type": "image/png"
+    },
+    {
+      "src": "/pwa-icons/icon-144x144.png",
+      "sizes": "144x144",
+      "type": "image/png"
+    },
+    {
+      "src": "/pwa-icons/icon-152x152.png",
+      "sizes": "152x152",
+      "type": "image/png"
+    },
+    {
+      "src": "/pwa-icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/pwa-icons/icon-384x384.png",
+      "sizes": "384x384",
+      "type": "image/png"
+    },
+    {
+      "src": "/pwa-icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/pwa-icons/icon-192x192-maskable.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/pwa-icons/icon-512x512-maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/pwa-screenshots/wide-landing.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Keep track of the books you have read"
+    },
+    {
+      "src": "/pwa-screenshots/wide-books.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Your reading list with filters and search"
+    },
+    {
+      "src": "/pwa-screenshots/wide-stats.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Statistics across your whole reading history"
+    },
+    {
+      "src": "/pwa-screenshots/narrow-landing.png",
+      "sizes": "412x892",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Keep track of the books you have read"
+    },
+    {
+      "src": "/pwa-screenshots/narrow-signin.png",
+      "sizes": "412x892",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Passwordless sign-in with a passkey"
+    }
+  ]
+}
