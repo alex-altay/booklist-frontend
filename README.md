@@ -64,6 +64,16 @@ Google PageSpeed Insights, landing page: **Performance 100**, **Best Practices 1
 
 <img alt="Image" src="https://github.com/user-attachments/assets/1ca8b8c6-f258-4474-95c9-c67e8bfe8c8a" />
 
+## PWA (Progressive Web App)
+
+If you want more "standalone app experience" you can install Booklist as a PWA via Safari / Chrome and use it as an app both on mobile and desktop. By doing this you will have an app icon in Launchpad / Desktop / Homescreen and "Add a book" command in context menu
+
+So it looks on MacOS
+<img alt="Image" src="https://github.com/user-attachments/assets/6e56e5c0-66cf-440b-9e71-f0e4b9e88fbc" />
+
+And inside Launchpad
+<img alt="Image" src="https://github.com/user-attachments/assets/86ae2b67-c4ac-4f5a-9bd9-245579bd2fcf" />
+
 ## Local development
 
 ```bash
