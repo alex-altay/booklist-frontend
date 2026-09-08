@@ -1,7 +1,7 @@
 {
   "name": "BookList - Reading Diary",
   "short_name": "MyBookList",
-  "start_url": "/",
+  "start_url": "/books",
   "id": "/",
   "display": "standalone",
   "background_color": "#ffffff",
@@ -98,5 +98,8 @@
       "form_factor": "narrow",
       "label": "Passwordless sign-in with a passkey"
     }
+  ],
+  "shortcuts": [
+    { "name": "Add a book", "url": "/books/add" }
   ]
 }
