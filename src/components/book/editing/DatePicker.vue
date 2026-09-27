@@ -20,6 +20,7 @@
       <Calendar
         v-model="date"
         :default-placeholder="defaultPlaceholder"
+        :week-starts-on="1"
         layout="month-and-year"
         initial-focus
         @update:model-value="close"
