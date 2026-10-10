@@ -1,6 +1,7 @@
 import path from 'path'
 import tailwindcss from '@tailwindcss/vite'
 import vue from '@vitejs/plugin-vue'
+import { VitePWA } from 'vite-plugin-pwa'
 import { defineConfig, loadEnv } from 'vite'
 
 const ENV_ERRORS = {
@@ -23,7 +24,20 @@ export default defineConfig(({ mode }) => {
   }
 
   return {
-    plugins: [vue(), tailwindcss()],
+    plugins: [
+      vue(),
+      tailwindcss(),
+      VitePWA({
+        registerType: 'autoUpdate',
+        manifest: false,
+        workbox: {
+          globPatterns: ['**/*.{js,css,html,ico,svg,png,woff2}'],
+          globIgnores: ['pwa-screenshots/**', 'og-image-*.png'],
+          navigateFallback: '/index.html',
+          navigateFallbackDenylist: [/^\/health$/, /\.(txt|xml)$/],
+        },
+      }),
+    ],
     resolve: {
       alias: {
         '@': path.resolve(__dirname, './src'),
